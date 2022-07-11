@@ -1,13 +1,17 @@
-import logo from "./logo.svg";
+import React from "react";
+import "antd/dist/antd.css";
 import "./App.css";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
+import LayoutComponents from "./LayoutComponents";
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <h1>Hello Manjit singh</h1>
-      </div>
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <LayoutComponents />
+      </BrowserRouter>
+    </div>
   );
 }
 

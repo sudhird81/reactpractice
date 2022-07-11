@@ -1,0 +1,43 @@
+import React from "react";
+import { Layout, Menu, Col, Row } from "antd";
+import { Link } from "react-router-dom";
+import RoutesComponent from "./RoutesComponent";
+const { Header, Content } = Layout;
+
+const LayoutComponents = () => {
+  return (
+    <>
+      <Layout>
+        <Header>
+          {" "}
+          <Menu
+            mode="horizontal"
+            defaultSelectedKeys={["/"]}
+            style={{ lineHeight: "64px" }}
+            breakpoint="lg"
+            collapsedWidth="2"
+          >
+            <Row gutter={16}>
+              <Col>
+                <Menu.Item>
+                  <Link to="/">Home</Link>
+                </Menu.Item>
+              </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/about">About</Link>
+                </Menu.Item>
+              </Col>
+            </Row>
+          </Menu>
+        </Header>
+        <Content>
+          {" "}
+          <RoutesComponent />
+        </Content>
+      </Layout>
+    </>
+  );
+};
+
+export default LayoutComponents;
