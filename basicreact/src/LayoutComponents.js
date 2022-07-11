@@ -8,15 +8,9 @@ const LayoutComponents = () => {
   return (
     <>
       <Layout>
-        <Header>
+        <Header style={{ padding: "0" }}>
           {" "}
-          <Menu
-            mode="horizontal"
-            defaultSelectedKeys={["/"]}
-            style={{ lineHeight: "64px" }}
-            breakpoint="lg"
-            collapsedWidth="2"
-          >
+          <Menu mode="horizontal" defaultSelectedKeys={["/"]} breakpoint="lg">
             <Row gutter={16}>
               <Col>
                 <Menu.Item>
