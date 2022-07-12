@@ -16,17 +16,39 @@ const LayoutComponents = () => {
                 <Menu.Item>
                   <Link to="/">Home</Link>
                 </Menu.Item>
+                
               </Col>
               <Col>
                 <Menu.Item>
                   <Link to="/about">About</Link>
                 </Menu.Item>
               </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/signup">SignUp</Link>
+                </Menu.Item>
+              </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/contact">Contact</Link>
+                </Menu.Item>
+              </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/signup1">SignUp1</Link>
+                </Menu.Item>
+              </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/contact1">Contact1</Link>
+                </Menu.Item>
+              </Col>
+
             </Row>
           </Menu>
         </Header>
 
-        
+
         <Content>
           {" "}
           <RoutesComponent />
