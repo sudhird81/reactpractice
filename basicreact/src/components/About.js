@@ -55,7 +55,7 @@ const About = () => {
             </Space>
             <div>
               <Button className="defaultButton" type="success ">
-                REQUEST A DEMO
+                REQUEST A DEMO d
               </Button>
             </div>
           </Card>
