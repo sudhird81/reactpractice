@@ -1,23 +1,70 @@
-import { Row } from "antd";
+import { Button, Col, Row, Space } from "antd";
 import React from "react";
-
+import { Card, Typography } from "antd";
+const { Title, Text } = Typography;
 const About = () => {
   return (
-    <Row>
-      <div>
-        <h1>Who We Are</h1>
+    <>
+      <Row>
+        <Col span={18} offset={3}>
+          <div>
+            <Card
+              style={{
+                width: "100%",
+                height: "50vh",
+              }}
+            >
+              <h3 className="banner-heading">
+                Grow Your School With India's Most Trusted School Management
+                Software
+              </h3>
+              <p className="banner-desc">
+                Run your school more efficiently by digitizing and automating
+                daily tasks and improving parental involvement through better
+                parent-teacher communication
+              </p>
 
-        <p>
-          The journey to becoming pioneers in the space of school management
-          softwares was marked in June of 2013. Starting with just two pilot
-          schools, we have ascended our way to becoming one of India’s most
-          trusted school ERP software. With over 7 years in the business now and
-          after serving more than 300 schools, our extremely passionate and
-          driven team has been able to look very closely at the challenges faced
-          by schools and provide digital solutions to the same.
-        </p>
-      </div>
-    </Row>
+              <Button className="defaultButton" type="primary">
+                REQUEST A DEMO
+              </Button>
+            </Card>
+          </div>
+        </Col>
+      </Row>
+      <Row justify="space-between">
+        <Col span={12}>
+          <Card>
+            <Title level={2}>
+              8000+ educators use Schoolpad’s
+              <br />
+              School Management Software every
+              <br />
+              day to organise and manage their
+              <br />
+              students’ progress and keep parents
+              <br />
+              informed
+            </Title>
+
+            <Space direction="vertical">
+              <Text>
+                {" "}
+                More than 8 years of experience 300+ schools across 17 states
+                7,00,000+ Parents and students
+              </Text>{" "}
+            </Space>
+            <div>
+              <Button className="defaultButton" type="success ">
+                REQUEST A DEMO
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card></Card>
+        </Col>
+      </Row>
+    </>
   );
 };
 

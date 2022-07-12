@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+.defaultButton {
+  position: relative;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 44px;
+  width: 206px;
+  height: 52px;
+  font-size: 16px;
+  background: #00a651;
+  z-index: 1;
+  margin-top: 1rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.banner-heading {
+  font-size: 38px;
+  font-weight: 500;
+  color: #343434;
+  text-transform: capitalize;
+  text-align: center;
+}
+.banner-desc {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.02em;
+  color: #343434;
+  text-align: center;
+}
