@@ -22,11 +22,21 @@ const LayoutComponents = () => {
                   <Link to="/about">About</Link>
                 </Menu.Item>
               </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/contact">Contact</Link>
+                </Menu.Item>
+              </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/contact1">Contact1</Link>
+                </Menu.Item>
+              </Col>
             </Row>
           </Menu>
         </Header>
 
-        
+
         <Content>
           {" "}
           <RoutesComponent />
