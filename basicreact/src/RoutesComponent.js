@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import SignUp1 from "./components/SignUp1";
  import Contact from "./components/Contact";
  import Contact1 from "./components/Contact1";
+import CrudFuntion from "./components/CrudFuntion";
 const RoutesComponent = () => {
   return (
     <Routes>
@@ -17,6 +18,7 @@ const RoutesComponent = () => {
       <Route path="/signup1" element={<SignUp1/>} />
       <Route path="/contact" element={<Contact /> } />
       <Route path="/contact1" element={<Contact1 /> } />
+      <Route path="/crudfunction" element={<CrudFuntion /> } />
     </Routes>
   );
 };

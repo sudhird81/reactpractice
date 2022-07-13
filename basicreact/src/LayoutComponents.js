@@ -43,6 +43,11 @@ const LayoutComponents = () => {
                   <Link to="/contact1">Contact1</Link>
                 </Menu.Item>
               </Col>
+              <Col>
+                <Menu.Item>
+                  <Link to="/crudfunction">CrudFunction</Link>
+                </Menu.Item>
+              </Col>
 
             </Row>
           </Menu>

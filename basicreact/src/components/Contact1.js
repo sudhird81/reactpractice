@@ -47,8 +47,8 @@ class Contact1 extends React.Component{
         </form>
         <table>
             <div>
-                <label>Name</label>
-                <label>Email</label>
+                <td>Name</td>
+                <td>Email</td>
             </div>
             {
                 employeeData.map( (data,i) =>
