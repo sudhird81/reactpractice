@@ -56,3 +56,36 @@ app.get("/users", (req, res) => {
 app.delete("/user/delete/:id", (req, res) => {
   res.json({ message: "Welcome to nodejs expressjs integration ." });
 });
+
+
+app.post('/user/add', (req, res) => {
+  console.log(req.body.name);
+
+   var username = req.body.name;
+   var email = req.body.email;
+   var password = req.body.password;
+
+var sql = "INSERT INTO employee (name, email, password) VALUES ('"+username+"','"+email+"','"+password+"');";
+console.log(sql);
+db.query(
+  sql,
+  (err, result) => {
+    if(err){
+      var response = {
+        errorcode : err.code,
+        message : 'Got Error'
+      };
+      return res.json(response);
+    }
+    console.log(err);
+    console.log(result);
+    if(result){
+      var response = {
+        success : 'success',
+        message : 'User Got inserted'
+      };
+      return res.json(response);
+    }
+  }
+) 
+});
