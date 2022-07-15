@@ -86,6 +86,14 @@ db.query(
       };
       return res.json(response);
     }
-  }
-) 
+  });
+
 });
+app.put('/user/add', (req, resp) => {
+  const data =["abc",'abc@gmail.com','000',2]
+  db.query("UPDATE employee SET name = ?,email =?, password =? where id =? ", data,(err,result,fields) =>{
+    if (err) throw error;
+    resp.send(result)
+  })
+  
+})
