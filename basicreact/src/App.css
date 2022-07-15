@@ -68,3 +68,18 @@
   color: #343434;
   text-align: center;
 }
+
+.inputstyle{
+  width: 120%;
+  border: 2px solid black;
+  border-radius: 6px;
+}
+/* .ant-form-item-required{
+  font-size:small
+  
+}
+.namestyle{
+  border:5px solid green
+} */
+  
+
