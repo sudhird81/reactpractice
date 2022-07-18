@@ -11,7 +11,7 @@ const App = () => {
   };
 
   return (
-    
+  
     <Form
       name="basic"
       labelCol={{

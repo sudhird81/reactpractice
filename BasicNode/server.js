@@ -7,7 +7,7 @@ const indexRouter = require('./router.js');
 const db  = require('./db');
  
 const app = express();
- 
+  
 app.use(express.json());
  
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ app.get("/users", (req, res) => {
   db.query(
     `SELECT * FROM  employee;`,
     (err, result) => {
-      console.log(result);
+      // console.log(result);
       return res.json(result);
     }
   )
@@ -53,9 +53,9 @@ app.get("/users", (req, res) => {
 });
 
 // simple route
-app.delete("/user/delete/:id", (req, res) => {
-  res.json({ message: "Welcome to nodejs expressjs integration ." });
-});
+// app.delete("/user/delete/:id", (req, res) => {
+//   res.json({ message: "Welcome to nodejs expressjs integration ." });
+// });
 
 
 app.post('/user/add', (req, res) => {
@@ -89,11 +89,19 @@ db.query(
   });
 
 });
-app.put('/user/add', (req, resp) => {
-  const data =["abc",'abc@gmail.com','000',2]
-  db.query("UPDATE employee SET name = ?,email =?, password =? where id =? ", data,(err,result,fields) =>{
-    if (err) throw error;
+app.put('/user/add/:id', (req, resp) => {
+  const data =[req.body.name,req.body.email,req.body.password,req.params.id];
+  db.query("UPDATE employee SET name = ?,email =?, password =? where id =? ", data,(error,result,fields) =>{
+    if (error) throw error;
     resp.send(result)
-  })
+  });
+    console.log(data,"result")
+});
+
+app.delete('/user/add/:id', (req,resp) => {
+  db.query("DELETE FROM employee WHERE id =" +req.params.id,(error,results) => {
+     if (error) throw error;
+     resp.send(results)
+  });
   
-})
+});
