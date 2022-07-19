@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, DatePicker, Checkbox, Button, Row, Col, Select } from "antd"
+import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 const SignUp = () => {
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -11,10 +11,11 @@ const SignUp = () => {
   return (
     <>
 
-
+          
       <Row>
-        <Col span={12} offset={6}>
+        <Col span={8} offset={6}>
           <Form name="basic"
+         
             labelCol={{
               span: 10,
             }}
@@ -44,7 +45,7 @@ const SignUp = () => {
             ]} hasFeedback>
               <Input placeholder="Type your email" />
             </Form.Item>
-
+            
             <Form.Item name="password" label="Password"
             
             rules={[{ required: true, 
@@ -99,7 +100,7 @@ const SignUp = () => {
             <Row></Row> */}
 
             <Row>
-              <Col span={8} offset={5}></Col>
+              <Col span={6} offset={6}></Col>
               <Form.Item >
                 <Button style={{ width: "500%" }} type="primary" htmlType="submit">Register</Button>
               </Form.Item>

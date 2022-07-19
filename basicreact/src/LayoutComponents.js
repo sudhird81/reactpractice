@@ -35,7 +35,7 @@ const LayoutComponents = () => {
               </Col>
               <Col>
                 <Menu.Item>
-                  <Link to="/signup1">SignUp1</Link>
+                  <Link to="login">Login</Link>
                 </Menu.Item>
               </Col>
               <Col>
