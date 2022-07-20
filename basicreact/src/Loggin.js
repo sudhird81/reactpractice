@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
-const clientId ="596233438998-oi17jo95ri5tdl0vabb99li28dgl0v1b.apps.googleusercontent.com"
-const Loggin = () => {
-   const onSuccess = (res) => {
-    console.log("LOGIN SUCCESS ! Current user: ",res.profileobj);
-   }
-   const onFailure = (res) => {
-    console.log("LOGIN FAILED! res:",res);
-   }
-   return(
-    <div id="signInButton">
-    <GoogleLogin
-    clientId={clientId}
-    buttonText="Login"
-    onSuccess={onSuccess}
-    onFailure={onFailure}
-    cookiePolicy={"single_host_origin"}
-    issSignedIn={true} />
-   </div> 
 
-   )
+const clientId = "26243695013-fpknd7iavpvgiork7gkveou543djnjcc.apps.googleusercontent.com";
+
+const Loggin = ()=> {
+
+    const [showloginButton, setShowloginButton] = useState(true);
+   
+    const onLoginSuccess = (res) => {
+        console.log('Login Success:', res.profileObj);
+        setShowloginButton(false);
+        
+    };
+
+    const onLoginFailure = (res) => {
+        console.log('Login Failed:', res);
+    };
+
+   
+
+    return (
+        <div>
+            { showloginButton ?
+                <GoogleLogin style={{width:"300px", justifyContent:"center"}}
+                    clientId={clientId}
+                    buttonText="Sign Up Using Google"
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}
+                  //   cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                /> : null}
+
+            
+        </div>
+    );
 }
 export default Loggin;

@@ -1,5 +1,5 @@
 import Loggin from "../Loggin";
-import Logout from "../Logout";
+
 import React from "react";
 
 import { Form, Input,Button, Row, Col} from "antd"
@@ -52,21 +52,21 @@ const Login = () => {
             </Form.Item>
 
             <Row>
-              <Col span={7} offset={6}></Col>
+              <Col span={7} offset={6} ></Col>
               
             <Loggin />
-            <Logout />
+
 
             </Row>
             <Row>
-              <Col span={7} offset={6}></Col>
+              <Col span={6} offset={6}></Col>
               
 
          
 
 
               <Form.Item >
-                <Button style={{ width: "500%" }} type="primary" htmlType="submit">Login</Button>
+                <Button style={{ width: "600%" }} type="primary" htmlType="submit">Login</Button>
               </Form.Item>
             </Row>
             

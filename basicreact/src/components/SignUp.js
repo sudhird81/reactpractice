@@ -1,3 +1,4 @@
+import Loggin from "../Loggin";
 import React from "react";
 import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 const SignUp = () => {
@@ -91,13 +92,14 @@ const SignUp = () => {
             }hasFeedback>
               <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" />
             </Form.Item>
-            {/* <Row>
-            <col span={10} offset={8}></col>
-           </Row>
-            <Form.Item name="agreement">
-                <Checkbox>Agree to ourTerm and Condition</Checkbox>
-            </Form.Item>
-            <Row></Row> */}
+            
+            <Row>
+              <Col span={7} offset={6}></Col>
+              
+            <Loggin />
+
+            </Row>
+            
 
             <Row>
               <Col span={6} offset={6}></Col>

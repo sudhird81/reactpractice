@@ -9,7 +9,7 @@ import  Login from "./components/Login";
 import CrudFuntion from "./components/CrudFuntion";
 const RoutesComponent = () => {
   return (
-    <Routes>
+    <Routes> 
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="*" />
