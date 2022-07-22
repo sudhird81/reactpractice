@@ -2,7 +2,7 @@
 import React from "react";
 import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 import { useState } from "react";
-import { Axios } from "axios";
+import axios from "axios";
 const SignUp = () => {
    const[fullName,setFullNmae]=useState("");
    const[email,setEmail]=useState("");
@@ -12,7 +12,7 @@ const SignUp = () => {
    const[dateOfBirth,setDateOfBirth]=useState("");
 
    const register =()=>{
-      Axios.post("http://localhost:3001/register",{
+      axios.post("http://localhost:3001/register",{
         name:fullName,
         email:email,
         password:password,
@@ -114,11 +114,13 @@ const SignUp = () => {
 
 
             <Form.Item name="gender" label="Gender" requiredMark="optional">
-              <Select placeholder="Select your gender" onChange={(e)=>{
+              <Select placeholder="Select your gender"  >
+                <Select.Option value="male" onChange={(e)=>{
                 setGender(e.target.value);
-              }} >
-                <Select.Option value="male">Male</Select.Option>
-                <Select.Option value="female">Female</Select.Option>
+              }}>Male</Select.Option>
+                <Select.Option value="female" onChange={(e)=>{
+                setGender(e.target.value);
+              }}>Female</Select.Option>
               </Select>
             </Form.Item>
 
@@ -131,8 +133,8 @@ const SignUp = () => {
  
               ]
             }hasFeedback>
-              <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(e)=>{
-                setDateOfBirth(e.target.value);
+              <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(date)=>{
+                setDateOfBirth(date);
               }}/>
             </Form.Item>
             

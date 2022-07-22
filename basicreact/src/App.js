@@ -4,7 +4,7 @@ import "./App.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import LayoutComponents from "./LayoutComponents";
-import CrudFunction from "./components/CrudFuntion";
+// import CrudFunction from "./components/CrudFuntion";
 
 
 function App() {

@@ -25,7 +25,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item name="password" label="Password">
               <Input placeholder="Type your password" />
-            </Form.Item>
+            {/* </Form.Item>
             <GoogleLogin 
             style={{width:"100% !important", justifyContent:"center"}}
                     clientId="26243695013-07ri265e0ldhbkadci6k6uibhkoibv3o.apps.googleusercontent.com"
@@ -35,7 +35,7 @@ const Login = () => {
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={true}
                 /> 
-              <Form.Item >
+              <Form.Item > */}
                 <Button style={{ width: "100%" }} type="primary" htmlType="submit">Login</Button>
               </Form.Item>
             </Form></Col>
