@@ -16,9 +16,9 @@ const RoutesComponent = () => {
       <Route path="/signup" element={<SignUp/>} />
       <Route path="*" />
       <Route path="/login" element={<Login/>} />
-      <Route path="/contact" element={<Contact /> } />
+      {/* <Route path="/contact" element={<Contact /> } />
       <Route path="/contact1" element={<Contact1 /> } />
-      <Route path="/crudfunction" element={<CrudFuntion /> } />
+      <Route path="/crudfunction" element={<CrudFuntion /> } /> */}
       
     </Routes>
   );
