@@ -23,6 +23,7 @@ const SignUp = () => {
 
       }).then((response) => {
         console.log(response);
+        
       });
 
 
@@ -116,10 +117,10 @@ const SignUp = () => {
             <Form.Item name="gender" label="Gender" requiredMark="optional">
               <Select placeholder="Select your gender"  >
                 <Select.Option value="male" onChange={(e)=>{
-                setGender(e.target.value);
+                setGender({value:e.target.value});
               }}>Male</Select.Option>
                 <Select.Option value="female" onChange={(e)=>{
-                setGender(e.target.value);
+                setGender({value:e.target.value});
               }}>Female</Select.Option>
               </Select>
             </Form.Item>
@@ -130,11 +131,11 @@ const SignUp = () => {
                  required:true, 
                  message:'Please provide your date of birth',      
               },
- 
+
               ]
             }hasFeedback>
-              <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(date)=>{
-                setDateOfBirth(date);
+              <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(date) => {
+        setDateOfBirth(date);
               }}/>
             </Form.Item>
             
