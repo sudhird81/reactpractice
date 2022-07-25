@@ -11,7 +11,7 @@ const Login = () => {
  
 
    const login =()=>{
-      axios.post("http://localhost:3001/register",{
+      axios.post("http://localhost:3001/login",{
       
         email:email,
         password:password,
@@ -57,45 +57,32 @@ const Login = () => {
           
       <Row>
         <Col span={8} offset={6}>
-          <Form name="basic"
-         
-            labelCol={{
-              span: 10,
-            }}
-            wrapperCol={{
-              span: 14,
-            }}
-            initialValues={{
-              remember: true,
-            }}
+          <Form name="basic" labelCol={{span: 10, }} wrapperCol={{ span: 14, }}
+            initialValues={{remember: true, }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off">
-
-           
-
+            
+            
+            
             <Form.Item name="email" label="Email"rules={[{  
             message:"Please enter your email"},
-            {type:'email',message:"Please enter a valid email" },
-             
-            ]} hasFeedback>
+            {type:'email',message:"Please enter a valid email" },]} hasFeedback>
               <Input placeholder="Type your email" onChange={(e)=>{
                 setEmail(e.target.value);
               }}/>
             </Form.Item>
             
-            <Form.Item name="password" label="Password"
-            
-            rules={[{ 
-            },   
-            {min:6},
-              
-            ]} hasFeedback>
+           
+           
+            <Form.Item name="password" label="Password" rules={[{min:6},]} hasFeedback>
               <Input.Password placeholder="Type your password" onChange={(e)=>{
                 setPassword(e.target.value);
               }} />
             </Form.Item>
             
+
+
             {/* <GoogleLogin 
             style={{width:"100% !important", justifyContent:"center"}}
                     clientId="26243695013-vqdma1ktsnsqrcvreh6p7s9imtjtakki.apps.googleusercontent.com"
@@ -118,11 +105,7 @@ const Login = () => {
               <h1>{loginStatus}</h1>
             </Row>
            
-
-
-
-
-          </Form>
+            </Form>
         </Col>
       </Row>
 
@@ -130,6 +113,10 @@ const Login = () => {
   )
 }
 export default Login;
+
+
+
+   
 
 
 
