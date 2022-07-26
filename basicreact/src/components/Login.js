@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
 
+<<<<<<< HEAD
   const login = () => {
     axios
       .post("http://localhost:3001/login", {
@@ -24,6 +25,24 @@ const Login = () => {
       });
   };
 
+=======
+   const login = () => {
+      axios.post("http://localhost:3001/login",{
+      
+        email: email,
+        password: password,    
+
+      }).then((response) => {
+        if (response.data.message){
+          setLoginStatus(response.data.message)
+        }
+        else{
+          setLoginStatus(response.data[0].email)
+        };
+            
+      });
+   } ;
+>>>>>>> f0fa3040a3eedcd19601964d46bb3686c2a542c2
   const onFinish = (values) => {
     console.log("Success:", values);
   };

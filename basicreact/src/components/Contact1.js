@@ -52,6 +52,7 @@ class Contact1 extends React.Component{
             </div>
             {
                 employeeData.map( (data,i) =>
+                
                     <tr key={i}>
                         <td>{data.name}</td>
                         <td>{data.email}</td>
