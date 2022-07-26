@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <Row>
-        <div style={{ width: "100%" }}>
+        <div style={{ width: "100%",height:"100vh" ,}}>
           <h1 className="banner-heading">
             Grow Your School With India's Most Trusted School Management
             Software

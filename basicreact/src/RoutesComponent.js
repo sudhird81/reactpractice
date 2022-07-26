@@ -8,6 +8,7 @@ import Profile from "./components/Profile";
  import Contact from "./components/Contact";
  import Contact1 from "./components/Contact1";
 import CrudFuntion from "./components/CrudFuntion";
+import SignModal from "./components/SignModal";
 const RoutesComponent = () => {
   return (
     <Routes> 
@@ -19,6 +20,7 @@ const RoutesComponent = () => {
       <Route path="/contact" element={<Contact /> } />
       <Route path="/login" element={<Login/>} />
       <Route path="/profile" element={<Profile/>} />
+      <Route path="/signmodal" element={<SignModal/>} />
       <Route path="*" />
       {/* <Route path="/contact1" element={<Contact1 /> } />
       <Route path="/crudfunction" element={<CrudFuntion /> } /> */}

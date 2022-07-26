@@ -57,7 +57,7 @@ const Login = () => {
           
       <Row>
         <Col span={8} offset={6}>
-          <Form name="basic" labelCol={{span: 10, }} wrapperCol={{ span: 14, }}
+          <Form name="basic" labelCol={{span: 10, }} wrapperCol={{ span: 14, }} style={{ width: "100%",height:"100vh" ,}}
             initialValues={{remember: true, }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
