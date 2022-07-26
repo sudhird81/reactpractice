@@ -1,15 +1,17 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const indexRouter = require('./router.js');
-const db  = require('./db');
- 
+const db  = require('./db'); 
 const app = express();
 const bcrypt = require('bcryptjs');  
-app.use(express.json());
- 
+const { query } = require('express');
+const nodemailer = require('nodemailer');
+
+app.use(express.json()); 
 app.use(bodyParser.json());
  
 app.use(bodyParser.urlencoded({
@@ -30,7 +32,7 @@ app.use((err, req, res, next) => {
     });
 });
  
-app.listen(3001,() => console.log('Server is running on port 3001'));
+app.listen(process.env.PORT,() => console.log('Server is running on port 3001'));
 
 
 // simple route
@@ -84,9 +86,42 @@ db.query(
         success : 'success',
         message : 'User Got inserted'
       };
+      
+  let mailTransporter = nodemailer.createTransport({
+	service: 'gmail',
+  secure:false,
+	auth: {
+		user: process.env.USER_MAIL,
+		pass: process.env.TOKEN
+	}
+});
+
+let mailDetails = {
+	from: 'ebsdavindersingh.com',
+	to: email,
+	subject: 'Test mail',
+	html: `<h1 style='color: red'>Thanks for signing up ${name}</h1>`,
+
+  attachments: [
+    {
+      filename: 'ebs.png',
+      path: 'assets/ebs.png'
+    }
+  ]
+};
+
+mailTransporter.sendMail(mailDetails, function(err, data) {
+	if(err) {
+		console.log('Error Occurs',err);
+	} else {
+		console.log('Email sent successfully');
+	}
+});
+
       return res.json(response);
     }
   });
+  
 
 });
 app.put('/user/update/:id', (req, res) => {
@@ -133,7 +168,7 @@ app.delete('/user/delete/:id', (req,res) => {
   
 });
 
-app.post("/login", (req, res) => {
+app.post(process.env.LOGIN, (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -141,10 +176,12 @@ app.post("/login", (req, res) => {
     "SELECT * FROM employee WHERE email =? AND password =?",
     [email, password],
     (err, result) => {
+      console.log(result,query)
       if(err) {
         res.send({err:err});
+        
       }
-      if (result.lenght> 0){
+      if (result.length > 0){
         res.send(result);
       } else {
         res.send({message:"Wrong email/password combination!"});

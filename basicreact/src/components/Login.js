@@ -10,13 +10,11 @@ const Login = () => {
    const[loginStatus,setLoginStatus]=useState("");
  
 
-   const login =()=>{
+   const login = () => {
       axios.post("http://localhost:3001/login",{
       
-        email:email,
-        password:password,
-        
-
+        email: email,
+        password: password,    
 
       }).then((response) => {
         if (response.data.message){
@@ -24,16 +22,10 @@ const Login = () => {
         }
         else{
           setLoginStatus(response.data[0].email)
-        }
-        console.log(response);
-        
+        };
+            
       });
-
-
-   } 
-
-
-
+   } ;
   const onFinish = (values) => {
     console.log('Success:', values);
   };
