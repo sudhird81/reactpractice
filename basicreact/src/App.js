@@ -4,12 +4,8 @@ import "./App.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import LayoutComponents from "./LayoutComponents";
-// import CrudFunction from "./components/CrudFuntion";
-
 
 function App() {
- 
-
   return (
     <div className="App">
       <BrowserRouter>
