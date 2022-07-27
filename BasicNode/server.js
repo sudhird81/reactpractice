@@ -8,8 +8,11 @@ const indexRouter = require('./router.js');
 const db  = require('./db'); 
 const app = express();
 const bcrypt = require('bcryptjs');  
+const saltRounds = 10;
 const { query } = require('express');
 const nodemailer = require('nodemailer');
+const jsonwt = require('jsonwebtoken');
+
 
 app.use(express.json()); 
 app.use(bodyParser.json());
@@ -62,10 +65,11 @@ app.get("/users", (req, res) => {
 
 app.post('/register', (req, res) => {
   console.log(req.body.name);
+  let hash = bcrypt.hashSync(req.body.password, saltRounds);
 
    var name = req.body.name;
    var email = req.body.email;
-   var password = req.body.password;
+   var password = hash;
 
 var sql = "INSERT INTO employee (name, email, password) VALUES ('"+name+"','"+email+"','"+password+"');";
 console.log(sql);
@@ -86,6 +90,7 @@ db.query(
         success : 'success',
         message : 'User Got inserted'
       };
+      
       
   let mailTransporter = nodemailer.createTransport({
 	service: 'gmail',
@@ -168,7 +173,7 @@ app.delete('/user/delete/:id', (req,res) => {
   
 });
 
-app.post(process.env.LOGIN, (req, res) => {
+app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -183,6 +188,16 @@ app.post(process.env.LOGIN, (req, res) => {
       }
       if (result.length > 0){
         res.send(result);
+        const token = jsonwt.sign(
+          {
+            email: req.body.email,
+            user_id: data.id,
+          },
+          "secret",
+          {
+            expiresIn: "2h",
+          }
+        );
       } else {
         res.send({message:"Wrong email/password combination!"});
 
