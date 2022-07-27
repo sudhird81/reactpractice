@@ -29,6 +29,8 @@ const SignUp = () => {
       });
 
 
+
+
    } 
 
 
@@ -52,6 +54,9 @@ const SignUp = () => {
       
       <Row>
           <Form name="basic" style={{ width: "100%" ,}}
+          labelCol={{span:8,}}
+          wrapperCol={{span:14,}}
+         
          
          
             initialValues={{
@@ -140,10 +145,10 @@ const SignUp = () => {
           
             
 
-            <Row>
+            <Row justify="center">
               <Col ></Col>
               <Form.Item >
-                <Button  type="primary" htmlType="submit" onClick={register}>Register</Button>
+                <Button style={{width:"200px"}}type="primary" htmlType="submit" onClick={register}>Register</Button>
               </Form.Item>
             </Row>
 
@@ -151,8 +156,9 @@ const SignUp = () => {
 
 
 
+
+
           </Form>
-        {/* </Col> */}
       </Row>
       
 

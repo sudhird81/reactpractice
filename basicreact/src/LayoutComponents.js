@@ -7,7 +7,7 @@ import { Layout, Menu, Col, Row } from "antd";
 import {
   UserAddOutlined,
   AppstoreOutlined,
-  SettingOutlined,
+  MenuUnfoldOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -61,17 +61,16 @@ const LayoutComponents = () => {
                     <Menu.SubMenu
                       theme="light"
                       key="SubMenu"
-                      title="More"
-                      icon={<SettingOutlined />}
+                      icon={<MenuUnfoldOutlined />}
                     >
                       <Menu.Item icon={<AppstoreOutlined />}    onClick={() => setIsModalVisible1(true)}>
-                        <Link to="/signup">SignUp</Link>
+                        <Link to="#">SignUp</Link>
                       </Menu.Item>
                       <Menu.Item
                         icon={<UserAddOutlined />}
                         onClick={() => setIsModalVisible(true)}
                       >
-                        <Link to="/login" icon={<LoginOutlined />}>
+                        <Link to="#">
                           Login
                         </Link>
                       </Menu.Item>
