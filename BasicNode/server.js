@@ -191,13 +191,18 @@ app.post('/login', (req, res) => {
         const token = jsonwt.sign(
           {
             email: req.body.email,
-            user_id: data.id,
+            id: data.id,
           },
           "secret",
           {
             expiresIn: "2h",
-          }
+          }          
         );
+        return res.status(200).send({
+          message:'Logged In!',
+          token,
+          email: result
+        })
       } else {
         res.send({message:"Wrong email/password combination!"});
 

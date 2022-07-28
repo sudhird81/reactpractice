@@ -1,18 +1,16 @@
 // import Loggin from "../Loggin";
 import React from "react";
-import { Form, Input, DatePicker,Button, Row, Col, Select} from "antd"
+import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 import { useState } from "react";
 import axios from "axios";
-
 const SignUp = () => {
-
    const[fullName,setFullNmae]=useState("");
    const[email,setEmail]=useState("");
    const[password,setPassword]=useState("");
    const[confirmPassword,setConfirmPassword]=useState("");
    const[gender,setGender]=useState("");
    const[dateOfBirth,setDateOfBirth]=useState("");
-  
+
    const register =()=>{
       axios.post("http://localhost:3001/register",{
         name:fullName,
@@ -42,23 +40,31 @@ const SignUp = () => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-  
-
-  
 
 
 
   return (
     <>
 
-      
+          
       <Row>
+<<<<<<< HEAD
           <Form name="basic" style={{ width: "100%" ,}}
           labelCol={{span:8,}}
           wrapperCol={{span:14,}}
          
          
+=======
+        <Col span={8} offset={6}>
+          <Form name="basic"
+>>>>>>> 63664999cda08d74523211423323e63e3a6db669
          
+            labelCol={{
+              span: 10,
+            }}
+            wrapperCol={{
+              span: 14,
+            }}
             initialValues={{
               remember: true,
             }}
@@ -142,13 +148,26 @@ const SignUp = () => {
         setDateOfBirth(date);
               }}/>
             </Form.Item>
-          
+            
+            {/* <Row>
+              <Col span={7} offset={6}></Col>
+              
+            <Loggin />
+
+            </Row> */}
             
 
+<<<<<<< HEAD
             <Row justify="center">
               <Col ></Col>
               <Form.Item >
                 <Button style={{width:"200px"}}type="primary" htmlType="submit" onClick={register}>Register</Button>
+=======
+            <Row>
+              <Col span={6} offset={6}></Col>
+              <Form.Item >
+                <Button style={{ width: "500%" }} type="primary" htmlType="submit" onClick={register}>Register</Button>
+>>>>>>> 63664999cda08d74523211423323e63e3a6db669
               </Form.Item>
             </Row>
 
@@ -159,8 +178,11 @@ const SignUp = () => {
 
 
           </Form>
+<<<<<<< HEAD
+=======
+        </Col>
+>>>>>>> 63664999cda08d74523211423323e63e3a6db669
       </Row>
-      
 
     </>
   )
