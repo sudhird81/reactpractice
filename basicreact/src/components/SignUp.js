@@ -1,18 +1,16 @@
 // import Loggin from "../Loggin";
 import React from "react";
-import { Form, Input, DatePicker,Button, Row, Col, Select} from "antd"
+import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 import { useState } from "react";
 import axios from "axios";
-
 const SignUp = () => {
-
    const[fullName,setFullNmae]=useState("");
    const[email,setEmail]=useState("");
    const[password,setPassword]=useState("");
    const[confirmPassword,setConfirmPassword]=useState("");
    const[gender,setGender]=useState("");
    const[dateOfBirth,setDateOfBirth]=useState("");
-  
+
    const register =()=>{
       axios.post("http://localhost:3001/register",{
         name:fullName,
@@ -40,20 +38,23 @@ const SignUp = () => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-  
-
-  
 
 
 
   return (
     <>
 
-      
+          
       <Row>
-          <Form name="basic" style={{ width: "100%" ,}}
+        <Col span={8} offset={6}>
+          <Form name="basic"
          
-         
+            labelCol={{
+              span: 10,
+            }}
+            wrapperCol={{
+              span: 14,
+            }}
             initialValues={{
               remember: true,
             }}
@@ -137,13 +138,19 @@ const SignUp = () => {
         setDateOfBirth(date);
               }}/>
             </Form.Item>
-          
+            
+            {/* <Row>
+              <Col span={7} offset={6}></Col>
+              
+            <Loggin />
+
+            </Row> */}
             
 
             <Row>
-              <Col ></Col>
+              <Col span={6} offset={6}></Col>
               <Form.Item >
-                <Button  type="primary" htmlType="submit" onClick={register}>Register</Button>
+                <Button style={{ width: "500%" }} type="primary" htmlType="submit" onClick={register}>Register</Button>
               </Form.Item>
             </Row>
 
@@ -152,9 +159,8 @@ const SignUp = () => {
 
 
           </Form>
-        {/* </Col> */}
+        </Col>
       </Row>
-      
 
     </>
   )
