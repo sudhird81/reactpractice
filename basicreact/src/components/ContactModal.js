@@ -10,8 +10,7 @@ const ContactModal = ({visible,onCancel}) => {
         centered
         visible={visible}
         onCancel={onCancel}
-        // width={500}
-        // height={500}
+        width={500}
         footer={false}
           >
 
