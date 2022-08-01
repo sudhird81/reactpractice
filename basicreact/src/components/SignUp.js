@@ -48,16 +48,8 @@ const SignUp = () => {
 
           
       <Row>
-<<<<<<< HEAD
-          <Form name="basic" style={{ width: "100%" ,}}
-          labelCol={{span:8,}}
-          wrapperCol={{span:14,}}
-         
-         
-=======
         <Col span={8} offset={6}>
           <Form name="basic"
->>>>>>> 63664999cda08d74523211423323e63e3a6db669
          
             labelCol={{
               span: 10,
@@ -157,17 +149,10 @@ const SignUp = () => {
             </Row> */}
             
 
-<<<<<<< HEAD
-            <Row justify="center">
-              <Col ></Col>
-              <Form.Item >
-                <Button style={{width:"200px"}}type="primary" htmlType="submit" onClick={register}>Register</Button>
-=======
             <Row>
               <Col span={6} offset={6}></Col>
               <Form.Item >
                 <Button style={{ width: "500%" }} type="primary" htmlType="submit" onClick={register}>Register</Button>
->>>>>>> 63664999cda08d74523211423323e63e3a6db669
               </Form.Item>
             </Row>
 
@@ -178,10 +163,7 @@ const SignUp = () => {
 
 
           </Form>
-<<<<<<< HEAD
-=======
         </Col>
->>>>>>> 63664999cda08d74523211423323e63e3a6db669
       </Row>
 
     </>

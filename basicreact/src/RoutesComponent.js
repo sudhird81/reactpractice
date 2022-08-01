@@ -5,11 +5,12 @@ import Home from "./components/Home";
 import Contact from "./components/Contact";
 import SignModal from "./components/SignModal";
 import ContactModal from "./components/ContactModal";
+// import PrivateRoute from "./components/PrivateRoute";
 const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
+      <Route path="/about" element={<Route />} />
       <Route path="/contactmodal" element={<ContactModal /> } />
       <Route path="/signmodal" element={<SignModal/>} />
       <Route path="*" />
