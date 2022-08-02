@@ -1,10 +1,35 @@
-import { Form,Layout,Input,Button} from 'antd';
+import { Form,Layout,Input,Button, message} from 'antd';
 import React from 'react';
+import { useState } from "react";
+import axios from "axios";
 const {  Sider, Content } = Layout;
 
 const Contact = ()=>{
+  const [name, setName] = useState("");
+  const [email, setemail] = useState("");
+  const [message, setmessage] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
 
+  const contact = () => {
+    axios.post("http://localhost:3001/Contact",{
+
+      name: name,    
+      email: email,
+      message: message,
+      
+
+    }).then((response) => {
+      if (response.data.message){
+        setLoginStatus(response.data.message)
+      }
+      else{
+        setLoginStatus(response.data[0].email)
+      };
   
+    });
+    
+ } ;
+
 
 
   const onFinish = (values) => {
@@ -38,28 +63,34 @@ const Contact = ()=>{
             {min:3}, 
             ]} >
            
-              <Input placeholder="Type your name" />
+              <Input placeholder="Type your name"  onChange={(e) => {
+                setName(e.target.value);
+              }}/>
             </Form.Item>
 
-            <Form.Item name="Email" label="Email"rules={[
+            <Form.Item name="email" label="Email"rules={[
             {type:'email',message:"Please enter a valid email" },
              
             ]}>
-              <Input placeholder="Type your email" />
+              <Input placeholder="Type your email"  onChange={(e) => {
+                setemail(e.target.value);
+              }} />
             </Form.Item>
 
             <Form.Item name="Message" label="Message"rules={[
             {type:'message' },
              
             ]}>
-              <textarea cols={20} placeholder="Type your Message" />
+              <textarea cols={20} placeholder="Type your Message"  onChange={(e) => {
+                setmessage(e.target.value);
+              }} />
             </Form.Item>
 
 
 
 
             <Form.Item style={{marginLeft:"100px"}}>
-                <Button type="primary" htmlType="submit" >Submit</Button>
+                <Button type="primary" htmlType="submit" onClick={contact}>Submit</Button>
               </Form.Item>
             
             </Form>
