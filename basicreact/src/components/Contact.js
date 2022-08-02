@@ -35,22 +35,19 @@ const Contact = ()=>{
   const onFinish = (values) => {
     console.log('Success:', values);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   return(
     <>
-      
-
-<Layout>
+<Layout style={{ width: "100%",backgroundColor:"white" }}>
   <Sider ><img src='https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29udGFjdHxlbnwwfHwwfHw%3D&w=1000&q=80' alt='Greenery' style={{height:"100%",width:"100%"}}/>
   </Sider>
-    <Layout>
-    <Content>
-          <Form name="basic" style={{ width: "100%" }}
-          labelCol={{span:8,}}
-          wrapperCol={{span:14,}}
+   
+          <Content>
+            <Form name="basic" 
+            labelCol={{span:8,}}
+            wrapperCol={{span:14,}}
             initialValues={{
               remember: true,
             }}
@@ -85,21 +82,16 @@ const Contact = ()=>{
                 setmessage(e.target.value);
               }} />
             </Form.Item>
-
-
-
-
             <Form.Item style={{marginLeft:"100px"}}>
                 <Button type="primary" htmlType="submit" onClick={contact}>Submit</Button>
               </Form.Item>
-            
-            </Form>
+              </Form>
             </Content>
            
-            </Layout>
             
-    
-  </Layout>
+            
+            </Layout>
+  
 
 </>
   
