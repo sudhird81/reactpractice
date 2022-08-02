@@ -1,31 +1,46 @@
 import { Form,Layout,Input,Button} from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import axios from "axios";
 const {  Sider, Content } = Layout;
 
-const Contact = ()=>{
 
-  
+const Contact = ()=>{
+ const[name,setName]=useState("")
+ const[email,setEmail]=useState("")
+ const[message,setMessage]=useState("")
+
+const Submit =()=>{
+  axios.post("http://localhost:3001/Contact",{
+        Name:name,
+        Email:email,
+        Message:message,
+
+
+      }).then((response) => {
+        console.log(response);
+        
+      });
+}
+
+
 
 
   const onFinish = (values) => {
     console.log('Success:', values);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   return(
     <>
-      
-
-<Layout>
+<Layout style={{ width: "100%",backgroundColor:"white" }}>
   <Sider ><img src='https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29udGFjdHxlbnwwfHwwfHw%3D&w=1000&q=80' alt='Greenery' style={{height:"100%",width:"100%"}}/>
   </Sider>
-    <Layout>
-    <Content>
-          <Form name="basic" style={{ width: "100%" }}
-          labelCol={{span:8,}}
-          wrapperCol={{span:14,}}
+   
+          <Content>
+            <Form name="basic" 
+            labelCol={{span:8,}}
+            wrapperCol={{span:14,}}
             initialValues={{
               remember: true,
             }}
@@ -38,37 +53,38 @@ const Contact = ()=>{
             {min:3}, 
             ]} >
            
-              <Input placeholder="Type your name" />
+              <Input placeholder="Type your name" onChange={(e)=>{
+                setName(e.target.value);
+              }}/>
             </Form.Item>
 
             <Form.Item name="Email" label="Email"rules={[
             {type:'email',message:"Please enter a valid email" },
              
             ]}>
-              <Input placeholder="Type your email" />
+              <Input placeholder="Type your email"  onChange={(e)=>{
+                setEmail(e.target.value);
+              }}/>
             </Form.Item>
 
             <Form.Item name="Message" label="Message"rules={[
             {type:'message' },
              
             ]}>
-              <textarea cols={20} placeholder="Type your Message" />
+              <textarea cols={20} rows={2} style={{resize:"none"}} placeholder="Type your Message"  onChange={(e)=>{
+                setMessage(e.target.value);
+              }} />
             </Form.Item>
-
-
-
-
             <Form.Item style={{marginLeft:"100px"}}>
-                <Button type="primary" htmlType="submit" >Submit</Button>
+                <Button type="primary" htmlType="submit" onClick={Submit}>Submit</Button>
               </Form.Item>
-            
-            </Form>
+              </Form>
             </Content>
            
-            </Layout>
             
-    
-  </Layout>
+            
+            </Layout>
+  
 
 </>
   

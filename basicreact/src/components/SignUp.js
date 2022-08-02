@@ -4,7 +4,7 @@ import { Form, Input, DatePicker,Button, Row, Col, Select } from "antd"
 import { useState } from "react";
 import axios from "axios";
 const SignUp = () => {
-   const[fullName,setFullNmae]=useState("");
+   const[fullName,setFullName]=useState("");
    const[email,setEmail]=useState("");
    const[password,setPassword]=useState("");
    const[confirmPassword,setConfirmPassword]=useState("");
@@ -25,35 +25,19 @@ const SignUp = () => {
         console.log(response);
         
       });
-
-
-
-
    } 
-
-
-
   const onFinish = (values) => {
     console.log('Success:', values);
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
-
-
   return (
     <>
-
-          
       <Row>
           <Form name="basic" style={{ width: "100%" ,}}
           labelCol={{span:8,}}
           wrapperCol={{span:14,}}
-         
-         
-         
             // // labelCol={{
             // //   span: 10,
             // // }}
@@ -74,7 +58,7 @@ const SignUp = () => {
             ]} hasFeedback>
            
               <Input placeholder="Type your name" onChange={(e)=>{
-                setFullNmae(e.target.value);
+                setFullName(e.target.value);
               }}/>
             </Form.Item>
 
