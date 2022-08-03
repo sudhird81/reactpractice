@@ -215,3 +215,76 @@ app.post('/login', (req, res) => {
     }
   );  
   });
+
+  app.post('/Contact', (req, res) => {
+    console.log(req.body.name);
+    
+  
+     var name = req.body.name;
+     var email = req.body.email;
+     var message = req.body.message;
+  
+  var sql = "INSERT INTO contact (name, email, message) VALUES ('"+name+"','"+email+"','"+message+"');";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if(err){
+        var response = {
+          errorcode : err.code,
+          message : 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if(result){
+        var response = {
+          success : 'success',
+          message : 'Your application has been submitted'
+       
+        };
+        // jwt.sign({result},jwtkey,{expiresIn:'1h'},(err,token)=>{
+        //   res.status(201).json({token})
+        // })
+        
+    let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure:false,
+    auth: {
+      user: process.env.USER_MAIL,
+      pass: process.env.TOKEN
+    }
+  });
+  
+  let mailDetails = {
+    from: 'ebsdavindersingh.com',
+    to: email,
+    subject: 'Test mail',
+    html: `<h1 style='color: red'>Thank you for getting in touch!  ${name}</h1><br>
+           <p>We appreciate you contacting us. One of our colleagues will get back in touch with you soon!Have a great day!</p>`,
+  
+    attachments: [
+      {
+        filename: 'ebs.png',
+        path: 'assets/ebs.png'
+      }
+    ]
+  };
+  
+  mailTransporter.sendMail(mailDetails, function(err, data) {
+    if(err) {
+      console.log('Error Occurs',err);
+    } else {
+      console.log('Email sent successfully');
+    }
+  });
+  
+        return res.json(response);
+      }
+    });
+    
+  
+  });
+    
+  

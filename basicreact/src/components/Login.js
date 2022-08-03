@@ -21,8 +21,10 @@ const Login = () => {
         else{
           setLoginStatus(response.data[0].email)
         };
-            
+        console.log(response.data)
+        localStorage.setItem('access_token1',JSON.stringify(response.data.token))
       });
+      
    } ;
   const onFinish = (values) => {
     console.log("Success:", values);
