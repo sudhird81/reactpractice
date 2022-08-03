@@ -10,7 +10,7 @@ import {
   MenuUnfoldOutlined,
 
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import RoutesComponent from "./RoutesComponent";
 import LogInModal from "./components/LogInModal";
 import SignModal from "./components/SignModal";
@@ -22,6 +22,15 @@ const LayoutComponents = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
+
+  const token = localStorage.getItem('access_token1');
+  console.log(token)
+  const navigate = useNavigate();
+  const logout =()=>{
+    localStorage.clear();
+    navigate('/login')
+  }
+
 
   return (
 
@@ -85,6 +94,19 @@ const LayoutComponents = () => {
                       key="SubMenu"
                       icon={<MenuUnfoldOutlined />}
                     >
+
+
+                      { token ?
+                        <Menu.Item
+                        icon={<UserAddOutlined />}
+                        onClick={logout}
+                      >
+                        <Link to="#">
+                          Logout
+                        </Link>
+                      </Menu.Item> 
+                      :
+                      <>
                       <Menu.Item icon={<AppstoreOutlined />} onClick={() => setIsModalVisible1(true)}>
                         <Link to="#">SignUp</Link>
                       </Menu.Item>
@@ -96,6 +118,8 @@ const LayoutComponents = () => {
                           Login
                         </Link>
                       </Menu.Item>
+                      </>
+                      }
                     </Menu.SubMenu>
                   </Menu.Item>
                 </Row>
