@@ -12,13 +12,11 @@ import Teacher from "./pages/dashboard/Teacher";
 function App() {
   return (
     <div className="App">
-   
-   
-    <Login />
     
       <BrowserRouter>
       <Routes>
-      <Route path="/" element={< Student/>} />
+      <Route path="/" element={<Login/>}/>
+      <Route path="/student" element={<Student/>} />
       <Route path="dashboard/principal" element={<Principal/>} />
       <Route path="dashboard/staff" element={<Staff /> } />
       <Route path="dashboard/teacher" element={<Teacher/>} />

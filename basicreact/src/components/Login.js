@@ -2,48 +2,63 @@ import { Button, Checkbox, Form, Input } from 'antd';
 // import Password from 'antd/lib/input/Password';
 import React from 'react';
 import { useState } from 'react';
-import {  useNavigate, } from 'react-router-dom';
-// import axios from "axios"; 
+import {  useNavigate } from 'react-router-dom';
+import axios from "axios"; 
+
 const Login= () => {
-  const navigate=useNavigate()
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-   const Submit = () => {
-    
-    console.log("Email:",email,"Password:",password)
-       const response = {
-        "message": "Logged In!",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFtaXRAZ21haWwuY29tIiwiaWQiOjIzLCJpYXQiOjE2NTk5MzQ3OTgsImV4cCI6MTY1OTk0MTk5OH0.mNenovqz96egnrFzpWlusHy4G1mJNIPNqJ1j3oBFo5k",
-        "user": {
-            "id": 23,
-            "name": "Amit",
-            "role_id": 1,
-            "email": "amit@gmail.com",
-            "roleName":"Teacher"
+  const [loginStatus, setLoginStatus] = useState("");
+  const navigate = useNavigate();
+
+   const login = () => {
+ 
+
+      axios.post("http://localhost:3001/login",{
+      
+        email: email,
+        password: password,    
+
+      }).then((response) => {
+        console.log(response);
+        if (response.data.message){
+          setLoginStatus(response.data.message)
         }
-    }
-    navigate("/Teacher")
-     localStorage.setItem("token",JSON.stringify(response.token));
-     console.log(response.user.roleName )
-    if (response.user.roleName == "Teacher"){
-      console.log("hello")
-      navigate("/pages/dashboard/Teacher")
-           
-    }
-    else{
-     console.log("by")
-    }
+        else{
+          setLoginStatus(response.data[0].email)
+        };
+        console.log(response.data)
+        localStorage.setItem('access_token1',JSON.stringify(response.data.token))
+
     
-      };
- const onFinish = (values) => {
-    console.log('Success:', values);
+        const role = response.data.user.name
+   
+        if(role === "Teacher") {
+          navigate('/Teacher');
+        }
+        else if(role === "Student") {
+          navigate('/Stundent');
+        }
+        
+
+      });
+      
+   } ;
+  const onFinish = (values) => {
+    console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
+  //  const onLoginSuccess = (response) => {
+  //   console.log('Success:', response);
+  // };
 
+  // const onLoginFailure = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
   return (
     <Form style={{justifyContent: "center", display: "grid",margin: "100px",
     padding: "50px"}}
@@ -111,7 +126,7 @@ const Login= () => {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit" onClick={Submit} >
+        <Button type="primary" htmlType="submit" onClick={login} >
           Login
         </Button>
       </Form.Item>

@@ -7,7 +7,7 @@ import Teacher from "./dashboard/Teacher";
 const RoutesComponent = () => {
   return (
     <Routes>
-      <Route path="/" element={< Student/>} />
+      <Route path="/student" element={<Student/>} />
       <Route path="/principal" element={<Principal/>} />
       <Route path="/staff" element={<Staff /> } />
       <Route path="/teacher" element={<Teacher/>} />
