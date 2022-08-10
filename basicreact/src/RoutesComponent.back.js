@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import About from "./components/About";
 import Home from "./components/Home";
-import Contact from "./components/Contact";
 import SignModal from "./components/SignModal";
 import ContactModal from "./components/ContactModal";
 import Protected from "./components/Protected";

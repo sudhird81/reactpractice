@@ -16,7 +16,7 @@ import LogInModal from "./components/LogInModal";
 import SignModal from "./components/SignModal";
 import ContactModal from "./components/ContactModal";
 
-const { Header, Content, Sider, Footer } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const LayoutComponents = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -50,7 +50,7 @@ const LayoutComponents = () => {
 
         />
       </>
-      <Layout>
+      <Layout >
         <Sider></Sider>
         <Layout>
           <Header style={{ padding: "0" }}>
@@ -124,7 +124,7 @@ const LayoutComponents = () => {
             {" "}
             <RoutesComponent />
           </Content>
-          <Footer>THANKU!</Footer>
+          
         </Layout>
       </Layout>
     </>

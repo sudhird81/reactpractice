@@ -59,15 +59,7 @@
   text-transform: capitalize;
   text-align: center;
 }
-.banner-desc {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 27px;
-  letter-spacing: 0.02em;
-  color: #343434;
-  text-align: center;
-}
+
 
 .inputstyle{
   width: 120%;
