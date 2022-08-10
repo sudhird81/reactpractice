@@ -77,15 +77,9 @@ const LayoutComponents = () => {
                   
                   <Menu.Item  onClick={() => setIsModalVisible2(true)}>
                         <p>Contact Us</p>
-                      </Menu.Item>
+                      </Menu.Item>                                        
                       
-                      
-                      
-                      </Row>
-                      
-
-
-
+                </Row>                 
 
                 <Row justify="space-around">
                   <Menu.Item>
@@ -94,7 +88,6 @@ const LayoutComponents = () => {
                       key="SubMenu"
                       icon={<MenuUnfoldOutlined />}
                     >
-
 
                       { token ?
                         <Menu.Item

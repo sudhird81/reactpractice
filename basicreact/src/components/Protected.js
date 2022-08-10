@@ -5,7 +5,7 @@ const Protected = (props) => {
   const { component } = props
   const navigate = useNavigate();
   useEffect(() => {
-    let login = localStorage.getItem('login');
+    let login = localStorage.getItem('access_token1');
     if (!login) {
       navigate('/login')
 

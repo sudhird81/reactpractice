@@ -11,7 +11,7 @@ const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<Protected component={About}/>} />
+      <Route path="/about" element={<About/>} />
       <Route path="/contactmodal" element={<ContactModal /> } />
       {/* <Route path="/signmodal" element={<SignModal/>} /> */}
       <Route path="*" />
