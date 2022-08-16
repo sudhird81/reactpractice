@@ -40,6 +40,12 @@ const Login= () => {
         else if(role === "Student") {
           navigate('/Stundent');
         }
+        else if(role === "Staff") {
+          navigate('/Staff');
+        }
+        else if(role==="Principal"){
+          navigate('/Principal')
+        }
         
 
       });
@@ -135,3 +141,4 @@ const Login= () => {
 };
 
 export default Login;
+

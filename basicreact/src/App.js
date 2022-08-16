@@ -8,6 +8,7 @@ import Student from "./pages/dashboard/Student";
 import Principal from "./pages/dashboard/Principal";
 import Staff from "./pages/dashboard/Staff";
 import Teacher from "./pages/dashboard/Teacher";  
+import StudentList from "./pages/StudentList";
 // import LayoutComponents from "./LayoutComponents";
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="dashboard/principal" element={<Principal/>} />
       <Route path="dashboard/staff" element={<Staff /> } />
       <Route path="dashboard/teacher" element={<Teacher/>} />
+      <Route path="dashboard/student" element={<StudentList/>} />
       <Route path="*" />
     </Routes>
         {/* <LayoutComponents /> */}
