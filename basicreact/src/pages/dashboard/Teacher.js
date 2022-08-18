@@ -18,11 +18,11 @@
 // );
 
 // export default Teacher;
+
 import React, { Component } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import "@ckeditor/ckeditor5-theme-lark";
+import "@ckeditor/ckeditor5-theme-lark";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 class Teacher extends Component {
 
     render() {
@@ -32,6 +32,7 @@ class Teacher extends Component {
                 <h2>Using CKEditor 5 build in React</h2>
                 <CKEditor
                     editor={ ClassicEditor }
+
                     
                     data="<p>Welcome  CKEditor 5!</p>"
                     onReady={ editor => {

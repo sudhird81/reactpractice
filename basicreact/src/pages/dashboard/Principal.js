@@ -1,44 +1,33 @@
 import { Layout } from 'antd';
-import { Button, Modal } from 'antd';
-import React, { useState } from 'react';
-import { CKEditor} from '@ckeditor/ckeditor5-react'; 
+import { Button } from 'antd';
+import React from 'react';
+import {  useNavigate } from 'react-router-dom';
+ 
 import StudentList from '../StudentList';
+// import StudentList from "./pages/StudentList";
 
 const { Header, Sider, Content } = Layout;
 
 
 const Principal = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const navigate = useNavigate();
+ const showList = ()=>{
+  navigate('/StudentList');
+ }
 
 
   return (
     <>
-   <CKEditor
-
-
-
-   /> 
       <Layout >
-        <Sider style={{ height: "750px", backgroundColor: "White" }}> <Button type="" onClick={showModal}>
+        <Sider style={{ height: "750px", backgroundColor: "White" }}> <Button type="" onClick={showList}>
         StudentList
-      </Button><Modal title="Student List" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-      <StudentList/>
-      </Modal></Sider>
+      </Button>
+      {/* <StudentList/> */}
+      </Sider>
         <Layout>
+        
           <Header style={{ color: "white" }}>Header</Header>
-          <Content><button>Principal Login</button></Content>
+          <Content><StudentList/></Content>
 
         </Layout>
       </Layout>
