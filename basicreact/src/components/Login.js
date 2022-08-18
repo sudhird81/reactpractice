@@ -34,11 +34,17 @@ const Login= () => {
     
         const role = response.data.user.name
    
-        if(role === "Teacher") {
+        if(role === "Principal") {
+          navigate('/Principal');
+        }
+        else if(role === "Teacher") {
           navigate('/Teacher');
         }
         else if(role === "Student") {
           navigate('/Stundent');
+        }
+        else if(role === "Staff"){
+          navigate('/Staff')
         }
         
 
