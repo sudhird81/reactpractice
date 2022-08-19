@@ -1,8 +1,6 @@
-import { Layout } from 'antd';
-import { Button } from 'antd';
-import React from 'react';
+import { Layout,Button } from 'antd';
+// import { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
- 
 import StudentList from '../StudentList';
 // import StudentList from "./pages/StudentList";
 
@@ -10,9 +8,13 @@ const { Header, Sider, Content } = Layout;
 
 
 const Principal = () => {
+  // const[showData,setShowData]=useState(false)
   const navigate = useNavigate();
+  
  const showList = ()=>{
-  navigate('/StudentList');
+
+  alert("hello")
+  navigate('/dashboard/student');
  }
 
 
@@ -27,7 +29,10 @@ const Principal = () => {
         <Layout>
         
           <Header style={{ color: "white" }}>Header</Header>
-          <Content><StudentList/></Content>
+          <Content>
+
+          <StudentList/>
+          </Content>
 
         </Layout>
       </Layout>
