@@ -51,8 +51,8 @@ const StudentList = () => {
       }
     }
   ]
-  const onAddStudent = () => {
-
+  const onAddStudent = () => { 
+    
     const newStudent = {
 
       name: "Name",
@@ -88,7 +88,7 @@ const StudentList = () => {
   }
   return (
     <div className="App">
-      <Button onClick={onAddStudent}>Add a new Student</Button>
+      <Button style={{float:"right"}} onClick={onAddStudent}>Add a new Student</Button>
       <Table
         columns={columns}
         dataSource={dataSource}
