@@ -3,9 +3,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const db  = require('./db'); 
+// const { Router } = require('express');
 const app = express();
-const profile = require('./controllers/user.controller');
+const userRouter = require('./controllers/userController');
+const roleRouter = require('./controllers/rolesController');
 
 app.use(express.json()); 
 app.use(bodyParser.json());
@@ -15,20 +16,15 @@ app.use(bodyParser.urlencoded({
 }));
  
 app.use(cors());
- 
+
+app.use("/", userRouter);
+app.use("/", roleRouter);
+
 
  
-// Handling Errors
-app.use((err, req, res, next) => {
-    // console.log(err);
-    err.statusCode = err.statusCode || 500;
-    err.message = err.message || "Internal Server Error";
-    res.status(err.statusCode).json({
-      message: err.message,
-    });
-});
- 
 app.listen(process.env.PORT,() => console.log('Server is running on port 3001'));
+
+
 
 
 /**

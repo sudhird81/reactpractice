@@ -43,16 +43,16 @@ const Login= () => {
         else if(role === "Student") {
           navigate('/Stundent');
         }
-<<<<<<< HEAD
+
         else if(role === "Staff"){
           navigate('/Staff')
-=======
+}
         else if(role === "Staff") {
           navigate('/Staff');
         }
         else if(role==="Principal"){
           navigate('/Principal')
->>>>>>> c08d9e95f2d47ac68ba9cd70e3bb43f397be95dc
+
         }
         
 

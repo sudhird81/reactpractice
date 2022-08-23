@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
-// const express = require('express');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
+// const swaggerJsDoc = require('swagger-jsdoc');
+// const swaggerUI = require('swagger-ui-express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const db  = require('./db'); 
+const db  = require('./../db'); 
 const app = express();
 const bcrypt = require('bcryptjs');  
 const saltRounds = 10;
@@ -18,10 +17,10 @@ jwtkey="jwt"
 const generator = require('generate-password');
 const { title } = require('process');
 
-router.get('./',(req,res,next)=>{
-    res.send('getting a list of all product.....')
-});
 
+
+
+// /api/users/get
 router.get("/users", (req, res) => {
     db.query(
       `SELECT * FROM  users;`,
@@ -32,7 +31,7 @@ router.get("/users", (req, res) => {
     )
    
   });
-   
+   // /api/user/add
     router.post('/user', (req, res) => {
       
       // let hash = bcrypt.hashSync(req.body.password, saltRounds);
@@ -107,7 +106,7 @@ router.get("/users", (req, res) => {
       });  
     
     });
-   
+    // /api/user/update
     router.put('/user/:id', (req, res) => {
     const data =[req.body.name,req.body.email,req.body.password,req.params.id];
     db.query("UPDATE users SET name = ?,email =?, password =?, role_id =? where id =? ", data,(err,result) =>{
@@ -130,7 +129,7 @@ router.get("/users", (req, res) => {
     });
   });
   
-   
+   // /api/user/delete
   router.delete('/user/:id', (req,res) => {
     db.query("DELETE FROM users WHERE id =" +req.params.id,(err,result) => {
       if(err){
@@ -153,7 +152,7 @@ router.get("/users", (req, res) => {
     
   });
   
-   
+   // /api/login
   router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -200,109 +199,5 @@ router.get("/users", (req, res) => {
     );  
     });
   
-    
-    router.post('/role', (req, res) => {
-      console.log(name);
-       
-       var name = req.body.name;
-      
-    var sql = "INSERT INTO roles (name) VALUES ('"+name+"');";
-    console.log(sql);
-    db.query(
-      sql,
-      (err, result) => {
-        if(err){
-          var response = {
-            errorcode : err.code,
-            message : 'Got Error'
-          };
-          return res.json(response);
-        }
-        console.log(err);
-        console.log(result);
-        if(result){
-          var response = {
-            success : 'success',
-            message : 'User Got inserted'
-         
-          };
-      
-          return res.json(response);
-        }
-      });  
-    
-    });
-  
-   
-    router.put('/role/:id', (req, res) => {
-      const data =[req.body.name,req.params.id];
-      db.query("UPDATE roles SET name = ?, role_id where id =? ", data,(err,result) =>{
-        if(err){
-          var response = {
-            errorcode : err.code,
-            message : 'Got Error'
-          };
-          return res.json(response);
-        }
-        console.log(err);
-        console.log(result);
-        if(result){
-          var response = {
-            success : 'success',
-            message : 'User Got Updated'
-          };
-          return res.json(response);
-        }
-      });
-    });
-  
-   
-    router.delete('/role/:id', (req,res) => {
-      db.query("DELETE FROM users WHERE id =" +req.params.id,(err,result) => {
-        if(err){
-          var response = {
-            errorcode : err.code,
-            message : 'Got Error'
-          };
-          return res.json(response);
-        }
-        console.log(err);
-        console.log(result);
-        if(result){
-          var response = {
-            success : 'success',
-            message : 'User Got Deleted'
-          };
-          return res.json(response);
-        }
-      });
-      
-    });
-  
-    
-    router.get('/get-users-list',(req,res)=>{
-      db.query(
-        "SELECT users.id,users.name as userName,users.email, roles.name as roleName FROM users LEFT JOIN roles on roles.id = users.role_id",
-        (err,result)=>{
-  console.log(result)
-        if(err){
-          const response = {
-            errorcode : err.code,
-            message : 'Got Error'
-          };
-          return res.json(response);
-        }
-        // console.log(err);
-        // console.log(res);
-        if(res){
-          const response = {
-            success : 'success',
-            message : 'Users List has been updated',
-            data: result
-          };
-          return res.json(response);
-        }
-  
-      })
-    });
-module.export = router;
+module.exports = router;
+// export default router
