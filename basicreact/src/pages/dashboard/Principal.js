@@ -1,35 +1,43 @@
-import { Layout } from 'antd';
-import { Button } from 'antd';
-import React from 'react';
-import {  useNavigate } from 'react-router-dom';
- 
-import StudentList from '../StudentList';
+import { Layout,Avatar,Breadcrumb } from 'antd';
+// import { useState } from 'react';
+import ComponentsList from '../ComponentsFiles/ComponentsList';
+import SiderMenu from '../ComponentsFiles/SiderMenu';
+
 // import StudentList from "./pages/StudentList";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content,Footer } = Layout;
 
 
 const Principal = () => {
-  const navigate = useNavigate();
- const showList = ()=>{
-  navigate('/StudentList');
- }
-
-
-  return (
+  // const[showData,setShowData]=useState(false)
+return (
     <>
       <Layout >
-        <Sider style={{ height: "750px", backgroundColor: "White" }}> <Button type="" onClick={showList}>
-        StudentList
-      </Button>
-      {/* <StudentList/> */}
-      </Sider>
+      <Header  style={{ color: "white", padding: 10 }}>Header  <Avatar style={{ float: "right" }} src="school.png" /> </Header>
+    
         <Layout>
-        
-          <Header style={{ color: "white" }}>Header</Header>
-          <Content><StudentList/></Content>
+        <Sider style={{backgroundColor: "White" }}>
+        <SiderMenu/>
+      </Sider>
+      <Layout>
+      <Content style={{ padding: '0 50px' }}>
+              <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+              </Breadcrumb>
+              
+              <div style={{ background: "#fff", padding: 24, minHeight: 580 }}><ComponentsList/></div>
+              
+            </Content>
+            <Footer
+              style={{
+                textAlign: 'center',
+              }}
+            >
+              Ant Design layout example  Created by Prince 
+            </Footer>
 
         </Layout>
+      </Layout>
       </Layout>
     </>
   );
