@@ -6,7 +6,7 @@ import StudentList from '../StudentList';
 const ComponentsList = () => {
   return (
     <>
-<StudentList />
+<StudentList/>
 {/* <School /> */}
 </>
   )

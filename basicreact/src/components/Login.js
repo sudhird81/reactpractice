@@ -46,12 +46,8 @@ const Login= () => {
 
         else if(role === "Staff"){
           navigate('/Staff')
-<<<<<<< HEAD
-}
-=======
         }
->>>>>>> a453d46d52a3865a68e14b7d0eb2db58cb36e8c3
-        else if(role === "Staff") {
+          else if(role === "Staff") {
           navigate('/Staff');
         }
         else if(role==="Principal"){
