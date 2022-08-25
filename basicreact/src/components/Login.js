@@ -41,15 +41,18 @@ const Login= () => {
           navigate('/Teacher');
         }
         else if(role === "Student") {
-          navigate('/Stundent');
+          navigate('/dashboard/Stundent');
         }
 
         else if(role === "Staff"){
           navigate('/Staff')
         }
+
           else if(role === "Staff") {
-          navigate('/Staff');
-        }
+
+            navigate('/Staff');
+          }
+        
         else if(role==="Principal"){
           navigate('/Principal')
 
@@ -149,4 +152,3 @@ const Login= () => {
 };
 
 export default Login;
-
