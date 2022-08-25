@@ -41,16 +41,12 @@ const Login= () => {
           navigate('/Teacher');
         }
         else if(role === "Student") {
-          navigate('/Stundent');
+          navigate('/dashboard/Stundent');
         }
 
         else if(role === "Staff"){
           navigate('/Staff')
-<<<<<<< HEAD
-}
-=======
         }
->>>>>>> a453d46d52a3865a68e14b7d0eb2db58cb36e8c3
         else if(role === "Staff") {
           navigate('/Staff');
         }
@@ -153,4 +149,3 @@ const Login= () => {
 };
 
 export default Login;
-

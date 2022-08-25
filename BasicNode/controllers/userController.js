@@ -31,6 +31,36 @@ router.get("/users", (req, res) => {
     )
    
   });
+  router.get("/users/student", (req, res) => {
+    db.query(
+      `SELECT * FROM  users where role_id=2;`,
+      (err, result) => {
+        // console.log(result);
+        return res.json(result);
+      }
+    )
+   
+  });
+  router.get("/users/staff", (req, res) => {
+    db.query(
+      `SELECT * FROM  users where role_id=3;`,
+      (err, result) => {
+        // console.log(result);
+        return res.json(result);
+      }
+    )
+   
+  });
+  router.get("/users/teacher", (req, res) => {
+    db.query(
+      `SELECT * FROM  users where role_id=1;`,
+      (err, result) => {
+        // console.log(result);
+        return res.json(result);
+      }
+    )
+   
+  });
    // /api/user/add
     router.post('/user', (req, res) => {
       
@@ -198,6 +228,8 @@ router.get("/users", (req, res) => {
       }
     );  
     });
+
+
   
 module.exports = router;
 // export default router
