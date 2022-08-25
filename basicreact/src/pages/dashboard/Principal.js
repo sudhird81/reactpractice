@@ -5,10 +5,12 @@ import Mainheader from './Mainheader';
 import { Routes, Route } from "react-router-dom";
 import Sidebar from './Sidebar';
 import Picture from './Picture';
+import TeacherList from '../TeacherList';
+import StaffList from '../StaffList';
 
 // import StudentList from "./pages/StudentList";
 
-const { Header, Sider, Content,Footer } = Layout;
+const {  Sider, Content,Footer } = Layout;
 
 
 const Principal = () => {
@@ -36,6 +38,8 @@ return (
 
               <Route path="/changepassword" element={<Picture/>} />
               <Route path="/studentlist" element={<ComponentsList />} />
+              <Route path="/teacherlist" element={<TeacherList />} />
+              <Route path="/stafflist" element={<StaffList />} />
 
             </Routes>
 

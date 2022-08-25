@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Table ,Button,Modal} from "antd";
 
-function TeacherList() {
+function StaffList() {
   const [state, setstate] = useState([]);
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    await Axios.get('http://localhost:3001/users/teacher').then(
+    await Axios.get('http://localhost:3001/users/staff').then(
       res => {
         setstate(
           res.data.map(row => ({
@@ -96,4 +96,4 @@ function TeacherList() {
   );
 }
 
-export default TeacherList;
+export default StaffList;
