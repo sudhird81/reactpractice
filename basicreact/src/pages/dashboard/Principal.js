@@ -2,7 +2,7 @@ import { Layout,Breadcrumb } from 'antd';
 // import { useState } from 'react';
 import ComponentsList from '../ComponentsFiles/ComponentsList';
 import Mainheader from './Mainheader';
-import { Routes, Route } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Sidebar from './Sidebar';
 import Picture from './Picture';
 import TeacherList from '../TeacherList';
@@ -33,7 +33,8 @@ return (
       
               <div style={{ background: "#fff", padding: 24, minHeight: 580 }}>
 
-              <Routes>
+             
+              {/* <Routes>
              
 
               <Route path="/changepassword" element={<Picture/>} />
@@ -41,7 +42,7 @@ return (
               <Route path="/teacherlist" element={<TeacherList />} />
               <Route path="/stafflist" element={<StaffList />} />
 
-            </Routes>
+            </Routes> */}
 
 
               </div>

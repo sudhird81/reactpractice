@@ -16,7 +16,7 @@ function TeacherList() {
           res.data.map(row => ({
             Name: row.name,
             Email: row.email,
-            id: row.id
+            Id: row.id,
           }))
         );
       }

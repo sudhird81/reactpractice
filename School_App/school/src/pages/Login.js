@@ -36,30 +36,20 @@ const Login= () => {
    console.log(role,'role');
    
         if(role === "Principal") {
-          navigate('/dashboard/principal');
+          navigate('/principal');
         }
         else if(role === "Teacher") {
-          navigate('/Teacher');
+          navigate('/teacher');
         }
         else if(role === "Student") {
-          navigate('/dashboard/Stundent');
+          navigate('/stundent');
         }
 
         else if(role === "Staff"){
           navigate('/Staff')
         }
 
-          else if(role === "Staff") {
-
-            navigate('/Staff');
-          }
-        
-        else if(role==="Principal"){
-          navigate('/Principal')
-
-        }
-        
-
+         
       });
       
    } ;
