@@ -5,6 +5,10 @@ import Student from "../../pages/Student";
 import Principal from "../../pages/Principal";
 import Staff from "../../pages/Staff";
 import Teacher from "../../pages/Teacher"; 
+import MainHeader from "../LayoutComponent/MainHeader";
+import MainLayout from "../MainLayout";
+import StudentList from "../../pages/StudentList";
+
 
 
 
@@ -16,10 +20,11 @@ function RoutesComponent() {
       <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/student" element={<Student/>} />
-        <Route path="/principal"  element={<Principal/>} />
+        <Route path="/dashboard"  element={<MainLayout/>} />
         <Route path="/staff" element={<Staff /> } />
         <Route path="/teacher" element={<Teacher/>} />
-        
+        <Route path="/dashboard/StudentList" key ="StudentList"  element={<StudentList/>} />
+ 
         
         <Route path="*" />
     </Routes>

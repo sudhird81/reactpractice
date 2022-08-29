@@ -4,12 +4,17 @@ import Login from "../pages/Login";
 import MainHeader from "./LayoutComponent/MainHeader";
 import MainSider from "./LayoutComponent/MainSider";
 import MainFooter from "./LayoutComponent/MainFooter";
-import { Routes, Route } from "react-router-dom";
+import StudentList from "../pages/StudentList";
+
+// import StudentList from "../pages/StudentList";
+// import RoutesComponent from "./RoutesComponent/RoutesComponent";
+// import { Route, Routes } from "react-router-dom";
+
 // import Profile from "./pages/Profile";
 // import Changepass from "./pages/Changepass";
 // import Managestaff from "./pages/Managestaff";
 // import Studentmanage from "./pages/Studentmanage";
-
+// import StudentList from "../pages/StudentList";
 
 function MainLayout() {
   return (
@@ -19,9 +24,11 @@ function MainLayout() {
         <Layout style={{ flexDirection: "initial" }}>
           <MainSider />
           <Content style={{ padding: "20px" }}>
-          <Routes>            
-              <Route path="/student" element={<h1>student</h1>} />
-            </Routes>
+          {/* <Routes>
+            <Route path="/studentlist" element={<StudentList />}></Route>
+          </Routes> */}
+         
+          
           </Content>
         </Layout>
        <MainFooter />

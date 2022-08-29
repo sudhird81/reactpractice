@@ -36,7 +36,7 @@ const Login= () => {
    console.log(role,'role');
    
         if(role === "Principal") {
-          navigate('/principal');
+          navigate('/dashboard');
         }
         else if(role === "Teacher") {
           navigate('/teacher');
