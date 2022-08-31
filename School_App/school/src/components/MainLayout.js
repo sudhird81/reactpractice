@@ -27,7 +27,7 @@ function MainLayout() {
           {/* <Routes>
             <Route path="/studentlist" element={<StudentList />}></Route>
           </Routes> */}
-         
+          
           
           </Content>
         </Layout>

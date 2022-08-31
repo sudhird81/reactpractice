@@ -23,7 +23,7 @@ function RoutesComponent() {
         <Route path="/dashboard"  element={<MainLayout/>} />
         <Route path="/staff" element={<Staff /> } />
         <Route path="/teacher" element={<Teacher/>} />
-        <Route path="/dashboard/StudentList" key ="StudentList"  element={<StudentList/>} />
+        <Route path="/StudentList" key ="StudentList"  element={<StudentList/>} />
  
         
         <Route path="*" />

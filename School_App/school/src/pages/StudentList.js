@@ -1,9 +1,11 @@
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { Table ,Button,Modal} from "antd";
+import { Table ,Button,Modal,Input} from "antd";
 
 function StudentList() {
+  const[editState,setEditState]=useState(false)
+  const [editingStudent, setEditingStudent] = useState(null);
   const [state, setstate] = useState([]);
   useEffect(() => {
     getData();
@@ -24,13 +26,13 @@ function StudentList() {
     );
   };
 
-  const deleteData = async (id) => {
-    await Axios.delete('http://localhost:3001/users/student' + id).then(
-      res => {
+  const deleteData =  async (id) => {
+    
+    await Axios.delete(`http://localhost:3001/user/ ${id}` )
+    .then((res) => {
+        console.log(id,"resif")
         setstate(
           res.data.map(row => ({
-            Name: row.name,
-            Email: row.email,
             id: row.id
           }))
         );
@@ -61,9 +63,11 @@ function StudentList() {
             render: (record) => {
               return (
                 <>
-                 <Button> <EditOutlined /></Button>
+                 <Button onClick={()=>{
+                  onEditStudent(record)
+                 }}> <EditOutlined /></Button>
                  <Button onClick={() => {
-              onDeleteStudent(record)
+              deleteData(record.id);onDeleteStudent(record)
             }}><DeleteOutlined
               /></Button>
                 </>
@@ -87,7 +91,7 @@ function StudentList() {
       const onAddStudent = () => { 
     
             const newStudent = {
-        
+              id:"id",
               name: "Name",
               email: "Email"
         
@@ -97,6 +101,10 @@ function StudentList() {
         
             })
           }
+    const onEditStudent=(record)=>{
+          setEditState(true)
+          setEditingStudent({ ...record });
+    }      
 
   return (
     <div>
@@ -107,6 +115,23 @@ function StudentList() {
           pagination={10}
           scroll={{ y: 240 }}
         />
+        <Modal
+        title="Edit Student"
+        visible={editState}
+        okText="Save"
+        onOk={()=>{
+          setEditState(false)
+        }}
+        onCancel={()=>{
+          setEditState(false)
+        }}
+      
+      >
+      <Input></Input>
+      <Input></Input>
+        
+
+        </Modal>
       
     </div>
   );
