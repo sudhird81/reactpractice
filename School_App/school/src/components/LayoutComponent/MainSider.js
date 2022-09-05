@@ -44,13 +44,10 @@
 import React from "react";
 import Layout from "antd/lib/layout";
 import { Menu } from 'antd';
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "antd/dist/antd.css";
 import { HomeFilled,UnorderedListOutlined,ContactsFilled} from '@ant-design/icons';
-
-
 const { Sider } = Layout;
-
 const MainSider= () => {
     const items = [
         {
@@ -63,18 +60,17 @@ const MainSider= () => {
         icon:<UnorderedListOutlined />
 
         ,children:[
-            {label:<Link to={"/Studentlist"}>Student List</Link>,
+            {label:<Link to={"/students"}>Student List</Link>,
             key:"StudentList"},
             {label:<Link to={"/teacherlist"}>Teacher List</Link>,
             key:"teacher"},
-            {label:<Link to={"/stafflist"}>Staff List</Link>,
+            {label:<Link to={"/staff"}>Staff List</Link>,
             key:"staff"}
             
           ]  },
           {label:"Contact",key:"contact",icon:<ContactsFilled />}
-    ]
-  
- 
+          
+    ]  
   return (
     <>
     <Sider style={{backgroundColor: "White" }}>
@@ -84,15 +80,11 @@ const MainSider= () => {
     }}
      mode="inline"
      items={items}>
-  
-
     
     </Menu>
-    </Sider>
-    
-      
+    </Sider>  
+    <Outlet />
     </>
   ); 
 };
-
 export default MainSider;

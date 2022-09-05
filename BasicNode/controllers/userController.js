@@ -137,9 +137,33 @@ router.get("/users", (req, res) => {
     
     });
     // /api/user/update
-    router.put('/user/:id', (req, res) => {
+  //   router.put('/user/:id', (req, res) => {
+      
+  //     const data =[req.body.name,req.body.email,req.body.password,req.params.id];
+    
+  //      db.query("UPDATE users SET name = ?,email =? where users. id =? ", data,(err,result) =>{
+  //     if(err){
+  //       var response = {
+  //         errorcode : err.code,
+  //         message : 'Got Error'
+  //       };
+  //       return res.json(response);
+  //     }
+  //     console.log(err);
+  //     console.log(result);
+  //     if(result){
+  //       var response = {
+  //         success : 'success',
+  //         message : 'User Got Updated'
+  //       };
+  //       return res.json(response);
+  //     }
+  //   });
+  //   console.log(data)
+  // });
+  router.put('/user/:id', (req, res) => {
     const data =[req.body.name,req.body.email,req.body.password,req.params.id];
-    db.query("UPDATE users SET name = ?,email =?, password =?, role_id =? where id =? ", data,(err,result) =>{
+    db.query("UPDATE users SET name = ?,email =?, password =? where id =? ", data,(err,result) =>{
       if(err){
         var response = {
           errorcode : err.code,
@@ -232,4 +256,4 @@ router.get("/users", (req, res) => {
 
   
 module.exports = router;
-// export default router
+// export default router 

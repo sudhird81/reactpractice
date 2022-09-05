@@ -1,65 +1,65 @@
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Row } from 'antd';
 // import Password from 'antd/lib/input/Password';
 import React from 'react';
 import { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
-import axios from "axios"; 
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const Login= () => {
-  
+const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const navigate = useNavigate();
 
-   const login = () => {
- 
+  const Login = () => {
+    axios.post("http://localhost:3001/login", {
+      email: email,
+      password: password,
 
-      axios.post("http://localhost:3001/login",{
-      
-        email: email,
-        password: password,    
+    }).then((response) => {
+      console.log(response);
+      if (response.data.message) {
+        setLoginStatus(response.data.message)
+      }
+      else {
+        setLoginStatus(response.data[0].email)
+      };
+      console.log(response.data)
+      localStorage.setItem('access_token1', JSON.stringify(response.data.token))
 
-      }).then((response) => {
-        console.log(response);
-        if (response.data.message){
-          setLoginStatus(response.data.message)
-        }
-        else{
-          setLoginStatus(response.data[0].email)
-        };
-        console.log(response.data)
-        localStorage.setItem('access_token1',JSON.stringify(response.data.token))
+      window.location.reload(false);
 
-    
-        const role = response.data.user.name
-   console.log(role,'role');
-   
-        if(role === "Principal") {
-          navigate('/dashboard');
-        }
-        else if(role === "Teacher") {
-          navigate('/teacher');
-        }
-        else if(role === "Student") {
-          navigate('/stundent');
-        }
 
-        else if(role === "Staff"){
-          navigate('/Staff')
-        }
+      //       const role = response.data.user.name
+      //  console.log(role,'role');
 
-         
-      });
-      
-   } ;
-  const onFinish = (values) => {
-    console.log("Success:", values);
+      //       if(role === "Principal") {
+      //         navigate('/dashboard');
+      //         // <MainLayout />
+      //       }
+      //       else if(role === "Teacher") {
+      //         navigate('/teacher');
+      //       }
+      //       else if(role === "Student") {
+      //         navigate('/stundent');
+      //       }
+
+      //       else if(role === "Staff"){
+      //         navigate('/Staff')
+      //       }
+
+
+    });
+
   };
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  // };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
   //  const onLoginSuccess = (response) => {
   //   console.log('Success:', response);
   // };
@@ -68,8 +68,10 @@ const Login= () => {
   //   console.log('Failed:', errorInfo);
   // };
   return (
-    <Form style={{justifyContent: "center", display: "grid",margin: "100px",
-    padding: "50px"}}
+    <Form style={{
+      justifyContent: "center", display: "grid", margin: "100px",
+      padding: "50px"
+    }}
       name="basic"
       labelCol={{
         span: 8,
@@ -80,8 +82,8 @@ const Login= () => {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
+      // onFinish={onFinish}
+      // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Form.Item
@@ -94,9 +96,9 @@ const Login= () => {
           { type: "email", message: "Please enter a valid email" },
         ]}
       >
-        <Input   onChange={(e) => {
-                setEmail(e.target.value);
-              }} />
+        <Input onChange={(e) => {
+          setEmail(e.target.value);
+        }} />
       </Form.Item>
 
       <Form.Item
@@ -109,12 +111,12 @@ const Login= () => {
           },
         ]}
       >
-          <Input.Password
-              placeholder="Type your password"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+        <Input.Password
+          placeholder="Type your password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
       </Form.Item>
 
       <Form.Item
@@ -134,9 +136,12 @@ const Login= () => {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit" onClick={login} >
+        <Button type="primary" htmlType="submit" onClick={Login} >
           Login
         </Button>
+        <Row>
+          <h1>{loginStatus}</h1>
+        </Row>
       </Form.Item>
     </Form>
   );

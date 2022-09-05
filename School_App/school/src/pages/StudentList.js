@@ -10,7 +10,7 @@ function StudentList() {
   useEffect(() => {
     getData();
     
-  }, []);
+  },[]);
 
   const getData = async () => {
     await Axios.get('http://localhost:3001/users/student').then(
@@ -39,26 +39,20 @@ function StudentList() {
       }
     );
   };
-
-
   const columns = [ 
     {
     title: "ID",
-    dataIndex: "id",
-    
+    dataIndex: "id",    
   },
     {
       title: "Name",
-      dataIndex: "Name",
-      
+      dataIndex: "Name",      
     },
     {
       title: "Email",
-      dataIndex: "Email",
-      
+      dataIndex: "Email",      
     },
     {
-
       title: "Actions",
             render: (record) => {
               return (
@@ -85,26 +79,22 @@ function StudentList() {
               return pre.filter((student) => student.id !== record.id);
             });
           }
-        })
-    
+        })    
       };
-      const onAddStudent = () => { 
-    
+      const onAddStudent = () => {     
             const newStudent = {
               id:"id",
               name: "Name",
-              email: "Email"
-        
+              email: "Email"        
             }
             setstate((record) => {
-              return [...record, newStudent]
-        
+              return [...record, newStudent]        
             })
           }
     const onEditStudent=(record)=>{
           setEditState(true)
           setEditingStudent({ ...record });
-    }      
+    } 
 
   return (
     <div>

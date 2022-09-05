@@ -1,40 +1,27 @@
-
-import { Routes, Route  } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import Login from "../../pages/Login";
-import Student from "../../pages/Student";
-import Principal from "../../pages/Principal";
-import Staff from "../../pages/Staff";
-import Teacher from "../../pages/Teacher"; 
-import MainHeader from "../LayoutComponent/MainHeader";
+import StudentListComponent from "../StudentListComponent";
+import StaffList from "../StaffList";
 import MainLayout from "../MainLayout";
-import StudentList from "../../pages/StudentList";
 
-
-
-
-function RoutesComponent() {
+const RoutesComponent = () => {
   return (
-    <div>
-    
-      
+    <div>     
       <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/student" element={<Student/>} />
-        <Route path="/dashboard"  element={<MainLayout/>} />
-        <Route path="/staff" element={<Staff /> } />
-        <Route path="/teacher" element={<Teacher/>} />
-        <Route path="/StudentList" key ="StudentList"  element={<StudentList/>} />
- 
-        
-        <Route path="*" />
-    </Routes>
-       
-      
-      
+        {/* <Route path="/" element={<Login/>}/>
+        <Route path="/dashboard"   element={<MainLayout/>} />         */}
+        {/* <Route path="/dashboard"   element={<Dashboard/>} /> */}
+        <Route path="/students" element={<StudentListComponent />} />   
+        <Route path="/staff" element={<StaffList/>} />        
+        {/* <Route path="*" /> */}
+      </Routes>      
     </div>
   );
 }
 export default RoutesComponent;
+
+
+
 
 
 

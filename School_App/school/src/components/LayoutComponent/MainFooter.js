@@ -1,5 +1,5 @@
 import { Footer } from 'antd/lib/layout/layout'
-import React from 'react'
+import React from 'react' 
 const MainFooter = () => {
   return (
     <>
