@@ -2,7 +2,8 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Table, Button, Modal, Input } from "antd";
-
+// require('dotenv').config()
+// const Dotenv = require('dotenv-webpack');
 function StudentListComponent() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
@@ -13,7 +14,10 @@ function StudentListComponent() {
   }, []);
 
   const getData = async () => {
-    await Axios.get('http://localhost:3001/users/student').then(
+    
+    await Axios.get(`http://localhost:3001/users/student`)
+    // console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
+    .then(
       res => {
         setDataSource(
           res.data.map(row => ({
@@ -27,20 +31,19 @@ function StudentListComponent() {
   };
   const updateData = async (id) => {
 
-    await Axios.get(`http://localhost:3001/user/ ${id}`)
-      // .then((res) => {
-      //   console.log(id, "result")
-      //   setDataSource(
-      //     res.data.map(row => ({
-      //       Name: row.name,
-      //       Email: row.email,
-      //       Id: row.id
-      //     }))
-      //   );
-      // }
-      // );
-      .then(data => console.log(data.data))
-  .catch(error => console.log(error));
+    await Axios.put(`http://localhost:3001/user/${id}`)
+      .then((res) => {
+        console.log(id, "result")
+        setDataSource(
+          res.data.map(row => ({
+            Name: row.name,
+            Email: row.email,
+            Id: row.id
+          }))
+        );
+      }
+      )
+      .catch(error => console.log(error));
   };
   const deleteData = async (id) => {
 
@@ -74,11 +77,11 @@ function StudentListComponent() {
         return (
           <>
             <Button onClick={() => {
-              updateData(record.id);
+              // updateData(record.id);
               onEditStudent(record)
             }}> <EditOutlined /></Button>
             <Button onClick={() => {
-              deleteData(record.id); onDeleteStudent(record)
+              onDeleteStudent(record)
             }}><DeleteOutlined
               /></Button>
           </>
@@ -94,6 +97,7 @@ function StudentListComponent() {
       okType: "danger",
       onOk: () => {
         setDataSource(pre => {
+          deleteData(record.id)
           return pre.filter((student) => student.id !== record.id);
         });
       }
@@ -131,8 +135,10 @@ function StudentListComponent() {
         onCancel={() => {
           resetEditing();
         }}
-        onOk={() => {
+        onOk=
+        {() => {
           setDataSource((pre) => {
+            updateData(editingStudent.id)
             return pre.map((student) => {
               if (student.id === editingStudent.id) {
                 return editingStudent;
@@ -142,6 +148,7 @@ function StudentListComponent() {
             });
           });
           setIsEditing(false);
+          
         }}
         >
         <Input
