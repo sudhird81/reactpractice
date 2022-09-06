@@ -11,6 +11,7 @@ import {
 
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+
 import RoutesComponent from "./RoutesComponent";
 import LogInModal from "./components/LogInModal";
 import SignModal from "./components/SignModal";
@@ -37,7 +38,7 @@ const LayoutComponents = () => {
       <>
         <ContactModal
           visible={isModalVisible2}
-        onCancel={() => setIsModalVisible2(false)}
+          onCancel={() => setIsModalVisible2(false)}
 
         />
       </>
@@ -65,15 +66,15 @@ const LayoutComponents = () => {
                   </Menu.Item>
                 </Col> */}
                 <Row justify="space-around">
-                  
-                  <Menu.Item  onClick={() => setIsModalVisible2(true)}>
-                        <p>Contact Us</p>
-                      </Menu.Item>
-                      
-                      
-                      
-                      </Row>
-                      
+
+                  <Menu.Item onClick={() => setIsModalVisible2(true)}>
+                    <p>Contact Us</p>
+                  </Menu.Item>
+
+
+
+                </Row>
+
 
 
 
