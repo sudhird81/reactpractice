@@ -170,44 +170,24 @@ router.delete('/user/:id', (req, res) => {
   });
 });
 // /api/login
-router.post('/login', async (req, res) => {
-
-  const validateEmail = (email) => {
-    return email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-  };
+router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  const roleName = req.body.roleName;
-
-
-  if (validateEmail(email)) 
-  {
-    text(email + ' is valid :)');
-    css('color', 'green');
-  } else {
-    text(email + ' is not valid :(');
-    css('color', 'red');
-  }
-
-
+  const roleName = req.body.roleName
   console.log("Getting result", req)
   db.query(
     "SELECT users.* ,roles.* FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
 
-
-
     [email, password],
     (err, result) => {
       console.log(result, query)
-
       if (err) {
         res.send({ err: err });
         console.log("password check", result)
       }
       if (result.length > 0) {
-
+        // res.send(result);
+        // const email = {email,id}
         const token = jwt.sign(
           {
             email: req.body.email,
@@ -228,8 +208,6 @@ router.post('/login', async (req, res) => {
       } else {
         res.send({ message: "Wrong email/password combination!" });
       }
-
-
     }
   );
 });

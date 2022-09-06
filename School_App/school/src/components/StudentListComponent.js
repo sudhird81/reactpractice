@@ -15,8 +15,8 @@ function StudentListComponent() {
 
   const getData = async () => {
     
-    await Axios.get(`http://localhost:3001/users/student`)
-    // console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
+    await Axios.get(`${process.env. REACT_APP_BASE_URL}/users/student`)
+    console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
     .then(
       res => {
         setDataSource(
@@ -31,7 +31,7 @@ function StudentListComponent() {
   };
   const updateData = async (id) => {
 
-    await Axios.put(`http://localhost:3001/user/${id}`)
+    await Axios.put(`http://localhost:3001/user/ ${id}`)
       .then((res) => {
         console.log(id, "result")
         setDataSource(
@@ -42,8 +42,7 @@ function StudentListComponent() {
           }))
         );
       }
-      )
-      .catch(error => console.log(error));
+      );
   };
   const deleteData = async (id) => {
 

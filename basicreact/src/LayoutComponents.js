@@ -10,7 +10,12 @@ import {
   MenuUnfoldOutlined,
 
 } from "@ant-design/icons";
+<<<<<<< HEAD
+import { Link } from "react-router-dom";
+
+=======
 import { Link,useNavigate } from "react-router-dom";
+>>>>>>> a39d2344d485de3a04549c385297aaeb1120805f
 import RoutesComponent from "./RoutesComponent";
 import LogInModal from "./components/LogInModal";
 import SignModal from "./components/SignModal";
@@ -46,7 +51,7 @@ const LayoutComponents = () => {
       <>
         <ContactModal
           visible={isModalVisible2}
-        onCancel={() => setIsModalVisible2(false)}
+          onCancel={() => setIsModalVisible2(false)}
 
         />
       </>
@@ -74,12 +79,27 @@ const LayoutComponents = () => {
                   </Menu.Item>
                 </Col> */}
                 <Row justify="space-around">
+<<<<<<< HEAD
+
+                  <Menu.Item onClick={() => setIsModalVisible2(true)}>
+                    <p>Contact Us</p>
+                  </Menu.Item>
+
+
+
+                </Row>
+
+
+
+
+=======
                   
                   <Menu.Item  onClick={() => setIsModalVisible2(true)}>
                         <p>Contact Us</p>
                       </Menu.Item>                                        
                       
                 </Row>                 
+>>>>>>> a39d2344d485de3a04549c385297aaeb1120805f
 
                 <Row justify="space-around">
                   <Menu.Item>
