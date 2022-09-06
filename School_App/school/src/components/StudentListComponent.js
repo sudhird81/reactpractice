@@ -14,10 +14,14 @@ function StudentListComponent() {
   }, []);
 
   const getData = async () => {
+<<<<<<< HEAD
     
     await Axios.get(`http://localhost:3001/users/student`)
     // console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
     .then(
+=======
+    await Axios.get(`${process.env.REACT_APP_URL}/users/student`).then(
+>>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
       res => {
         setDataSource(
           res.data.map(row => ({
@@ -31,7 +35,11 @@ function StudentListComponent() {
   };
   const updateData = async (id) => {
 
+<<<<<<< HEAD
     await Axios.put(`http://localhost:3001/user/${id}`)
+=======
+    await Axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
+>>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
       .then((res) => {
         console.log(id, "result")
         setDataSource(
@@ -43,11 +51,15 @@ function StudentListComponent() {
         );
       }
       )
+<<<<<<< HEAD
+=======
+      // .then(data => console.log(data.data))
+>>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
       .catch(error => console.log(error));
   };
   const deleteData = async (id) => {
 
-    await Axios.delete(`http://localhost:3001/user/ ${id}`)
+    await Axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "resif")
         setDataSource(
@@ -91,13 +103,18 @@ function StudentListComponent() {
   ];
   //Delete Student
   const onDeleteStudent = (record) => {
+
     Modal.confirm({
       title: "Are you Sure, you want to delete this student record?",
       okText: "Yes",
       okType: "danger",
       onOk: () => {
         setDataSource(pre => {
+<<<<<<< HEAD
           deleteData(record.id)
+=======
+          deleteData(record.id);
+>>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
           return pre.filter((student) => student.id !== record.id);
         });
       }
@@ -126,7 +143,7 @@ function StudentListComponent() {
 
   return (
     <div>
-      <Button style={{float:"right"}} onClick={onAddStudent}>Add a new Student</Button>
+      <Button style={{ float: "right" }} onClick={onAddStudent}>Add a new Student</Button>
       <Table columns={columns} dataSource={dataSource}></Table>
       <Modal
         title="Edit Student"
@@ -138,7 +155,11 @@ function StudentListComponent() {
         onOk=
         {() => {
           setDataSource((pre) => {
+<<<<<<< HEAD
             updateData(editingStudent.id)
+=======
+            updateData(editingStudent.id);
+>>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
             return pre.map((student) => {
               if (student.id === editingStudent.id) {
                 return editingStudent;
@@ -150,7 +171,7 @@ function StudentListComponent() {
           setIsEditing(false);
           
         }}
-        >
+      >
         <Input
           value={editingStudent?.Name}
           onChange={(e) => {
@@ -173,3 +194,9 @@ function StudentListComponent() {
   );
 };
 export default StudentListComponent;
+
+
+
+
+
+

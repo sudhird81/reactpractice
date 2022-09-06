@@ -8,21 +8,21 @@ const app = express();
 const userRouter = require('./controllers/userController');
 const roleRouter = require('./controllers/rolesController');
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(bodyParser.json());
- 
+
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
- 
+
 app.use(cors());
 
 app.use("/", userRouter);
 app.use("/", roleRouter);
 
 
- 
-app.listen(process.env.PORT,() => console.log('Server is running on port 3001'));
+
+app.listen(process.env.PORT, () => console.log('Server is running on port 3001'));
 
 
 
@@ -69,7 +69,7 @@ app.get("/", (req, res) => {
 //           Authorization: []
 //       }]
 //   },
-//   host: "localhost:3001",    
+//   host: "localhost:3001",
 //   apis: ['server.js'],
 // };
 
@@ -85,7 +85,7 @@ app.get("/", (req, res) => {
  *    responses:
  *    200:
  *      description: success
- * 
+ *
  */
 // app.get('/school',(req,res) =>{
 //   res.send([

@@ -13,7 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const Login = () => {
-    axios.post("http://localhost:3001/login", {
+    console.log(process.env.REACT_APP_NAME)
+    axios.post(`${process.env.REACT_APP_URL}/login`, {
       email: email,
       password: password,
 

@@ -7,7 +7,7 @@ function App() {
   console.log(process.env.REACT_APP_BASE_URL, "test base url")
   return (
     <>
-      <MainLayout /> 
+      <MainLayout />
     </>
   );
 }

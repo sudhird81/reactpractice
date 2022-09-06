@@ -10,9 +10,15 @@ const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+<<<<<<< HEAD:basicreact/src/RoutesComponent.js
+      <Route path="/about" element={<About />} />
+      <Route path="/contactmodal" element={<ContactModal />} />
+      <Route path="/signmodal" element={<SignModal />} />
+=======
       <Route path="/about" element={<About/>} />
       <Route path="/contactmodal" element={<ContactModal /> } />
       {/* <Route path="/signmodal" element={<SignModal/>} /> */}
+>>>>>>> a39d2344d485de3a04549c385297aaeb1120805f:basicreact/src/RoutesComponent.back.js
       <Route path="*" />
     </Routes>
   );
