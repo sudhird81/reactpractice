@@ -1,28 +1,67 @@
-import React from "react";
-// import { GoogleLogin } from 'react-google-login';
-import { Form, Input, Button, Row,  } from "antd";
-import { useState } from "react";
-import axios from "axios";
-const Login = () => {
+import { Button, Checkbox, Form, Input } from 'antd';
+// import Password from 'antd/lib/input/Password';
+import React from 'react';
+import { useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
+import axios from "axios"; 
+
+const Login= () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+  const navigate = useNavigate();
 
    const login = () => {
+ 
+
       axios.post("http://localhost:3001/login",{
       
         email: email,
         password: password,    
 
       }).then((response) => {
+        console.log(response);
         if (response.data.message){
           setLoginStatus(response.data.message)
         }
         else{
           setLoginStatus(response.data[0].email)
         };
-            
+        console.log(response.data)
+        localStorage.setItem('access_token1',JSON.stringify(response.data.token))
+
+    
+        const role = response.data.user.name
+   console.log(role,'role');
+   
+        if(role === "Principal") {
+          navigate('/dashboard/principal');
+        }
+        else if(role === "Teacher") {
+          navigate('/Teacher');
+        }
+        else if(role === "Student") {
+          navigate('/dashboard/Stundent');
+        }
+
+        else if(role === "Staff"){
+          navigate('/Staff')
+        }
+
+          else if(role === "Staff") {
+
+            navigate('/Staff');
+          }
+        
+        else if(role==="Principal"){
+          navigate('/Principal')
+
+        }
+        
+
       });
+      
    } ;
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -38,118 +77,79 @@ const Login = () => {
   // const onLoginFailure = (errorInfo) => {
   //   console.log('Failed:', errorInfo);
   // };
-
   return (
-    <>
-      <Row justify="center">
-        <Form
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              {
-                message: "Please enter your email",
-              },
-              { type: "email", message: "Please enter a valid email" },
-            ]}
-            hasFeedback
-          >
-            <Input
-              placeholder="Type your email"
-              onChange={(e) => {
+    <Form style={{justifyContent: "center", display: "grid",margin: "100px",
+    padding: "50px"}}
+      name="basic"
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 16,
+      }}
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+          },
+          { type: "email", message: "Please enter a valid email" },
+        ]}
+      >
+        <Input   onChange={(e) => {
                 setEmail(e.target.value);
-              }}
-            />
-          </Form.Item>
+              }} />
+      </Form.Item>
 
-          <Form.Item
-            name="password"
-            label="Password"
-            rules={[{ min: 6 }]}
-            hasFeedback
-          >
-            <Input.Password
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+          <Input.Password
               placeholder="Type your password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
-          </Form.Item>
+      </Form.Item>
 
-          {/* <GoogleLogin 
-            style={{width:"100% !important", justifyContent:"center"}}
-                    clientId="26243695013-vqdma1ktsnsqrcvreh6p7s9imtjtakki.apps.googleusercontent.com"
-                    buttonText="Login with Google"
-                    onSuccess={onLoginSuccess}
-                    onFailure={onLoginFailure}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={true}/> */}
+      <Form.Item
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
 
-          <Row justify="center">
-            <Form.Item>
-              <Button type="primary" htmlType="submit" onClick={login} block>
-                Login
-              </Button>
-            </Form.Item>
-          </Row>
-          <Row>
-            <h1>{loginStatus}</h1>
-          </Row>
-        </Form>
-      </Row>
-    </>
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit" onClick={login} >
+          Login
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
+
 export default Login;
-
-// import React from "react";
-// import { GoogleLogin } from 'react-google-login';
-// import { Form, Input,Button, Row, Col} from "antd"
-
-// const Login = () => {
-
-//  const onLoginSuccess = (response) => {
-//     console.log('Success:', response);
-//   };
-
-//   const onLoginFailure = (errorInfo) => {
-//     console.log('Failed:', errorInfo);
-//   };
-//   return (
-//     <>
-//     <Row>
-//     <Col span="8"></Col>
-//     <Col span="8">  <Form>
-//              <Form.Item name="email" label="Email">
-//               <Input placeholder="Type your email" />
-//             </Form.Item>
-//             <Form.Item name="password" label="Password">
-//               <Input placeholder="Type your password" />
-//             </Form.Item>
-//             <GoogleLogin
-//             style={{width:"100% !important", justifyContent:"center"}}
-//                     clientId="26243695013-vqdma1ktsnsqrcvreh6p7s9imtjtakki.apps.googleusercontent.com"
-//                     buttonText="Login with Google"
-//                     onSuccess={onLoginSuccess}
-//                     onFailure={onLoginFailure}
-//                     cookiePolicy={'single_host_origin'}
-//                     isSignedIn={true}
-//                 />
-//               <Form.Item >
-//                 <Button style={{ width: "100%" }} type="primary" htmlType="submit">Login</Button>
-//               </Form.Item>
-//             </Form></Col>
-//     <Col span="8"></Col>
-
-//      </Row>
-
-//     </>
-//   )
-// }
-// export default Login;

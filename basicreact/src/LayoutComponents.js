@@ -10,19 +10,32 @@ import {
   MenuUnfoldOutlined,
 
 } from "@ant-design/icons";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 
+=======
+import { Link,useNavigate } from "react-router-dom";
+>>>>>>> a39d2344d485de3a04549c385297aaeb1120805f
 import RoutesComponent from "./RoutesComponent";
 import LogInModal from "./components/LogInModal";
 import SignModal from "./components/SignModal";
 import ContactModal from "./components/ContactModal";
 
-const { Header, Content, Sider, Footer } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const LayoutComponents = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
+
+  const token = localStorage.getItem('access_token1');
+  console.log(token)
+  const navigate = useNavigate();
+  const logout =()=>{
+    localStorage.clear();
+    navigate('/login')
+  }
+
 
   return (
 
@@ -42,7 +55,7 @@ const LayoutComponents = () => {
 
         />
       </>
-      <Layout>
+      <Layout >
         <Sider></Sider>
         <Layout>
           <Header style={{ padding: "0" }}>
@@ -66,6 +79,7 @@ const LayoutComponents = () => {
                   </Menu.Item>
                 </Col> */}
                 <Row justify="space-around">
+<<<<<<< HEAD
 
                   <Menu.Item onClick={() => setIsModalVisible2(true)}>
                     <p>Contact Us</p>
@@ -78,6 +92,14 @@ const LayoutComponents = () => {
 
 
 
+=======
+                  
+                  <Menu.Item  onClick={() => setIsModalVisible2(true)}>
+                        <p>Contact Us</p>
+                      </Menu.Item>                                        
+                      
+                </Row>                 
+>>>>>>> a39d2344d485de3a04549c385297aaeb1120805f
 
                 <Row justify="space-around">
                   <Menu.Item>
@@ -86,6 +108,18 @@ const LayoutComponents = () => {
                       key="SubMenu"
                       icon={<MenuUnfoldOutlined />}
                     >
+
+                      { token ?
+                        <Menu.Item
+                        icon={<UserAddOutlined />}
+                        onClick={logout}
+                      >
+                        <Link to="#">
+                          Logout
+                        </Link>
+                      </Menu.Item> 
+                      :
+                      <>
                       <Menu.Item icon={<AppstoreOutlined />} onClick={() => setIsModalVisible1(true)}>
                         <Link to="#">SignUp</Link>
                       </Menu.Item>
@@ -97,6 +131,8 @@ const LayoutComponents = () => {
                           Login
                         </Link>
                       </Menu.Item>
+                      </>
+                      }
                     </Menu.SubMenu>
                   </Menu.Item>
                 </Row>
@@ -108,7 +144,7 @@ const LayoutComponents = () => {
             {" "}
             <RoutesComponent />
           </Content>
-          <Footer>THANKU!</Footer>
+          
         </Layout>
       </Layout>
     </>
