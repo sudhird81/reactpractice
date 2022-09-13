@@ -208,6 +208,7 @@ router.post('/login', (req, res) => {
       } else {
         res.send({ message: "Wrong email/password combination!" });
       }
+<<<<<<< HEAD
     }
   );
 });
@@ -218,9 +219,12 @@ router.get("/users/teacher", (req, res) => {
     (err, result) => {
       // console.log(result);
       return res.json(result);
+=======
+>>>>>>> 3ddf08446515e0396e3d0e3f5764fe1d7fac11bd
     }
   )
 });
+<<<<<<< HEAD
 // /api/user/add
 router.post('/stu/profile', (req, res) => {
 
@@ -319,6 +323,8 @@ router.get("/class/student/:id", (req, res) => {
   )
 });
 
+=======
+>>>>>>> 3ddf08446515e0396e3d0e3f5764fe1d7fac11bd
 module.exports = router;
 // export default router
 
