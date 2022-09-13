@@ -15,7 +15,7 @@ function StudentListComponent() {
 
   const getData = async () => {
     
-    await Axios.get(`${process.env. REACT_APP_BASE_URL}/users/student`)
+    await Axios.get(`http://localhost:3001/users/student`)
     console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
     .then(
       res => {

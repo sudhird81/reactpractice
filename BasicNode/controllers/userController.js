@@ -70,7 +70,7 @@ router.post('/user', (req, res) => {
 
   var role_id = req.body.role_id;
 
-  var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
+  var sql = "INSERT INTO users (name, email, password, role_id,class_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
   console.log(sql);
   db.query(
     sql,
@@ -211,5 +211,47 @@ router.post('/login', (req, res) => {
     }
   );
 });
+
+
+router.post('/class/table', (req, res) => {
+  var class_name = req.body.class_name;
+  
+var sql = "INSERT INTO classes (class_name) VALUES ('"+class_name+"');";
+console.log(sql);
+db.query(
+  sql,
+  (err, result) => {
+    if(err){
+      var response = {
+        errorcode : err.code,
+        message : 'Got Error'
+      };
+      return res.json(response);
+    }
+    console.log(err);
+    console.log(result);
+    if(result){
+      var response = {
+        success : 'success',
+        message : 'User Got inserted'
+     
+      };
+  
+      return res.json(response);
+    }
+  });  
+
+});
+
+router.get("/class/student", (req, res) => {
+  db.query(
+    `SELECT * FROM  users where id=?;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
+
 module.exports = router;
 // export default router 
