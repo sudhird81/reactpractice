@@ -4,13 +4,20 @@ var conn = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database:'mydata'
+  database: 'mydata'
 });
 
-conn.connect(function(err) {
+conn.connect(function (err) {
   if (err) throw err;
   console.log("Database is connected successfully!");
 
-  
 });
 module.exports = conn;
+
+
+
+
+
+
+
+

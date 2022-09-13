@@ -1,7 +1,9 @@
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Table, Button, Modal, Input } from "antd";
+// import ShowProfile from "./ShowProfile";
+
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
 function StudentListComponent() {
@@ -10,18 +12,17 @@ function StudentListComponent() {
   const [dataSource, setDataSource] = useState([])
   useEffect(() => {
     getData();
-
+    // showdata();
   }, []);
 
+  const showdata = () => {
+    // <ShowProfile />
+    // window.alert("hello")
+    console.log("hello")
+  }
+
   const getData = async () => {
-<<<<<<< HEAD
-    
-    await Axios.get(`http://localhost:3001/users/student`)
-    // console.log(process.env.REACT_APP_BASE_URL,"vhhhdwgd")
-    .then(
-=======
-    await Axios.get(`${process.env.REACT_APP_URL}/users/student`).then(
->>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
+    await axios.get(`${process.env.REACT_APP_URL}/users/student`).then(
       res => {
         setDataSource(
           res.data.map(row => ({
@@ -34,12 +35,7 @@ function StudentListComponent() {
     );
   };
   const updateData = async (id) => {
-
-<<<<<<< HEAD
-    await Axios.put(`http://localhost:3001/user/${id}`)
-=======
-    await Axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
->>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
+    await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "result")
         setDataSource(
@@ -51,15 +47,11 @@ function StudentListComponent() {
         );
       }
       )
-<<<<<<< HEAD
-=======
       // .then(data => console.log(data.data))
->>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
       .catch(error => console.log(error));
   };
   const deleteData = async (id) => {
-
-    await Axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
+    await axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "resif")
         setDataSource(
@@ -88,6 +80,7 @@ function StudentListComponent() {
       render: (record) => {
         return (
           <>
+            <Button onclick={showdata}><EyeOutlined /></Button>
             <Button onClick={() => {
               // updateData(record.id);
               onEditStudent(record)
@@ -96,6 +89,7 @@ function StudentListComponent() {
               onDeleteStudent(record)
             }}><DeleteOutlined
               /></Button>
+
           </>
         )
       }
@@ -110,11 +104,7 @@ function StudentListComponent() {
       okType: "danger",
       onOk: () => {
         setDataSource(pre => {
-<<<<<<< HEAD
           deleteData(record.id)
-=======
-          deleteData(record.id);
->>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
           return pre.filter((student) => student.id !== record.id);
         });
       }
@@ -131,7 +121,7 @@ function StudentListComponent() {
       return [...record, newStudent]
     })
   }
-  //Edit Studet
+  //Edit Student
   const onEditStudent = (record) => {
     setIsEditing(true);
     setEditingStudent({ ...record });
@@ -155,11 +145,7 @@ function StudentListComponent() {
         onOk=
         {() => {
           setDataSource((pre) => {
-<<<<<<< HEAD
-            updateData(editingStudent.id)
-=======
             updateData(editingStudent.id);
->>>>>>> 67ded9a8d33c66b3af6bac6ce6c4ba8cffcb6a7e
             return pre.map((student) => {
               if (student.id === editingStudent.id) {
                 return editingStudent;
@@ -169,7 +155,7 @@ function StudentListComponent() {
             });
           });
           setIsEditing(false);
-          
+
         }}
       >
         <Input
@@ -194,6 +180,14 @@ function StudentListComponent() {
   );
 };
 export default StudentListComponent;
+
+
+
+
+
+
+
+
 
 
 

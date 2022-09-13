@@ -69,8 +69,8 @@ router.post('/user', (req, res) => {
   });
 
   var role_id = req.body.role_id;
-
-  var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
+  var class_id = req.body.class_id;
+  var sql = "INSERT INTO users (name, email, password, role_id,class_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "','" + class_id + "');";
   console.log(sql);
   db.query(
     sql,
@@ -211,5 +211,124 @@ router.post('/login', (req, res) => {
     }
   );
 });
+
+router.get("/users/teacher", (req, res) => {
+  db.query(
+    `SELECT * FROM  users where role_id=1;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
+// /api/user/add
+router.post('/stu/profile', (req, res) => {
+
+  // let hash = bcrypt.hashSync(req.body.password, saltRounds);
+
+  var user_id = req.body.user_id;
+  // console.log(name);
+  var class_name = req.body.class_name;
+
+  var sql = "INSERT INTO student_table (user_id, classs) VALUES ('" + user_id + "','" + class_name + "');";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
+
+        };
+      }
+    });
+});
+router.post('/class/table', (req, res) => {
+  var class_name = req.body.class_name;
+
+  var sql = "INSERT INTO classes (class_name) VALUES ('" + class_name + "');";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
+
+        };
+
+        return res.json(response);
+      }
+    });
+
+});
+
+router.get('/get-class-list', (req, res) => {
+  db.query(
+    "SELECT users.id,users.name as userName,users.email, classes.class_name as class_name FROM users left JOIN classes on classes.id = users.class_id",
+    (err, result) => {
+      console.log(result)
+      if (err) {
+        const response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      // console.log(err);
+      // console.log(res);
+      if (res) {
+        const response = {
+          success: 'success',
+          message: 'Users List has been updated',
+          data: result
+        };
+        return res.json(response);
+      }
+
+    })
+});
+
+router.get("/class/student/:id", (req, res) => {
+  db.query(
+    `SELECT * FROM  users WHERE id=?;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
+
 module.exports = router;
-// export default router 
+// export default router
+
+
+
+
+
+
+
+
+
+
+
