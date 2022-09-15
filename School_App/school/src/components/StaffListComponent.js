@@ -6,7 +6,7 @@ import { Table, Button, Modal, Input } from "antd";
 
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
-function TeacherListComponent() {
+function StaffListComponent() {
     const [isEditing, setIsEditing] = useState(false);
     const [editingStudent, setEditingStudent] = useState(null);
     const [dataSource, setDataSource] = useState([])
@@ -22,7 +22,7 @@ function TeacherListComponent() {
     }
 
     const getData = async () => {
-        await axios.get(`${process.env.REACT_APP_URL}/users/teacher`).then(
+        await axios.get(`${process.env.REACT_APP_URL}/users/staff`).then(
             res => {
                 setDataSource(
                     res.data.map(row => ({
@@ -179,4 +179,4 @@ function TeacherListComponent() {
         </div>
     );
 };
-export default TeacherListComponent;
+export default StaffListComponent;

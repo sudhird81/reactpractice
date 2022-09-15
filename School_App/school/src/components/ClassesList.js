@@ -6,10 +6,13 @@ const { Option } = Select;
 
 const ClassesList = () => {
     const [className, setClassName] = useState("");
+    const [sectionName, setSectionName] = useState("");
+
     const handleSubmit = () => {
         console.log(process.env.REACT_APP_NAME)
         axios.post(`${process.env.REACT_APP_URL}/stu/profile`, {
             class_name: className,
+            section_name: sectionName
         }).then(response => console.log("prince", response))
     }
 
@@ -34,16 +37,18 @@ const ClassesList = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
-        >   <Form.Item
-            label="Class"
-            name="class"
-            rules={[
-                {
-                    required: true,
-                    message: 'Please input your class',
-                },
-            ]}
         >
+
+            <Form.Item
+                label="Class"
+                name="class"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your class',
+                    },
+                ]}
+            >
 
                 <Select placeholder="Select a class" onChange={(e) => {
                     setClassName({ value: e.target.value });
@@ -58,6 +63,27 @@ const ClassesList = () => {
                     <Option value="class VIII">Class VIII</Option>
                     <Option value="class IX">Class IX</Option>
                     <Option value="class X">Class X</Option>
+
+                </Select>
+            </Form.Item>
+            <Form.Item
+                label="Section"
+                name="section"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input your class section',
+                    },
+                ]}
+            >
+
+                <Select placeholder="Select a section" onChange={(e) => {
+                    setSectionName({ value: e.target.value });
+                }}>
+                    <Option value="section a">Section A</Option>
+                    <Option value="section b">Section B</Option>
+                    <Option value="section c">lSection C </Option>
+
 
                 </Select>
             </Form.Item>

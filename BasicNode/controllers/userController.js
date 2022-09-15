@@ -18,7 +18,8 @@ const generator = require('generate-password');
 const { title } = require('process');
 
 
-// /api/users/get
+
+// /api/users / get
 router.get("/users", (req, res) => {
   db.query(
     `SELECT * FROM  users;`,
@@ -28,6 +29,20 @@ router.get("/users", (req, res) => {
     }
   )
 });
+
+// router.get("/users", (req, res) => {
+//   console.log(req.body.role, "mydata")
+//   db.query(
+//     `SELECT * FROM  users where role_id = ` + req.body.role,
+//     (err, result) => {
+//       // console.log(result);
+//       return res.json(result);
+//     }
+//   )
+// });
+
+
+
 router.get("/users/student", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=2;`,
@@ -69,8 +84,8 @@ router.post('/user', (req, res) => {
   });
 
   var role_id = req.body.role_id;
-  var class_id = req.body.class_id;
-  var sql = "INSERT INTO users (name, email, password, role_id,class_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "','" + class_id + "');";
+
+  var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
   console.log(sql);
   db.query(
     sql,
@@ -198,6 +213,7 @@ router.post('/login', (req, res) => {
             expiresIn: "2h",
           }
         );
+
         const userDetais = result[0];
         delete userDetais.password;
         return res.status(200).send({
@@ -208,10 +224,10 @@ router.post('/login', (req, res) => {
       } else {
         res.send({ message: "Wrong email/password combination!" });
       }
-<<<<<<< HEAD
     }
   );
 });
+
 
 router.get("/users/teacher", (req, res) => {
   db.query(
@@ -219,12 +235,9 @@ router.get("/users/teacher", (req, res) => {
     (err, result) => {
       // console.log(result);
       return res.json(result);
-=======
->>>>>>> 3ddf08446515e0396e3d0e3f5764fe1d7fac11bd
     }
   )
 });
-<<<<<<< HEAD
 // /api/user/add
 router.post('/stu/profile', (req, res) => {
 
@@ -323,8 +336,6 @@ router.get("/class/student/:id", (req, res) => {
   )
 });
 
-=======
->>>>>>> 3ddf08446515e0396e3d0e3f5764fe1d7fac11bd
 module.exports = router;
 // export default router
 

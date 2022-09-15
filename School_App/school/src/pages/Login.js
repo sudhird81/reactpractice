@@ -2,7 +2,7 @@ import { Button, Checkbox, Form, Input, Row } from 'antd';
 // import Password from 'antd/lib/input/Password';
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const Login = () => {
     console.log(process.env.REACT_APP_NAME)
@@ -149,3 +149,13 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
