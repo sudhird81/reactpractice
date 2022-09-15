@@ -19,9 +19,10 @@ const { title } = require('process');
 
 
 // /api/users/get
-router.get("/users", (req, res) => {
+router.get("/users/:role", (req, res) => {
+  const payload = [req.body.role,];
   db.query(
-    `SELECT * FROM  users;`,
+    `SELECT * FROM  users WHERE role=?`,payload,
     (err, result) => {
       // console.log(result);
       return res.json(result);
@@ -62,15 +63,15 @@ router.post('/user', (req, res) => {
 
   var name = req.body.name;
   console.log(name);
-  var email = req.body.email;
-  var password = generator.generate({
+  var email = req.bodey.email;
+  var password = genrator.generate({
     length: 10,
     numbers: true
   });
 
   var role_id = req.body.role_id;
 
-  var sql = "INSERT INTO users (name, email, password, role_id,class_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
+  var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
   console.log(sql);
   db.query(
     sql,
@@ -176,7 +177,7 @@ router.post('/login', (req, res) => {
   const roleName = req.body.roleName
   console.log("Getting result", req)
   db.query(
-    "SELECT users.* ,roles.* FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
+    "SELECT users. ,roles. FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
 
     [email, password],
     (err, result) => {
@@ -212,40 +213,20 @@ router.post('/login', (req, res) => {
   );
 });
 
-
-router.post('/class/table', (req, res) => {
-  var class_name = req.body.class_name;
-  
-var sql = "INSERT INTO classes (class_name) VALUES ('"+class_name+"');";
-console.log(sql);
-db.query(
-  sql,
-  (err, result) => {
-    if(err){
-      var response = {
-        errorcode : err.code,
-        message : 'Got Error'
-      };
-      return res.json(response);
-    }
-    console.log(err);
-    console.log(result);
-    if(result){
-      var response = {
-        success : 'success',
-        message : 'User Got inserted'
-     
-      };
-  
-      return res.json(response);
-    }
-  });  
-
-});
-
-router.get("/class/student", (req, res) => {
+router.get("/users/teacher", (req, res) => {
   db.query(
-    `SELECT * FROM  users where id=?;`,
+    `SELECT * FROM  users where role_id=1;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
+// /api/user/add
+
+router.get("/student/profile/:user_id", (req, res) => {
+  db.query(
+    `SELECT * FROM profile WHERE user_id=?;`,
     (err, result) => {
       // console.log(result);
       return res.json(result);
@@ -253,5 +234,69 @@ router.get("/class/student", (req, res) => {
   )
 });
 
+router.post('/student/profile/:user_id', (req, res) => {
+  var class_name = req.body.class_name;
+  var section = req.body.section;
+    
+  var sql = "INSERT INTO users (class_name, section) VALUES ('" + class_name + "','" + section + "') WHERE user_id=?";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
+        };
+        return res.json(response);
+      }
+    });
+});
+
+router.get("/profile/:user_id", (req, res) => {
+  db.query(
+    `SELECT * FROM profile WHERE user_id=?;`,
+    (err, result) => {
+      console.log(result);
+      return res.json(result);
+    }
+  )
+});
+
+
+router.get('/student/profile/', (req, res) => {
+  db.query(
+    "SELECT users.*, profile.* FROM users INNER JOIN profile ON users.id=profile.user_id",
+    (err, result) => {
+      console.log(result)
+      if (err) {
+        const response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      // console.log(err);
+      // console.log(res);
+      if (res) {
+        const response = {
+          success: 'success',
+          message: 'Users List has been updated',
+          data: result
+        };
+        return res.json(response);
+      }
+
+    })
+});
 module.exports = router;
-// export default router 
+// export default router
