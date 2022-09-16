@@ -18,17 +18,30 @@ const generator = require('generate-password');
 const { title } = require('process');
 
 
-// /api/users/get
-router.get("/users/:role", (req, res) => {
-  const payload = [req.body.role,];
+
+// /api/users / get
+router.get("/users", (req, res) => {
   db.query(
-    `SELECT * FROM  users WHERE role=?`,payload,
+    `SELECT * FROM  users;`,
     (err, result) => {
       // console.log(result);
       return res.json(result);
     }
   )
 });
+
+
+// router.get("/users", (req, res) => {
+//   console.log(req.body.role, "mydata")
+//   db.query(
+//     `SELECT * FROM  users where role_id = ` + req.body.role,
+//     (err, result) => {
+//       // console.log(result);
+//       return res.json(result);
+//     }
+//   )
+// });
+
 router.get("/users/student", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=2;`,
@@ -63,8 +76,8 @@ router.post('/user', (req, res) => {
 
   var name = req.body.name;
   console.log(name);
-  var email = req.bodey.email;
-  var password = genrator.generate({
+  var email = req.body.email;
+  var password = generator.generate({
     length: 10,
     numbers: true
   });
@@ -177,7 +190,7 @@ router.post('/login', (req, res) => {
   const roleName = req.body.roleName
   console.log("Getting result", req)
   db.query(
-    "SELECT users. ,roles. FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
+    "SELECT users.* ,roles.* FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
 
     [email, password],
     (err, result) => {
@@ -199,6 +212,7 @@ router.post('/login', (req, res) => {
             expiresIn: "2h",
           }
         );
+
         const userDetais = result[0];
         delete userDetais.password;
         return res.status(200).send({
@@ -213,32 +227,25 @@ router.post('/login', (req, res) => {
   );
 });
 
-router.get("/users/teacher", (req, res) => {
+router.get("/profile", (req, res) => {
+  console.log(req.params.user_id, "mydata")
   db.query(
-    `SELECT * FROM  users where role_id=1;`,
+    `SELECT * FROM profile WHERE user_id=`+ req.params.user_id,
     (err, result) => {
-      // console.log(result);
+      console.log(result);
       return res.json(result);
     }
   )
 });
 // /api/user/add
-
-router.get("/student/profile/:user_id", (req, res) => {
-  db.query(
-    `SELECT * FROM profile WHERE user_id=?;`,
-    (err, result) => {
-      // console.log(result);
-      return res.json(result);
-    }
-  )
-});
-
-router.post('/student/profile/:user_id', (req, res) => {
+router.post('/student/profile/', (req, res) => {
+  // const user_id = [req.body.params.id];
+  console.log(req.params.user_id, "get");
+  var user_id = req.body.user_id;
   var class_name = req.body.class_name;
   var section = req.body.section;
-    
-  var sql = "INSERT INTO users (class_name, section) VALUES ('" + class_name + "','" + section + "') WHERE user_id=?";
+
+  var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')" ;
   console.log(sql);
   db.query(
     sql,
@@ -261,17 +268,107 @@ router.post('/student/profile/:user_id', (req, res) => {
       }
     });
 });
+//option profile
 
-router.get("/profile/:user_id", (req, res) => {
+router.options('/profile/:user_id',(req,res)=>{
+  const data = [req.body.class_name,req.body.section, req.params.id];
   db.query(
-    `SELECT * FROM profile WHERE user_id=?;`,
+    `SELECT * FROM profile WHERE user_id=`+ req.params.user_id,
     (err, result) => {
       console.log(result);
       return res.json(result);
     }
   )
-});
+  if(result = Null)
+  {
+    var user_id = req.body.user_id;
+    var class_name = req.body.class_name;
+    var section = req.body.section;
+  
+    var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')" ;
+    console.log(sql);
+    db.query(
+      sql,
+      (err, result) => {
+        if (err) {
+          var response = {
+            errorcode: err.code,
+            message: 'Got Error'
+          };
+          return res.json(response);
+        }
+        console.log(err);
+        console.log(result);
+        if (result) {
+          var response = {
+            success: 'success',
+            message: 'User Got inserted'
+          };
+          return res.json(response);
+        }
+      });
+  }else{
+    const data = [req.body.class_name,req.body.section, req.params.id];
+    db.query("UPDATE profile SET class_name = ?,section =? where user_id =? ", data, (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got Updated'
+        };
+        return res.json(response);
+      }
+    });
+  }
+})
 
+
+
+//profile update
+router.put('/student/profile/:user_id', (req, res) => {
+  const data = [req.body.class_name,req.body.section, req.params.id];
+db.query(`SELECT * FROM profile WHERE user_id=?`)
+result
+if(result = Null) 
+{ 
+  db.query("INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')")
+}else{
+  db.query()
+}
+
+
+
+
+
+
+
+  db.query("UPDATE profile SET class_name = ?,section =? where user_id =? ", data, (err, result) => {
+    if (err) {
+      var response = {
+        errorcode: err.code,
+        message: 'Got Error'
+      };
+      return res.json(response);
+    }
+    console.log(err);
+    console.log(result);
+    if (result) {
+      var response = {
+        success: 'success',
+        message: 'User Got Updated'
+      };
+      return res.json(response);
+    }
+  });
+});
 
 router.get('/student/profile/', (req, res) => {
   db.query(
