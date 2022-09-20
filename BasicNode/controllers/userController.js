@@ -10,7 +10,7 @@ const db = require('./../db');
 const app = express();
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-const { query } = require('express');
+const { query, response } = require('express');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 jwtkey = "jwt"
@@ -230,7 +230,7 @@ router.post('/login', (req, res) => {
 router.get("/profile", (req, res) => {
   console.log(req.params.user_id, "mydata")
   db.query(
-    `SELECT * FROM profile WHERE user_id=`+ req.params.user_id,
+    `SELECT * FROM profile WHERE user_id=` + req.params.user_id,
     (err, result) => {
       console.log(result);
       return res.json(result);
@@ -245,7 +245,7 @@ router.post('/student/profile/', (req, res) => {
   var class_name = req.body.class_name;
   var section = req.body.section;
 
-  var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')" ;
+  var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')";
   console.log(sql);
   db.query(
     sql,
@@ -268,107 +268,77 @@ router.post('/student/profile/', (req, res) => {
       }
     });
 });
-//option profile
 
-router.options('/profile/:user_id',(req,res)=>{
-  const data = [req.body.class_name,req.body.section, req.params.id];
-  db.query(
-    `SELECT * FROM profile WHERE user_id=`+ req.params.user_id,
-    (err, result) => {
-      console.log(result);
-      return res.json(result);
+//students profile
+router.post('/profile/:user_id', (req, res) => {
+
+  const data = [req.body.class_name, req.body.section, req.params.user_id];
+  db.query(`SELECT * FROM profile WHERE user_id=?`, data, (err, result) => {
+    console.log(err);
+    console.log(result, "result is here")
+    // return res.json(result);
+
+    if (result.length <= 0) {
+      var user_id = req.body.user_id;
+      var class_name = req.body.class_name;
+      var section = req.body.section;
+      var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')";
+      console.log(sql);
+      db.query(
+        sql,
+        (err, result) => {
+          if (err) {
+            var response = {
+              errorcode: err.code,
+              message: 'Got Error'
+            };
+            console.log(response,"get error")
+            // return res.json(response);
+          }
+          console.log(err);
+          console.log(result);
+          if (result) {
+            var response = {
+              success: 'success',
+              message: 'User Got inserted'
+            };
+            console.log(response)
+            return res.json(response);
+          }
+        })
     }
-  )
-  if(result = Null)
-  {
-    var user_id = req.body.user_id;
-    var class_name = req.body.class_name;
-    var section = req.body.section;
-  
-    var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')" ;
-    console.log(sql);
-    db.query(
-      sql,
-      (err, result) => {
+    else 
+    {
+      const data = [req.body.class_name, req.body.section, req.params.user_id];
+      db.query("UPDATE profile SET class_name = '" + req.body.class_name + "',section ='" + req.body.section + "' where user_id =" + req.params.user_id + " ", (err, result) => {
         if (err) {
           var response = {
             errorcode: err.code,
             message: 'Got Error'
           };
-          return res.json(response);
+          console.log(response)
+          // return res.json(response);
         }
         console.log(err);
         console.log(result);
-        if (result) {
+        if (result)  {
           var response = {
             success: 'success',
-            message: 'User Got inserted'
+            message: 'User Got Updated'
           };
-          return res.json(response);
+          console.log(response)
+          // return res.json(response);
         }
-      });
-  }else{
-    const data = [req.body.class_name,req.body.section, req.params.id];
-    db.query("UPDATE profile SET class_name = ?,section =? where user_id =? ", data, (err, result) => {
-      if (err) {
-        var response = {
-          errorcode: err.code,
-          message: 'Got Error'
-        };
-        return res.json(response);
       }
-      console.log(err);
-      console.log(result);
-      if (result) {
-        var response = {
-          success: 'success',
-          message: 'User Got Updated'
-        };
-        return res.json(response);
-      }
-    });
-  }
-})
-
-
-
-//profile update
-router.put('/student/profile/:user_id', (req, res) => {
-  const data = [req.body.class_name,req.body.section, req.params.id];
-db.query(`SELECT * FROM profile WHERE user_id=?`)
-result
-if(result = Null) 
-{ 
-  db.query("INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')")
-}else{
-  db.query()
-}
-
-
-
-
-
-
-
-  db.query("UPDATE profile SET class_name = ?,section =? where user_id =? ", data, (err, result) => {
-    if (err) {
-      var response = {
-        errorcode: err.code,
-        message: 'Got Error'
-      };
-      return res.json(response);
+      )
     }
-    console.log(err);
-    console.log(result);
-    if (result) {
-      var response = {
-        success: 'success',
-        message: 'User Got Updated'
-      };
-      return res.json(response);
-    }
-  });
+    
+  })
+// return res.json(result);
+  
 });
+
+
 
 router.get('/student/profile/', (req, res) => {
   db.query(
