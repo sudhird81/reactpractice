@@ -11,36 +11,37 @@ const { Option } = Select;
 function StudentListComponent() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
-  const [dataSource, setDataSource] = useState([])
-  const [saveData, setSaveData] = useState(false)
-  const [addData, setAddData] = useState(null)
+  const [dataSource, setDataSource] = useState([]);
+  const [saveData, setSaveData] = useState(false);
+  const [addData, setAddData] = useState(null);
+  const [class_name, setClass_name] = useState('');
+  const [section, setSection] = useState('');
 
   useEffect(() => {
     getData();
     // showdata();
   }, []);
-
   // const showData = () => {
   //   // <ShowProfile />
   //   // window.alert("hello")
   //   console.log("yhuregfyuregyfug")
   //   // <ClassesList />
   // }
+  // const Showdata = () => {
+  //   axios.post("/", {
+  //     name: setAddData.name
 
-
-  const Showdata = () => {
-    axios.post("/", {
-      name: setAddData.name
-
-    }.then((response) => {
-      console.log(response)
-    }))
-  }
+  //   }.then((response) => {
+  //     console.log(response)
+  //   }))
+  // }
 
   const getData = async () => {
-    // const payload = { role: "student",id:"id" }
-    // console.log("here i am ", payload)
-    await axios.get('http://localhost:3001/users/').then(
+    const payload = {"role":2}
+    console.log("here i am ", payload)
+    await axios.get('http://localhost:3001/users/',{
+    params: payload,
+    }).then(
       res => {
         setDataSource(
           res.data.map(row => ({
@@ -52,6 +53,16 @@ function StudentListComponent() {
       }
     );
   };
+
+
+  const saveProfile = async (user_id) => {
+    user_id.preventDefault();
+    await axios.post('http://localhost:3001/profile/${user_id}',{
+        class_name: class_name,
+        section: section
+    });
+    // history.push("/");
+}
 
 
   const updateData = async (id) => {
@@ -212,8 +223,8 @@ function StudentListComponent() {
         title="Student"
         visible={saveData}
         onCancel={() => { setSaveData(false) }}
-        onOk={() => { setSaveData(false) }}
-        onok={Showdata}
+        // onOk={() => { setSaveData(false) }}
+        onOk={saveProfile}
         okText="Save"
 
       >
@@ -229,8 +240,8 @@ function StudentListComponent() {
           <Form.Item
             label="Class"
             name="class" >
-            <Select placeholder="Select a class" onChange={(e) => {
-              setAddData({ value: e.target.value });
+            <Select placeholder="Select a class" onChange={(user_id) => {
+              setClass_name({ value: user_id.target.value });
             }}>
               <Option value="class I">Class I</Option>
               <Option value="class II">Class II</Option>
@@ -248,15 +259,15 @@ function StudentListComponent() {
           <Form.Item
             label="Section"
             name="section">
-            <Select placeholder="Select a section" onChange={(e) => {
-              setAddData({ value: e.target.value });
+            <Select placeholder="Select a section" onChange={(user_id) => {
+              setSection({ value: user_id.target.value });
             }}>
               <Option value="section a">Section A</Option>
               <Option value="section b">Section B</Option>
               <Option value="section c">lSection C </Option>
             </Select>
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Teacher"
             name="teacher">
             <Select placeholder="Select a teacher" onChange={(e) => {
@@ -264,7 +275,7 @@ function StudentListComponent() {
             }}>
               <Option value="section a">Teacher A</Option>
             </Select>
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </Modal>
 
