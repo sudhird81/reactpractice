@@ -10,7 +10,7 @@ const db = require('./../db');
 const app = express();
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-const { query } = require('express');
+const { query, response } = require('express');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 jwtkey = "jwt"
@@ -20,21 +20,9 @@ const { title } = require('process');
 
 
 // /api/users / get
-router.get("/users", (req, res) => {
-  db.query(
-    `SELECT * FROM  users;`,
-    (err, result) => {
-      // console.log(result);
-      return res.json(result);
-    }
-  )
-});
-
-
 // router.get("/users", (req, res) => {
-//   console.log(req.body.role, "mydata")
 //   db.query(
-//     `SELECT * FROM  users where role_id = ` + req.body.role,
+//     `SELECT * FROM  users;`,
 //     (err, result) => {
 //       // console.log(result);
 //       return res.json(result);
@@ -42,6 +30,18 @@ router.get("/users", (req, res) => {
 //   )
 // });
 
+
+router.get("/users", (req, res) => {
+  console.log(req, "requ ")
+  console.log(req?.query.role, "mydata")
+  db.query(
+    `SELECT * FROM  users where role_id = ` + req?.query.role,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
 
 
 router.get("/users/student", (req, res) => {
@@ -66,15 +66,15 @@ router.get("/users/staff", (req, res) => {
   )
 });
 
-router.get("/users/teacher", (req, res) => {
-  db.query(
-    `SELECT * FROM  users where role_id=1;`,
-    (err, result) => {
-      // console.log(result);
-      return res.json(result);
-    }
-  )
-});
+// router.get("/users/teacher", (req, res) => {
+//   db.query(
+//     `SELECT * FROM  users where role_id=1;`,
+//     (err, result) => {
+//       // console.log(result);
+//       return res.json(result);
+//     }
+//   )
+// });
 
 // /api/user/add
 router.post('/user', (req, res) => {
@@ -234,12 +234,12 @@ router.post('/login', (req, res) => {
   );
 });
 
-
-router.get("/users/teacher", (req, res) => {
+router.get("/profile", (req, res) => {
+  console.log(req.params.user_id, "mydata")
   db.query(
-    `SELECT * FROM  users where role_id=1;`,
+    `SELECT * FROM profile WHERE user_id=` + req.params.user_id,
     (err, result) => {
-      // console.log(result);
+      console.log(result);
       return res.json(result);
     }
   )
@@ -249,15 +249,14 @@ router.get("/users/teacher", (req, res) => {
 
 
 // /api/user/add
-router.post('/stu/profile', (req, res) => {
-
-  // let hash = bcrypt.hashSync(req.body.password, saltRounds);
-
+router.post('/student/profile/', (req, res) => {
+  // const user_id = [req.body.params.id];
+  console.log(req.params.user_id, "get");
   var user_id = req.body.user_id;
-  // console.log(name);
   var class_name = req.body.class_name;
+  var section = req.body.section;
 
-  var sql = "INSERT INTO student_table (user_id, classs) VALUES ('" + user_id + "','" + class_name + "');";
+  var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')";
   console.log(sql);
   db.query(
     sql,
@@ -275,44 +274,49 @@ router.post('/stu/profile', (req, res) => {
         var response = {
           success: 'success',
           message: 'User Got inserted'
-
-        };
-      }
-    });
-});
-router.post('/class/table', (req, res) => {
-  var class_name = req.body.class_name;
-
-  var sql = "INSERT INTO classes (class_name) VALUES ('" + class_name + "');";
-  console.log(sql);
-  db.query(
-    sql,
-    (err, result) => {
-      if (err) {
-        var response = {
-          errorcode: err.code,
-          message: 'Got Error'
         };
         return res.json(response);
       }
-      console.log(err);
-      console.log(result);
-      if (result) {
-        var response = {
-          success: 'success',
-          message: 'User Got inserted'
-
-        };
-
-        return res.json(response);
-      }
     });
-
 });
 
-router.get('/get-class-list', (req, res) => {
+//students profile
+router.post('/profile/:user_id', (req, res) => {
+
+  const data = [req.params.user_id, req.body.class_name, req.body.section];
+  db.query(`SELECT * FROM profile WHERE user_id=?`, data, (err, result) => {
+    console.log(err);
+    console.log(result, "result is here")
+    // return res.json(result);
+    if (result.length <= 0) {
+      var user_id = req.body.user_id;
+      var class_name = req.body.class_name;
+      var section = req.body.section;
+      var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')";
+      console.log(sql);
+      db.query(
+        sql,
+        (err, result) => {
+          console.log(err);
+          console.log(result);
+        })
+    }
+    else {
+      const data = [req.params.user_id, req.body.class_name, req.body.section];
+      db.query("UPDATE profile SET class_name = '" + req.body.class_name + "',section ='" + req.body.section + "' where user_id =" + req.params.user_id + " ", (err, result) => {
+        console.log(err);
+        console.log(result);
+      }
+      )
+    }
+
+  })
+  // return res.json(result);
+
+});
+router.get('/student/profile/', (req, res) => {
   db.query(
-    "SELECT users.id,users.name as userName,users.email, classes.class_name as class_name FROM users left JOIN classes on classes.id = users.class_id",
+    "SELECT users.*, profile.* FROM users INNER JOIN profile ON users.id=profile.user_id",
     (err, result) => {
       console.log(result)
       if (err) {
@@ -335,27 +339,5 @@ router.get('/get-class-list', (req, res) => {
 
     })
 });
-
-router.get("/class/student/:id", (req, res) => {
-  db.query(
-    `SELECT * FROM  users WHERE id=?;`,
-    (err, result) => {
-      // console.log(result);
-      return res.json(result);
-    }
-  )
-});
-
 module.exports = router;
 // export default router
-
-
-
-
-
-
-
-
-
-
-

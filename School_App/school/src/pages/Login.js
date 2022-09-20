@@ -12,11 +12,14 @@ const Login = () => {
 
   const Login = () => {
     console.log(process.env.REACT_APP_NAME)
-    const payload = { role: 2 }
+    // const payload = { role: 2 }
     axios.post(`${process.env.REACT_APP_URL}/login`, {
+
+      // console.log(process.env.REACT_APP_NAME)
+
       email: email,
       password: password,
-    }, payload).then((response) => {
+    }).then((response) => {
       console.log(response);
       if (response.data.message) {
         setLoginStatus(response.data.message)
@@ -147,13 +150,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-
-
-
-
-
-
-
-

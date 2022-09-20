@@ -52,7 +52,7 @@ router.post('/role', (req, res) => {
         return res.json(response);
       }
     });
-
+  ``
 });
 
 
@@ -129,7 +129,81 @@ router.get('/get-users-list', (req, res) => {
     })
 });
 
+router.get("/student/profile/:user_id", (req, res) => {
+  console.log(req.body.params.id)
+  db.query(
+    `SELECT * FROM profile WHERE user_id=?;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
 
+router.post('/student/profile/:user_id', (req, res) => {
+  var class_name = req.body.class_name;
+  var section = req.body.section;
+
+  var sql = "INSERT INTO users (class_name, section) VALUES ('" + class_name + "','" + section + "') WHERE user_id=?";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
+        };
+        return res.json(response);
+      }
+    });
+});
+
+router.get("/profile/:user_id", (req, res) => {
+  db.query(
+    `SELECT * FROM profile WHERE user_id=?;`,
+    (err, result) => {
+      console.log(result);
+      return res.json(result);
+    }
+  )
+});
+
+
+router.get('/student/profile/', (req, res) => {
+  db.query(
+    "SELECT users.*, profile.* FROM users INNER JOIN profile ON users.id=profile.user_id",
+    (err, result) => {
+      console.log(result)
+      if (err) {
+        const response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      // console.log(err);
+      // console.log(res);
+      if (res) {
+        const response = {
+          success: 'success',
+          message: 'Users List has been updated',
+          data: result
+        };
+        return res.json(response);
+      }
+
+    })
+});
 
 
 
