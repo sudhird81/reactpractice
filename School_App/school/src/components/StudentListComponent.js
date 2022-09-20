@@ -42,9 +42,11 @@ function StudentListComponent() {
 
 
   const getData = async () => {
-    const payload = { role_id: 2 }
+    const payload = { "role": 2 }
     // console.log("here i am ", payload)
-    await axios.get(`${process.env.REACT_APP_URL}/users/`, payload).then(
+    await axios.get(`${process.env.REACT_APP_URL}/users/`, {
+      params: payload
+    }).then(
       res => {
         setDataSource(
           res.data.map(row => ({

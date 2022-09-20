@@ -20,13 +20,13 @@ function TeacherListComponent() {
             res => {
                 console.log(res.config?.params, "API")
                 console.log(res, "response")
-                // setDataSource(
-                //     res?.data.map(row => ({
-                //         Name: row.name,
-                //         Email: row.email,
-                //         id: row.id
-                //     }))
-                // );
+                setDataSource(
+                    res?.data.map(row => ({
+                        Name: row.name,
+                        Email: row.email,
+                        id: row.id
+                    }))
+                );
             }
         );
     };
