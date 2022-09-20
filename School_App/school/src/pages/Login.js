@@ -4,9 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
@@ -14,11 +12,11 @@ const Login = () => {
 
   const Login = () => {
     console.log(process.env.REACT_APP_NAME)
+    const payload = { role: 2 }
     axios.post(`${process.env.REACT_APP_URL}/login`, {
       email: email,
       password: password,
-
-    }).then((response) => {
+    }, payload).then((response) => {
       console.log(response);
       if (response.data.message) {
         setLoginStatus(response.data.message)
@@ -30,8 +28,6 @@ const Login = () => {
       localStorage.setItem('access_token1', JSON.stringify(response.data.token))
 
       window.location.reload(false);
-
-
       //       const role = response.data.user.name
       //  console.log(role,'role');
 
@@ -127,6 +123,7 @@ const Login = () => {
           offset: 8,
           span: 16,
         }}
+
       >
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
@@ -136,6 +133,7 @@ const Login = () => {
           offset: 8,
           span: 16,
         }}
+
       >
         <Button type="primary" htmlType="submit" onClick={Login} >
           Login

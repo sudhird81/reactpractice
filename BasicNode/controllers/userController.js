@@ -30,6 +30,7 @@ router.get("/users", (req, res) => {
   )
 });
 
+
 // router.get("/users", (req, res) => {
 //   console.log(req.body.role, "mydata")
 //   db.query(
@@ -52,6 +53,9 @@ router.get("/users/student", (req, res) => {
     }
   )
 });
+
+
+
 router.get("/users/staff", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=3;`,
@@ -61,6 +65,7 @@ router.get("/users/staff", (req, res) => {
     }
   )
 });
+
 router.get("/users/teacher", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=1;`,
@@ -70,6 +75,7 @@ router.get("/users/teacher", (req, res) => {
     }
   )
 });
+
 // /api/user/add
 router.post('/user', (req, res) => {
 
@@ -214,12 +220,12 @@ router.post('/login', (req, res) => {
           }
         );
 
-        const userDetais = result[0];
-        delete userDetais.password;
+        const userDetails = result[0];
+        delete userDetails.password;
         return res.status(200).send({
           message: 'Logged In!',
           token,
-          user: userDetais,
+          user: userDetails,
         })
       } else {
         res.send({ message: "Wrong email/password combination!" });
@@ -238,6 +244,10 @@ router.get("/users/teacher", (req, res) => {
     }
   )
 });
+
+
+
+
 // /api/user/add
 router.post('/stu/profile', (req, res) => {
 

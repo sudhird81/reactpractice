@@ -5,7 +5,6 @@ import { Table, Button, Modal, Input } from "antd";
 import { Form, Select } from 'antd';
 const { Option } = Select;
 // import ShowProfile from "./ShowProfile";
-
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
 function StudentListComponent() {
@@ -29,13 +28,14 @@ function StudentListComponent() {
 
 
   const Showdata = () => {
-    axios.post("/", {
-      name: setAddData.name
-
-    }.then((response) => {
-      console.log(response)
-    }))
+    // axios.post("/", {
+    //   name: setAddData.name
+    console.log("Hello")
+    // }.then((response) => {
+    //   console.log(response)
+    // }))
   }
+
 
   const getData = async () => {
     const payload = { role: "student" }
@@ -54,6 +54,7 @@ function StudentListComponent() {
   };
 
 
+
   const updateData = async (id) => {
     await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
@@ -70,6 +71,7 @@ function StudentListComponent() {
       // .then(data => console.log(data.data))
       .catch(error => console.log(error));
   };
+
 
 
   const deleteData = async (id) => {
@@ -224,8 +226,6 @@ function StudentListComponent() {
           }}
           autoComplete="off"
         >
-
-
           <Form.Item
             label="Class"
             name="class" >
@@ -253,7 +253,7 @@ function StudentListComponent() {
             }}>
               <Option value="section a">Section A</Option>
               <Option value="section b">Section B</Option>
-              <Option value="section c">lSection C </Option>
+              <Option value="section c">Section C </Option>
             </Select>
           </Form.Item>
           <Form.Item
