@@ -32,17 +32,16 @@ const { title } = require('process');
 
 
 router.get("/users", (req, res) => {
-  console.log(req, "requ ")
-  console.log(req?.query.role, "mydata")
+  console.log(req.query.role, "mydata")
   db.query(
     `SELECT * FROM  users where role_id = ` + req?.query.role,
     (err, result) => {
-      // console.log(result);
+      console.log(err)
+      console.log(result);
       return res.json(result);
     }
   )
 });
-
 
 router.get("/users/student", (req, res) => {
   db.query(
@@ -235,11 +234,13 @@ router.post('/login', (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  console.log(req.params.user_id, "mydata")
+  console.log(req.body.user_id, "mydata")
   db.query(
-    `SELECT * FROM profile WHERE user_id=` + req.params.user_id,
+    `SELECT * FROM profile WHERE user_id=` + req.body.user_id,
     (err, result) => {
-      console.log(result);
+      
+      console.log(err)
+      console.log(result)
       return res.json(result);
     }
   )
@@ -280,15 +281,15 @@ router.post('/student/profile/', (req, res) => {
     });
 });
 
-//students profile
+//Students profile
 router.post('/profile/:user_id', (req, res) => {
-
   const data = [req.params.user_id, req.body.class_name, req.body.section];
   db.query(`SELECT * FROM profile WHERE user_id=?`, data, (err, result) => {
     console.log(err);
     console.log(result, "result is here")
     // return res.json(result);
     if (result.length <= 0) {
+      console.log("Insert")
       var user_id = req.body.user_id;
       var class_name = req.body.class_name;
       var section = req.body.section;
@@ -297,23 +298,40 @@ router.post('/profile/:user_id', (req, res) => {
       db.query(
         sql,
         (err, result) => {
+          if (err) {
+            var response = {
+              errorcode: err.code,
+              message: 'Got Error'
+            };
+            console.log(response, "get error")
+            // return res.json(response);
+          }
           console.log(err);
           console.log(result);
         })
-    }
-    else {
-      const data = [req.params.user_id, req.body.class_name, req.body.section];
+    } else {
+      console.log("Update");
+
+      const data = [req.body.class_name, req.body.section, req.params.user_id];
       db.query("UPDATE profile SET class_name = '" + req.body.class_name + "',section ='" + req.body.section + "' where user_id =" + req.params.user_id + " ", (err, result) => {
         console.log(err);
         console.log(result);
+        if (result) {
+          var response = {
+            success: 'success',
+            message: 'User Got Updated'
+          };
+          console.log(response)
+          return res.json(response);
+        }
       }
       )
     }
-
-  })
-  // return res.json(result);
-
+  });
 });
+
+
+//Student Profile Get
 router.get('/student/profile/', (req, res) => {
   db.query(
     "SELECT users.*, profile.* FROM users INNER JOIN profile ON users.id=profile.user_id",

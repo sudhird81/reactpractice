@@ -11,7 +11,7 @@ function TeacherListComponent() {
     const getData = async () => {
         const payload = { "role": "1" }
         console.log(payload, "payload")
-        await axios.get(`${process.env.REACT_APP_URL}/users/`, {
+        await axios.get('http://localhost:3001/users/', {
             params: payload,
             // paramsSerializer: params => {
             //     return qs.stringify(params)
