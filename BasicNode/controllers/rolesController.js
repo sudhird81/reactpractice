@@ -52,8 +52,9 @@ router.post('/role', (req, res) => {
         return res.json(response);
       }
     });
-
+  ``
 });
+
 
 // /api/user/role/:id
 router.put('/role/:id', (req, res) => {
@@ -142,7 +143,7 @@ router.get("/student/profile/:user_id", (req, res) => {
 router.post('/student/profile/:user_id', (req, res) => {
   var class_name = req.body.class_name;
   var section = req.body.section;
-    
+
   var sql = "INSERT INTO users (class_name, section) VALUES ('" + class_name + "','" + section + "') WHERE user_id=?";
   console.log(sql);
   db.query(

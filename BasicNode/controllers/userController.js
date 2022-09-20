@@ -52,6 +52,9 @@ router.get("/users/student", (req, res) => {
     }
   )
 });
+
+
+
 router.get("/users/staff", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=3;`,
@@ -61,15 +64,17 @@ router.get("/users/staff", (req, res) => {
     }
   )
 });
-router.get("/users/teacher", (req, res) => {
-  db.query(
-    `SELECT * FROM  users where role_id=1;`,
-    (err, result) => {
-      // console.log(result);
-      return res.json(result);
-    }
-  )
-});
+
+// router.get("/users/teacher", (req, res) => {
+//   db.query(
+//     `SELECT * FROM  users where role_id=1;`,
+//     (err, result) => {
+//       // console.log(result);
+//       return res.json(result);
+//     }
+//   )
+// });
+
 // /api/user/add
 router.post('/user', (req, res) => {
 
@@ -214,12 +219,12 @@ router.post('/login', (req, res) => {
           }
         );
 
-        const userDetais = result[0];
-        delete userDetais.password;
+        const userDetails = result[0];
+        delete userDetails.password;
         return res.status(200).send({
           message: 'Logged In!',
           token,
-          user: userDetais,
+          user: userDetails,
         })
       } else {
         res.send({ message: "Wrong email/password combination!" });
@@ -240,6 +245,10 @@ router.get("/profile", (req, res) => {
     }
   )
 });
+
+
+
+
 // /api/user/add
 router.post('/student/profile/', (req, res) => {
   // const user_id = [req.body.params.id];
@@ -299,28 +308,12 @@ router.post('/profile/:user_id', (req, res) => {
           }
           console.log(err);
           console.log(result);
-          if (result) {
-            var response = {
-              success: 'success',
-              message: 'User Got inserted'
-            };
-            console.log(response)
-            return res.json(response);
-          }
         })
     } else {
       console.log("Update");
 
       const data = [req.body.class_name, req.body.section, req.params.user_id];
       db.query("UPDATE profile SET class_name = '" + req.body.class_name + "',section ='" + req.body.section + "' where user_id =" + req.params.user_id + " ", (err, result) => {
-        if (err) {
-          var response = {
-            errorcode: err.code,
-            message: 'Got Error'
-          };
-          console.log(response)
-          // return res.json(response);
-        }
         console.log(err);
         console.log(result);
         if (result) {

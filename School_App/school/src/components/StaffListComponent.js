@@ -21,6 +21,7 @@ function StaffListComponent() {
         console.log("hello")
     }
 
+
     const getData = async () => {
         await axios.get(`${process.env.REACT_APP_URL}/users/staff`).then(
             res => {
@@ -34,6 +35,8 @@ function StaffListComponent() {
             }
         );
     };
+
+
     const updateData = async (id) => {
         await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
             .then((res) => {
@@ -49,6 +52,8 @@ function StaffListComponent() {
             )
             // .then(data => console.log(data.data))
             .catch(error => console.log(error));
+
+
     };
     const deleteData = async (id) => {
         await axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)

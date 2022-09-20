@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button, Modal, Input } from "antd";
 import { Form, Select } from 'antd';
+// import { useParams } from "react-router-dom";
 const { Option } = Select;
 // import ShowProfile from "./ShowProfile";
-
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
 function StudentListComponent() {
@@ -35,6 +35,7 @@ function StudentListComponent() {
   //     console.log(response)
   //   }))
   // }
+
 
   const getData = async () => {
     const payload = {"role":2}
@@ -66,7 +67,7 @@ function StudentListComponent() {
 
 
   const updateData = async (id) => {
-    await axios.get('http://localhost:3001/user/${id}')
+    await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "result")
         setDataSource(
@@ -83,8 +84,9 @@ function StudentListComponent() {
   };
 
 
+
   const deleteData = async (id) => {
-    await axios.delete('http://localhost:3001/user/${id}')
+    await axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "resif")
         setDataSource(
@@ -113,30 +115,16 @@ function StudentListComponent() {
       render: (record) => {
         return (
           <>
-            <Button onClick={() => {
-              // updateData(record.id);
-              // onEditStudent(record)
-              onSaveData()
-            }}><EyeOutlined /></Button>
-            <Button onClick={() => {
-              // updateData(record.id);
-              onEditStudent(record)
-            }}>
-              <EditOutlined /></Button>
-            <Button onClick={() => {
-              onDeleteStudent(record)
-            }}><DeleteOutlined
-              /></Button>
-
+            <Button onClick={() => { onSaveData() }}><EyeOutlined /></Button>
+            <Button onClick={() => { onEditStudent(record) }}><EditOutlined /></Button>
+            <Button onClick={() => { onDeleteStudent(record) }}><DeleteOutlined /></Button>
           </>
         )
       }
     }
   ];
-
   //Delete Student
   const onDeleteStudent = (record) => {
-
     Modal.confirm({
       title: "Are you Sure, you want to delete this student record?",
       okText: "Yes",
@@ -171,7 +159,7 @@ function StudentListComponent() {
   };
   const onSaveData = () => {
     setSaveData(true);
-    setAddData()
+    // setAddData()
     // setEditingStudent({ ...record });
   };
   return (
@@ -264,7 +252,7 @@ function StudentListComponent() {
             }}>
               <Option value="section a">Section A</Option>
               <Option value="section b">Section B</Option>
-              <Option value="section c">lSection C </Option>
+              <Option value="section c">Section C </Option>
             </Select>
           </Form.Item>
           {/* <Form.Item
@@ -285,3 +273,7 @@ function StudentListComponent() {
 
 };
 export default StudentListComponent;
+
+
+
+
