@@ -2,53 +2,34 @@ import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Button, Modal, Input } from "antd";
-import { Form, Select } from 'antd';
+import { Form } from 'antd';
 // import { useParams } from "react-router-dom";
-const { Option } = Select;
+// const { Option } = Select;
 // import ShowProfile from "./ShowProfile";
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
 function StudentListComponent() {
+  const [dataSource, setDataSource] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
-  const [dataSource, setDataSource] = useState([]);
+
   const [saveData, setSaveData] = useState(false);
-  const [addData, setAddData] = useState(null);
-  const [class_name, setClass_name] = useState('');
+  // const [addData, setAddData] = useState(null);
+  const [className, setClass_name] = useState('');
   const [section, setSection] = useState('');
+  const [updateStudent, setUpdateStudent] = useState(null)
 
   useEffect(() => {
     getData();
     // showdata();
   }, []);
-  // const showData = () => {
-  //   // <ShowProfile />
-  //   // window.alert("hello")
-  //   console.log("yhuregfyuregyfug")
-  //   // <ClassesList />
-  // }
-  // const Showdata = () => {
-  //   axios.post("/", {
-  //     name: setAddData.name
-
-  //   }.then((response) => {
-  //     console.log(response)
-  //   }))
-  // }
 
 
   const getData = async () => {
-<<<<<<< HEAD
     const payload = { "role": 2 }
     // console.log("here i am ", payload)
     await axios.get(`${process.env.REACT_APP_URL}/users/`, {
       params: payload
-=======
-    const payload = {"role":2}
-    console.log("here i am ", payload)
-    await axios.get('http://localhost:3001/users/',{
-    params: payload,
->>>>>>> 63848a32dc151358c6b02dcc1d8e2289b7f98bc6
     }).then(
       res => {
         setDataSource(
@@ -63,32 +44,73 @@ function StudentListComponent() {
   };
 
 
-  const saveProfile = async (user_id) => {
-    user_id.preventDefault();
-    await axios.post('http://localhost:3001/profile/${user_id}',{
-        class_name: class_name,
-        section: section
-    });
-    // history.push("/");
-}
+  // function handleSelectChange(e) {
+  //   console.log("I am get hit" + e.target?.value)
+  //   setSection({ value: e.target?.value });
+  // }
+
+
+
+
+
+
+
+  const saveProfile = (user_id) => {
+    // const payload = { "id": 94 }
+
+    console.log(user_id, className, section, "Here")
+    // user_id.preventDefault();
+    const payload = {
+      "class_name": className,
+      "section": section
+    }
+    console.log(payload)
+    axios.post(`${process.env.REACT_APP_URL}/profile/${user_id}`, {
+      params: payload,
+    }
+    ).then((res) => {
+      console.log(res.config?.params, "API")
+      console.log(res, "response")
+
+    })
+  }
+
+
 
 
   const updateData = async (id) => {
-    await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
-      .then((res) => {
-        console.log(id, "result")
-        setDataSource(
-          res.data.map(row => ({
-            Name: row.name,
-            Email: row.email,
-            Id: row.id
-          }))
-        );
-      }
+    console.log("hdghja")
+    console.log(id)
+    // setDataSource(
+    //   res?.data.map(row => ({
+    //     Name: row.name,
+    //     Email: row.email,
+    //     Id: row.id
+    //   }))
+    // );
+    await axios.put(`${process.env.REACT_APP_URL}/user/${id}`,)
+      .then(
+        res => {
+          // res.json()
+          console.log(id, "result")
+          console.log(res)
+          // setDataSource(
+          //   res?.data.map(row => ({
+          //     Name: row.name,
+          //     Email: row.email,
+          //     Id: row.id
+          //   }))
+          // );
+          // console.log(row)
+          // console.log(row.name)
+        }
       )
-      // .then(data => console.log(data.data))
-      .catch(error => console.log(error));
+
   };
+
+
+
+
 
 
 
@@ -122,7 +144,7 @@ function StudentListComponent() {
       render: (record) => {
         return (
           <>
-            <Button onClick={() => { onSaveData() }}><EyeOutlined /></Button>
+            <Button onClick={() => { onSaveData(record) }}><EyeOutlined /></Button>
             <Button onClick={() => { onEditStudent(record) }}><EditOutlined /></Button>
             <Button onClick={() => { onDeleteStudent(record) }}><DeleteOutlined /></Button>
           </>
@@ -164,11 +186,20 @@ function StudentListComponent() {
     setIsEditing(false);
     setEditingStudent(null);
   };
-  const onSaveData = () => {
+  const onSaveData = (record) => {
     setSaveData(true);
-    // setAddData()
-    // setEditingStudent({ ...record });
+    setUpdateStudent(record);
   };
+  const resetEditing1 = () => {
+    setSaveData(false);
+    setUpdateStudent(null);
+  };
+
+
+
+
+
+
   return (
     <div>
       <Button style={{ float: "right" }} onClick={onAddStudent}>Add a new Student</Button>
@@ -180,25 +211,28 @@ function StudentListComponent() {
         onCancel={() => {
           resetEditing();
         }}
-        onOk=
-        {() => {
-          setDataSource((pre) => {
-            updateData(editingStudent.id);
-            return pre.map((student) => {
-              if (student.id === editingStudent.id) {
-                return editingStudent;
-              } else {
-                return student;
-              }
-            });
-          });
-          setIsEditing(false);
+        onOk={() => { updateData(editingStudent.id) }}
 
-        }}
+      // onOk=
+      // {() => {
+      //   setDataSource((pre) => {
+      //     updateData(editingStudent.id);
+      //     return pre.map((student) => {
+      //       if (student.id === editingStudent.id) {
+      //         return editingStudent;
+      //       } else {
+      //         return student;
+      //       }
+      //     });
+      //   });
+      //   setIsEditing(false);
+
+      // }}
       >
         <Input
           value={editingStudent?.Name}
           onChange={(e) => {
+            console.log("I am get hit" + e.target.value)
             setEditingStudent((pre) => {
               return { ...pre, Name: e.target.value };
             });
@@ -209,34 +243,54 @@ function StudentListComponent() {
           value={editingStudent?.Email}
           onChange={(e) => {
             setEditingStudent((pre) => {
+              console.log("I am get hit" + e.target.value)
               return { ...pre, Email: e.target.value };
             });
           }}
         />
+
+
       </Modal>
       <Modal
         title="Student"
         visible={saveData}
-        onCancel={() => { setSaveData(false) }}
+        onCancel={() => {
+          resetEditing1();
+        }}
         // onOk={() => { setSaveData(false) }}
-        onOk={saveProfile}
-        okText="Save"
+        onOk={() => { saveProfile(updateStudent.id) }}
+        // onOk={() => {
+        //   (() => {
+        //     saveProfile(updateStudent.id)
+        //   })
+        //   setSaveData(false);
+        // }}
 
-      >
+        okText="Save"  >
         <Form
           name="basic"
           initialValues={{
             remember: true,
           }}
-          autoComplete="off"
-        >
+          autoComplete="off" >
+          <Form.Item name="class Name" label="Class Name" rules={[{
+            required: true,
+            message: "Please enter your class name"
+          },
+          { whitespace: true },
+            // { min: 3 },
+          ]} hasFeedback>
 
-
-          <Form.Item
+            <Input placeholder="Type your Class Name" onChange={(e) => {
+              setClass_name(e.target.value);
+              console.log(e.target.value, "jhdgfrehgui")
+            }} />
+          </Form.Item>
+          {/* <Form.Item
             label="Class"
             name="class" >
-            <Select placeholder="Select a class" onChange={(user_id) => {
-              setClass_name({ value: user_id.target.value });
+            <Select placeholder="Select a class" onChange={(e) => {
+              setClass_name({ value: e.target?.value });
             }}>
               <Option value="class I">Class I</Option>
               <Option value="class II">Class II</Option>
@@ -250,19 +304,68 @@ function StudentListComponent() {
               <Option value="class X">Class X</Option>
 
             </Select>
+          </Form.Item> */}
+          <Form.Item name="section" label="Section" rules={[{
+            required: true,
+            message: "Please enter your section"
+          },
+          { whitespace: true },
+            // { min: 3 },
+          ]} hasFeedback>
+
+            <Input placeholder="Type your section" onChange={(e) => {
+              setSection(e.target.value);
+              console.log(e.target.value, "jhdgfrehgui")
+            }} />
           </Form.Item>
-          <Form.Item
+
+          {/* <Form.Item name="gender" label="Gender" requiredMark="optional">
+            <Select placeholder="Select your gender"  >
+              <Select.Option value="male" onChange={(e) => {
+                setSection({ value: e.target.value });
+                console.log(e.target.value, "jhdgfrehgui")
+              }}>Male</Select.Option>
+              <Select.Option value="female" onChange={(e) => {
+                setSection({ value: e.target.value });
+                console.log(e.target.value, "jhdgfrehgui")
+              }}>Female</Select.Option>
+            </Select>
+          </Form.Item> */}
+
+          {/* <Form.Item
             label="Section"
             name="section">
-            <Select placeholder="Select a section" onChange={(user_id) => {
-              setSection({ value: user_id.target.value });
-            }}>
+
+            <Select value={section} onChange=
+              {(e) => {
+                console.log("I am get hit" + e.target?.value)
+                setSection({ value: e.target?.value });
+              }}
+            >
               <Option value="section a">Section A</Option>
               <Option value="section b">Section B</Option>
               <Option value="section c">Section C </Option>
-            </Select>
-          </Form.Item>
-          {/* <Form.Item
+            </Select> */}
+          {/* <Select >
+              <Select.Option value="section a" onChange={(e) => {
+                console.log(e.target.value + "ghkjuuygk")
+                setSection({ value: e.target.value });
+              }}>Section A</Select.Option>
+
+
+              <Select.Option value="section b" onChange={(e) => {
+                setSection({ value: e.target.value });
+              }}>Section B</Select.Option>
+
+              <Select.Option value="section c" onChange={(e) => {
+                setSection({ value: e.target.value });
+              }}>Section C</Select.Option>
+
+            </Select> */}
+
+          {/* </Form.Item> */}
+          {/* 
+          <Form.Item
             label="Teacher"
             name="teacher">
             <Select placeholder="Select a teacher" onChange={(e) => {

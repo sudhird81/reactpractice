@@ -72,12 +72,12 @@ const MainSider = () => {
         {
           label: <Link to={"/staff"}>Staff List</Link>,
           key: "staff"
-        },
-
-        {
-          label: <Link to={"/class"}>class_Name</Link>,
-          key: "class"
         }
+
+        // {
+        //   label: <Link to={"/class"}>class_Name</Link>,
+        //   key: "class"
+        // }
       ]
     },
 
