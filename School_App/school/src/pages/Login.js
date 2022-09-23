@@ -70,7 +70,7 @@ const Login = () => {
   return (
     <Form style={{
       justifyContent: "center", display: "grid", margin: "100px",
-      padding: "50px"
+      padding: "50px",border:"1px solid black"
     }}
       name="basic"
       labelCol={{

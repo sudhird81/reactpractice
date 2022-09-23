@@ -9,7 +9,10 @@ const cors = require('cors');
 const db = require('./../db');
 const app = express();
 const { title } = require('process');
-
+// const { check, validationResult } = require('express-validator');
+const { signupValidation, loginValidation } = require('./../validation');
+const { validationResult } = require('express-validator');
+const emailvalidator = require("email-validator");
 
 // /api/role/get
 router.get("/roles", (req, res) => {
@@ -52,7 +55,7 @@ router.post('/role', (req, res) => {
         return res.json(response);
       }
     });
-  ``
+
 });
 
 
@@ -205,7 +208,44 @@ router.get('/student/profile/', (req, res) => {
     })
 });
 
+router.post('/userz',signupValidation,(req, res) => {
+  // console.log(name);
+  var name = req.body.name;
+  var email = req.body.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+  
+// if((req.body.email.match)){
+//       // Your call to model here
+//       res.status(200).send('valid Email');
+// }
+// else{
+//    res.status(400).send('Invalid Email');
+// }
+  var sql = "INSERT INTO db (name,email) VALUES ('" + name + "','" + email + "');";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
 
+        };
+
+        return res.json(response);
+      }
+    });
+
+});
 
 module.exports = router;
 // export default router

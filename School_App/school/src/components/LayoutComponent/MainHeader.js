@@ -1,5 +1,5 @@
 import { Header } from 'antd/lib/layout/layout';
-import { Layout, Menu, Col, Row } from "antd";
+import { Layout, Menu, Col, Row,Image } from "antd";
 import {
   UserAddOutlined,
   AppstoreOutlined,
@@ -21,7 +21,10 @@ const MainHeader = () => {
   return (
     <>
        <Header style={{display:'flex', justifyContent:'space-between', color: "white", fontSize: "20px" }}>
-        Dashboard
+       <Image
+    width={60}
+    src="school.png"
+  />
         
         {/* <Menu theme="dark" mode="horizontal" items={items} /> */}
             {" "}

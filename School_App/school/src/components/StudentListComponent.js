@@ -38,10 +38,10 @@ function StudentListComponent() {
 
 
   const getData = async () => {
-    const payload = {"role":2}
+    const payload = { "role": 2 }
     console.log("here i am ", payload)
-    await axios.get('http://localhost:3001/users/',{
-    params: payload,
+    await axios.get('http://localhost:3001/users/', {
+      params: payload,
     }).then(
       res => {
         setDataSource(
@@ -58,17 +58,18 @@ function StudentListComponent() {
 
   const saveProfile = async (user_id) => {
     user_id.preventDefault();
-    await axios.post('http://localhost:3001/profile/${user_id}',{
-        class_name: class_name,
-        section: section
+    await axios.post('http://localhost:3001/profile/${user_id}', {
+      class_name: class_name,
+      section: section
     });
     // history.push("/");
-}
+  }
 
 
   const updateData = async (id) => {
-    await axios.get(`${process.env.REACT_APP_URL}/user/${id}`)
-      .then((res) => {
+    await axios.put(`http://localhost:3001/profile/user/${id}`)
+      .then((res) =>
+       {
         console.log(id, "result")
         setDataSource(
           res.data.map(row => ({

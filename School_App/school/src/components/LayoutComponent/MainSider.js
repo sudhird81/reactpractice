@@ -51,7 +51,7 @@ const { Sider } = Layout;
 const MainSider = () => {
   const items = [
     {
-      label: <Link to={'/profile'}>HOME</Link>,
+      label: <Link to={'/home'}>HOME</Link>,
       key: "home",
       icon: <HomeFilled />
     },
@@ -70,12 +70,12 @@ const MainSider = () => {
           key: "teacher"
         },
         {
-          label: <Link to={"/staff"}>Staff List</Link>,
+          label: <Link to={"/stafflist"}>Staff List</Link>,
           key: "staff"
         },
 
         {
-          label: <Link to={"/class"}>class_Name</Link>,
+          label: <Link to={"/alllist"}>All Users</Link>,
           key: "class"
         }
       ]

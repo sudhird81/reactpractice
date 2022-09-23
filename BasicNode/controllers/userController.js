@@ -16,19 +16,23 @@ const jwt = require('jsonwebtoken');
 jwtkey = "jwt"
 const generator = require('generate-password');
 const { title } = require('process');
-
+// const validator = require("email-validator");
+// var validator = require('validator')
+// const {signupValidation} = require('./../validation');
+const { body, validationResult } = require('express-validator');
 
 
 // /api/users / get
-// router.get("/users", (req, res) => {
-//   db.query(
-//     `SELECT * FROM  users;`,
-//     (err, result) => {
-//       // console.log(result);
-//       return res.json(result);
-//     }
-//   )
-// });
+router.get("/userslist", (req, res) => {
+  db.query(
+    `SELECT * FROM  users;`,
+    // "SELECT users.*, roles.* FROM users LEFT JOIN roles ON users.role_id=roles.id",
+    (err, result) => {
+      console.log(err);
+      return res.json(result);
+    }
+  )
+});
 
 
 router.get("/users", (req, res) => {
@@ -53,8 +57,6 @@ router.get("/users/student", (req, res) => {
   )
 });
 
-
-
 router.get("/users/staff", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=3;`,
@@ -76,19 +78,38 @@ router.get("/users/staff", (req, res) => {
 // });
 
 // /api/user/add
-router.post('/user', (req, res) => {
+
+
+
+router.post('/user',[
+  body('email','Enter a valid Email').isEmail(),
+], (req, res) => {
 
   // let hash = bcrypt.hashSync(req.body.password, saltRounds);
 
   var name = req.body.name;
   console.log(name);
-  var email = req.body.email;
+  var email = req.body.email
+
+  
+
+  // validator.isEmail(email);
+  // match(
+  //   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  // );
+
+  // if (validator.validate(req.body.email)){
+  //   // res.send("Email is Valid")
+  // }
+  // else{
+  //   res.send("Email is Invalid")
+  // }
   var password = generator.generate({
     length: 10,
     numbers: true
   });
-
   var role_id = req.body.role_id;
+  
 
   var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
   console.log(sql);
@@ -148,7 +169,10 @@ router.post('/user', (req, res) => {
 });
 // /api/user/update 
 router.put('/user/:id', (req, res) => {
-  const data = [req.body.name, req.body.email, req.body.password, req.params.id];
+  const data = [req.body.name, 
+    req.body.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/),
+     req.body.password,
+     req.params.id];
   db.query("UPDATE users SET name = ?,email =?, password =? where id =? ", data, (err, result) => {
     if (err) {
       var response = {
@@ -356,6 +380,36 @@ router.get('/student/profile/', (req, res) => {
       }
 
     })
+});
+
+router.post('/teacher/subject', (req, res) => {
+  // console.log(name);
+
+  var subject_name = req.body.subject_name;
+
+  var sql = "INSERT INTO subjects (subject_name) VALUES ('" + subject_name + "');";
+  console.log(sql);
+  db.query(
+    sql,
+    (err, result) => {
+      if (err) {
+        var response = {
+          errorcode: err.code,
+          message: 'Got Error'
+        };
+        return res.json(response);
+      }
+      console.log(err);
+      console.log(result);
+      if (result) {
+        var response = {
+          success: 'success',
+          message: 'User Got inserted'
+        };
+        return res.json(response);
+      }
+    });
+
 });
 module.exports = router;
 // export default router
