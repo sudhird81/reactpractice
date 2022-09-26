@@ -38,10 +38,10 @@ function StudentListComponent() {
 
 
   const getData = async () => {
-    const payload = { "role": 2 }
+    const payload = {"role":2}
     console.log("here i am ", payload)
-    await axios.get('http://localhost:3001/users/', {
-      params: payload,
+    await axios.get('http://localhost:3001/users/',{
+    params: payload
     }).then(
       res => {
         setDataSource(

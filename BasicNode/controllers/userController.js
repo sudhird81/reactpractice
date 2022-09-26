@@ -221,7 +221,6 @@ router.post('/login', (req, res) => {
   console.log("Getting result", req)
   db.query(
     "SELECT users.* ,roles.* FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
-
     [email, password],
     (err, result) => {
       console.log(result, query)

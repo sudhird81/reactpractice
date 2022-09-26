@@ -11,9 +11,9 @@ const Login = () => {
   // const navigate = useNavigate();
 
   const Login = () => {
-    console.log(process.env.REACT_APP_NAME)
+    // console.log(process.env.REACT_APP_NAME)
     // const payload = { role: 2 }
-    axios.post(`${process.env.REACT_APP_URL}/login`, {
+    axios.post(`http://localhost:3001/login`, {
 
       // console.log(process.env.REACT_APP_NAME)
 
@@ -70,7 +70,7 @@ const Login = () => {
   return (
     <Form style={{
       justifyContent: "center", display: "grid", margin: "100px",
-      padding: "50px",border:"1px solid black"
+      padding: "50px"
     }}
       name="basic"
       labelCol={{
