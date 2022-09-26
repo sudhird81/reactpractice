@@ -12,6 +12,8 @@ const SignUp = () => {
   const [gender, setGender] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
 
+
+
   const register = () => {
     axios.post("http://localhost:3001/register", {
       name: fullName,
@@ -110,32 +112,33 @@ const SignUp = () => {
           </Form.Item>
 
 
-          <Form.Item name=gender" label="Gender" requiredMark="optional">
-          <Select placeholder="Select your gender"  >
-            <Select.Optio"n value="male" onChange={(e) => {
-              setGender({ value: e.target.value });
-            }}>Male</Select.Option>
-          <Select.Option value="female" onChange={(e) => {
-            setGender({ value: e.target.value });
-          }}>Female</Select.Option>
-        </Select>
-      </Form.Item>
+          <Form.Item name="gender" label="Gender" requiredMark="optional">
+            <Select placeholder="Select your gender"  >
+              <Select.Option value="male" onChange={(e) => {
+                setGender({ value: e.target.value });
+              }}>Male</Select.Option>
+              <Select.Option value="female" onChange={(e) => {
+                setGender({ value: e.target.value });
+              }}>Female</Select.Option>
+            </Select>
+          </Form.Item>
 
 
-      <Form.Item name="dob" label="Date of Birth" rules={
-        [{
-          required: true,
-          message: 'Please provide your date of birth',
-        },
+          <Form.Item name="dob" label="Date of Birth" rules={
+            [{
+              required: true,
+              message: 'Please provide your date of birth',
+            },
 
-        ]
-      } hasFeedback>
-        <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(date) => {
-          setDateOfBirth(date);
-        }} />
-      </Form.Item>
+            ]
+          } hasFeedback>
+            <DatePicker style={{ width: "100%" }} picker="date " placeholder="choose date of birth" onChange={(date) => {
+              setDateOfBirth(date);
+            }} />
+          </Form.Item>
 
-      {/* <Row>
+
+          {/* <Row>
               <Col span={7} offset={6}></Col>
               
             <Loggin />
@@ -143,12 +146,12 @@ const SignUp = () => {
             </Row> */}
 
 
-      <Row justify="center">
-        <Col ></Col>
-        <Form.Item >
-          <Button style={{ width: "200px" }} type="primary" htmlType="submit" onClick={register}>Register</Button>
-        </Form.Item>
-      </Row>
+          <Row justify="center">
+            <Col ></Col>
+            <Form.Item >
+              <Button style={{ width: "200px" }} type="primary" htmlType="submit" onClick={register}>Register</Button>
+            </Form.Item>
+          </Row>
 
 
 
@@ -156,7 +159,7 @@ const SignUp = () => {
 
 
 
-    </Form>
+        </Form>
       </Row >
 
     </>

@@ -167,6 +167,7 @@ router.post('/user',[
       }
     });
 });
+
 // /api/user/update 
 router.put('/user/:id', (req, res) => {
   const data = [req.body.name, 
@@ -174,6 +175,7 @@ router.put('/user/:id', (req, res) => {
      req.body.password,
      req.params.id];
   db.query("UPDATE users SET name = ?,email =?, password =? where id =? ", data, (err, result) => {
+    console.log(req.params.id, "dgfhrtfhrt")
     if (err) {
       var response = {
         errorcode: err.code,
@@ -261,14 +263,13 @@ router.get("/profile", (req, res) => {
   db.query(
     `SELECT * FROM profile WHERE user_id=` + req.body.user_id,
     (err, result) => {
-      
+
       console.log(err)
       console.log(result)
       return res.json(result);
     }
   )
 });
-
 
 
 
@@ -308,6 +309,9 @@ router.post('/student/profile/', (req, res) => {
 router.post('/profile/:user_id', (req, res) => {
   const data = [req.params.user_id, req.body.class_name, req.body.section];
   db.query(`SELECT * FROM profile WHERE user_id=?`, data, (err, result) => {
+    console.log(req.params.id, "id")
+    console.log(req.body.class_name, "class name")
+    console.log(req.body.section, "section")
     console.log(err);
     console.log(result, "result is here")
     // return res.json(result);

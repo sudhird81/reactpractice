@@ -78,6 +78,11 @@ const MainSider = () => {
           label: <Link to={"/alllist"}>All Users</Link>,
           key: "class"
         }
+
+        // {
+        //   label: <Link to={"/class"}>class_Name</Link>,
+        //   key: "class"
+        // }
       ]
     },
 
