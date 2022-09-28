@@ -29,8 +29,8 @@ const Login = () => {
       };
       console.log(response.data)
       localStorage.setItem('access_token1', JSON.stringify(response.data.token))
-
-      window.location.reload(false);
+      // console.log(response.data.token)
+      // window.location.reload(false);
       //       const role = response.data.user.name
       //  console.log(role,'role');
 

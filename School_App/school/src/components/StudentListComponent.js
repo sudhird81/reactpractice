@@ -60,20 +60,42 @@ function StudentListComponent() {
 
     console.log(user_id, className, section, "Here")
     // user_id.preventDefault();
-    const payload = {
+    // const payload = {
+    //   "class_name": className,
+    //   "section": section
+    // }
+
+    // const myJson = JSON.stringify(payload)
+    // console.log(myJson)
+    console.log(className)
+    console.log(typeof (className))
+    // console.log(payload)
+    axios.post(`${process.env.REACT_APP_URL}/profile/${user_id}`, {
+      // params: payload,
+      // "class_name": "11th",
+      // "section": "A"
       "class_name": className,
       "section": section
     }
-    console.log(payload)
-    axios.post(`${process.env.REACT_APP_URL}/profile/${user_id}`, {
-      params: payload,
-    }
     ).then((res) => {
-      console.log(res.config?.params, "API")
+      // console.log(res.config?.params, "API")
       console.log(res, "response")
 
+
     })
+    setSaveData(false);
   }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -81,19 +103,18 @@ function StudentListComponent() {
   const updateData = async (id) => {
     console.log("hdghja")
     console.log(id)
-    // setDataSource(
-    //   res?.data.map(row => ({
-    //     Name: row.name,
-    //     Email: row.email,
-    //     Id: row.id
-    //   }))
-    // );
-    await axios.put(`${process.env.REACT_APP_URL}/user/${id}`,)
+    const name = editingStudent.Name
+    const email = editingStudent.Email
+    await axios.put(`${process.env.REACT_APP_URL}/user/${id}`, { name, email })
       .then(
         res => {
           // res.json()
           console.log(id, "result")
-          console.log(res)
+          console.log(res, "hello")
+          console.log(editingStudent, "bye")
+          console.log(editingStudent.Name, "bye")
+          console.log(name)
+          console.log(email)
           // setDataSource(
           //   res?.data.map(row => ({
           //     Name: row.name,
@@ -105,13 +126,8 @@ function StudentListComponent() {
           // console.log(row.name)
         }
       )
-
+    setIsEditing(false);
   };
-
-
-
-
-
 
 
   const deleteData = async (id) => {
@@ -139,6 +155,7 @@ function StudentListComponent() {
       title: "Email",
       dataIndex: "Email",
     },
+
     {
       title: "Actions",
       render: (record) => {
@@ -211,23 +228,30 @@ function StudentListComponent() {
         onCancel={() => {
           resetEditing();
         }}
-        onOk={() => { updateData(editingStudent.id) }}
+        // onOk={() => { updateData(editingStudent.id) }}
+        // onOk={updatedata}
+        onOk=
+        {() => {
+          setDataSource((pre) => {
+            console.log(pre, "hgfkfj")
+            console.log(editingStudent, "hfghjsgdghg")
+            updateData(editingStudent.id);
+            return pre.map((student) => {
+              console.log(student, "gdh")
+              if (student.id === editingStudent.id) {
+                return editingStudent;
 
-      // onOk=
-      // {() => {
-      //   setDataSource((pre) => {
-      //     updateData(editingStudent.id);
-      //     return pre.map((student) => {
-      //       if (student.id === editingStudent.id) {
-      //         return editingStudent;
-      //       } else {
-      //         return student;
-      //       }
-      //     });
-      //   });
-      //   setIsEditing(false);
+              } else {
+                return student;
+              }
+            });
+          }
+          );
+          setIsEditing(false);
 
-      // }}
+        }
+        }
+
       >
         <Input
           value={editingStudent?.Name}
@@ -259,11 +283,12 @@ function StudentListComponent() {
         }}
         // onOk={() => { setSaveData(false) }}
         onOk={() => { saveProfile(updateStudent.id) }}
+        // onOk={saveProfile(96)}
         // onOk={() => {
-        //   (() => {
+        //   (resetEditing1) => {
         //     saveProfile(updateStudent.id)
-        //   })
-        //   setSaveData(false);
+        //   }
+        //   resetEditing1();
         // }}
 
         okText="Save"  >
