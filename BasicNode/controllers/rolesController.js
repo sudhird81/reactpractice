@@ -49,13 +49,10 @@ router.post('/role', (req, res) => {
         var response = {
           success: 'success',
           message: 'User Got inserted'
-
         };
-
         return res.json(response);
       }
     });
-
 });
 
 

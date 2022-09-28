@@ -15,7 +15,7 @@ const MainHeader = () => {
   const navigate = useNavigate();
   const logout =()=>{
     localStorage.clear();
-    navigate('/')
+    navigate('/home')
     window.location.reload(false);
   }  
   return (
