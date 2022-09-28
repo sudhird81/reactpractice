@@ -44,6 +44,9 @@ function TeacherListComponent() {
         {
             title: "Email",
             dataIndex: "Email",
+        },
+        {
+            title: "Actions"
         }
 
     ];

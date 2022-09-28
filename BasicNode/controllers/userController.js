@@ -115,18 +115,25 @@ router.get("/users/teacher", (req, res) => {
   )
 });
 
+
+
 /**
  * @swagger
  * /user:
  *  post:
- *    description: Insert Data Here
+ *    description: Post all user
+ *    parameters:
+ *    name:name
+ *    email:email
+ *    password:password
+ *    role_id:role_id
  *    responses:
  *        200:
  *          description: Success
  * 
  */
-router.post('/user',[
-  body('email','Enter a valid Email').isEmail(),
+router.post('/user', [
+  body('email', 'Enter a valid Email').isEmail(),
 ], (req, res) => {
 
   // let hash = bcrypt.hashSync(req.body.password, saltRounds);
@@ -135,7 +142,7 @@ router.post('/user',[
   console.log(name);
   var email = req.body.email
 
-  
+
 
   // validator.isEmail(email);
   // match(
@@ -153,7 +160,7 @@ router.post('/user',[
     numbers: true
   });
   var role_id = req.body.role_id;
-  
+
 
   var sql = "INSERT INTO users (name, email, password, role_id) VALUES ('" + name + "','" + email + "','" + password + "','" + role_id + "');";
   console.log(sql);
@@ -223,11 +230,19 @@ router.post('/user',[
  * 
  */
 router.put('/user/:id', (req, res) => {
-  const data = [req.body.name, 
-    req.body.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/),
-     req.body.password,
-     req.params.id];
-  db.query("UPDATE users SET name = ?,email =?, password =? where id =? ", data, (err, result) => {
+  const data = [req.body.name,
+  req.body.email,
+  // .match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/),
+  // req.body.email,
+  // req.body.password,
+  req.params.id];
+  console.log(req, "kjgdfkgf")
+  console.log(req.body, "erytuey")
+  console.log(req.body.name, "NAmeeee")
+  console.log(req.body.email, "EMAILLL")
+  console.log(req.params.id, "IDDDDD")
+
+  db.query("UPDATE users SET name = ?,email =? where id =? ", data, (err, result) => {
     console.log(req.params.id, "dgfhrtfhrt")
     if (err) {
       var response = {
@@ -268,6 +283,7 @@ router.delete('/user/:id', (req, res) => {
     }
   });
 });
+
 // /api/login
 router.post('/login', (req, res) => {
   const email = req.body.email;
@@ -358,11 +374,18 @@ router.post('/student/profile/', (req, res) => {
     });
 });
 
+
+
+
 //Students profile
 router.post('/profile/:user_id', (req, res) => {
   const data = [req.params.user_id, req.body.class_name, req.body.section];
+  console.log(req, "gkljn")
+
+  console.log(req.body, "jdsh")
+  console.log(data)
   db.query(`SELECT * FROM profile WHERE user_id=?`, data, (err, result) => {
-    console.log(req.params.id, "id")
+    console.log(req.params.user_id, "id")
     console.log(req.body.class_name, "class name")
     console.log(req.body.section, "section")
     console.log(err);
@@ -370,7 +393,7 @@ router.post('/profile/:user_id', (req, res) => {
     // return res.json(result);
     if (result.length <= 0) {
       console.log("Insert")
-      var user_id = req.body.user_id;
+      var user_id = req.params.user_id;
       var class_name = req.body.class_name;
       var section = req.body.section;
       var sql = "INSERT INTO profile (user_id,class_name, section) VALUES ('" + user_id + "','" + class_name + "','" + section + "')";
@@ -392,8 +415,10 @@ router.post('/profile/:user_id', (req, res) => {
     } else {
       console.log("Update");
 
-      const data = [req.body.class_name, req.body.section, req.params.user_id];
+      const data = [req.params.user_id, req.body.class_name, req.body.section];
       db.query("UPDATE profile SET class_name = '" + req.body.class_name + "',section ='" + req.body.section + "' where user_id =" + req.params.user_id + " ", (err, result) => {
+        console.log(req.body.class_name, "update calss 5th")
+        console.log(req.body, "gfhdfhf")
         console.log(err);
         console.log(result);
         if (result) {
