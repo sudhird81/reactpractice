@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input, Row } from 'antd';
 // import Password from 'antd/lib/input/Password';
 import React from 'react';
 import { useState } from 'react';
+// import GoogleLogin from 'react-google-login';
 // import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 const Login = () => {
@@ -11,6 +12,9 @@ const Login = () => {
   // const navigate = useNavigate();
 
   const Login = () => {
+    console.log(email)
+
+    console.log(password)
     console.log(process.env.REACT_APP_NAME)
     // const payload = { role: 2 }
     axios.post(`${process.env.REACT_APP_URL}/login`, {
@@ -67,6 +71,10 @@ const Login = () => {
   // const onLoginFailure = (errorInfo) => {
   //   console.log('Failed:', errorInfo);
   // };
+  // const emailllll = (e) => {
+  //   console.log(e, "kjfdg")
+  // }
+
   return (
     <Form style={{
       justifyContent: "center", display: "grid", margin: "100px",
@@ -99,6 +107,7 @@ const Login = () => {
         <Input onChange={(e) => {
           setEmail(e.target.value);
         }} />
+       
       </Form.Item>
 
       <Form.Item
@@ -116,6 +125,7 @@ const Login = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+
         />
       </Form.Item>
 
@@ -130,6 +140,20 @@ const Login = () => {
       >
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
+
+
+      {/* <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+
+      ><Button type="primary" htmlType="submit" onClick={GoogleLogin} >
+          Loginn
+        </Button>                
+        </Form.Item> */}
+
+
 
       <Form.Item
         wrapperCol={{

@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const db = require('./../db');
 const app = express();
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
+// const bcrypt = require('bcryptjs');
+// const saltRounds = 10;
 const { query, response } = require('express');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
@@ -18,26 +18,28 @@ const generator = require('generate-password');
 const { title } = require('process');
 // const validator = require("email-validator");
 // var validator = require('validator')
-// const {signupValidation} = require('./../validation');
+const { signupValidation, loginValidation } = require('./../validation');
 const { body, validationResult } = require('express-validator');
+const { json } = require('body-parser');
+const passport = require('passport');
 
 // const router = express();
 
-const swaggerOptions ={
+const swaggerOptions = {
   swaggerDefinition: {
     // openapi: '3.0.0',
-    info:{
+    info: {
       title: "School Api",
-      version:'1.0.0'
+      version: '1.0.0'
     }
   },
   apis: ['./controllers/userController.js'],
-  };
+};
 
-  const swaggerDocs = swaggerJSDoc(swaggerOptions);
-  router.use('/api-docs', swaggerUi.serve);
-  router.get('/api-docs', swaggerUi.setup(swaggerDocs));
-  console.log(swaggerDocs);
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocs));
+console.log(swaggerDocs);
 
 
 /**
@@ -122,11 +124,7 @@ router.get("/users/teacher", (req, res) => {
  * /user:
  *  post:
  *    description: Post all user
- *    parameters:
- *    name:name
- *    email:email
- *    password:password
- *    role_id:role_id
+ *  
  *    responses:
  *        200:
  *          description: Success
@@ -291,7 +289,7 @@ router.post('/login', (req, res) => {
   const roleName = req.body.roleName
   console.log("Getting result", req)
   db.query(
-    "SELECT users.* ,roles.* FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
+    "SELECT users. ,roles. FROM users LEFT JOIN roles on roles.id = users.role_id WHERE email =? AND password =?",
     [email, password],
     (err, result) => {
       console.log(result, query)
@@ -491,5 +489,41 @@ router.post('/teacher/subject', (req, res) => {
     });
 
 });
+//google login
+router.get('/login/success',(req,res)=>{
+  if(req.user){
+    res.status(200).json({
+      error:false,   
+      message:"Successfully Loged In",
+      user: req.user,
+    })
+  }else{
+    res.status(403).json({error:true,message:"Not Authorized"});
+  }
+});
+
+router.get('/login/failed',(req,res)=>{
+  res.status(401).json({
+    error: true,
+    message: "Login Failure",
+  })
+});
+
+router.get(
+  '/google/callback',
+  passport.authenticate("google",{
+    successRedirect:process.env.CLIENT_URL,
+    failureRedirect:"/login/failed",
+  })
+  );
+
+  router.get ("/google",passport.authenticate("google",["profile","email"]));
+
+  router.get('/logout',(req,res)=>{
+    req.logout();
+    res.redirect(process.env.CLIENT_URL);
+  });
+
+
 module.exports = router;
 // export default router

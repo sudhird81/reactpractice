@@ -1,10 +1,10 @@
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Button, Modal, Input } from "antd";
+import { Table, Button, Modal, Input,Select } from "antd";
 import { Form } from 'antd';
 // import { useParams } from "react-router-dom";
-// const { Option } = Select;
+const { Option } = Select;
 // import ShowProfile from "./ShowProfile";
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
@@ -15,8 +15,8 @@ function StudentListComponent() {
 
   const [saveData, setSaveData] = useState(false);
   // const [addData, setAddData] = useState(null);
-  const [className, setClass_name] = useState('');
-  const [section, setSection] = useState('');
+  const [className, setClass_name] = useState();
+  const [section, setSection] = useState();
   const [updateStudent, setUpdateStudent] = useState(null)
 
   useEffect(() => {
@@ -56,6 +56,7 @@ function StudentListComponent() {
 
 
   const saveProfile = (user_id) => {
+
     // const payload = { "id": 94 }
 
     console.log(user_id, className, section, "Here")
@@ -84,7 +85,11 @@ function StudentListComponent() {
 
     })
     setSaveData(false);
+
+    // user_id.prevent.default();
+
   }
+
 
 
 
@@ -103,6 +108,7 @@ function StudentListComponent() {
   const updateData = async (id) => {
     console.log("hdghja")
     console.log(id)
+
     const name = editingStudent.Name
     const email = editingStudent.Email
     await axios.put(`${process.env.REACT_APP_URL}/user/${id}`, { name, email })
@@ -115,6 +121,7 @@ function StudentListComponent() {
           console.log(editingStudent.Name, "bye")
           console.log(name)
           console.log(email)
+
           // setDataSource(
           //   res?.data.map(row => ({
           //     Name: row.name,
@@ -130,7 +137,7 @@ function StudentListComponent() {
   };
 
 
-  const deleteData = async (id) => {
+  const deleteData = async (id)=> {
     await axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "resif")
@@ -298,7 +305,7 @@ function StudentListComponent() {
             remember: true,
           }}
           autoComplete="off" >
-          <Form.Item name="class Name" label="Class Name" rules={[{
+          {/* <Form.Item name="class Name" label="Class Name" rules={[{
             required: true,
             message: "Please enter your class name"
           },
@@ -310,8 +317,8 @@ function StudentListComponent() {
               setClass_name(e.target.value);
               console.log(e.target.value, "jhdgfrehgui")
             }} />
-          </Form.Item>
-          {/* <Form.Item
+          </Form.Item> */}
+          <Form.Item
             label="Class"
             name="class" >
             <Select placeholder="Select a class" onChange={(e) => {
@@ -329,7 +336,7 @@ function StudentListComponent() {
               <Option value="class X">Class X</Option>
 
             </Select>
-          </Form.Item> */}
+          </Form.Item>
           <Form.Item name="section" label="Section" rules={[{
             required: true,
             message: "Please enter your section"
@@ -388,7 +395,7 @@ function StudentListComponent() {
 
             </Select> */}
 
-          {/* </Form.Item> */}
+          {/* {/ </Form.Item> /} */}
           {/* 
           <Form.Item
             label="Teacher"
@@ -408,7 +415,3 @@ function StudentListComponent() {
 
 };
 export default StudentListComponent;
-
-
-
-
