@@ -15,10 +15,17 @@ const Login = () => {
     setEmail(e.target.value)
   }
 
+<<<<<<< HEAD
   const login = (e) => {
     // e.preventDefault();
     console.log(email, "email")
     console.log(password, "password")
+=======
+  const Login = () => {
+    console.log(email)
+
+    console.log(password)
+>>>>>>> a43fc4d41ffa4940979f827dfb7795fbf89ea272
     console.log(process.env.REACT_APP_NAME)
     // console.log(correctEmail, "gh")
     // if (email === "prince@gmail.com") {

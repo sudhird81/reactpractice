@@ -11,7 +11,7 @@ import React from 'react';
 const HomeComponent = () => {
   return (
     <>
-      <div style={{ height: "", width: "700px", margin: 'auto' }}>
+      <div style={{ height: "", width: "1100px", margin: 'auto' }}>
         <Carousel autoplay>
           <div>
             <h3>

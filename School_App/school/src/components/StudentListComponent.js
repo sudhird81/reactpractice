@@ -15,8 +15,8 @@ function StudentListComponent() {
 
   const [saveData, setSaveData] = useState(false);
   // const [addData, setAddData] = useState(null);
-  const [className, setClass_name] = useState('');
-  const [section, setSection] = useState('');
+  const [className, setClass_name] = useState();
+  const [section, setSection] = useState();
   const [updateStudent, setUpdateStudent] = useState(null)
 
   useEffect(() => {
@@ -70,6 +70,7 @@ function StudentListComponent() {
   const updateData = async (id) => {
     console.log("hdghja")
     console.log(id)
+
     const name = editingStudent.Name
     const email = editingStudent.Email
     await axios.put(`${process.env.REACT_APP_URL}/user/${id}`, { name, email })
@@ -82,6 +83,7 @@ function StudentListComponent() {
           console.log(editingStudent.Name, "bye")
           console.log(name)
           console.log(email)
+
           // setDataSource(
           //   res?.data.map(row => ({
           //     Name: row.name,
@@ -97,7 +99,7 @@ function StudentListComponent() {
   };
 
 
-  const deleteData = async (id) => {
+  const deleteData = async (id)=> {
     await axios.delete(`${process.env.REACT_APP_URL}/user/${id}`)
       .then((res) => {
         console.log(id, "resif")
@@ -322,7 +324,3 @@ function StudentListComponent() {
 
 };
 export default StudentListComponent;
-
-
-
-
