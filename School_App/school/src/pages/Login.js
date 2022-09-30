@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input, Row } from 'antd';
 // import Password from 'antd/lib/input/Password';
 import React from 'react';
 import { useState } from 'react';
+// import GoogleLogin from 'react-google-login';
 // import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 const Login = () => {
@@ -30,7 +31,7 @@ const Login = () => {
       console.log(response.data)
       localStorage.setItem('access_token1', JSON.stringify(response.data.token))
       // console.log(response.data.token)
-      // window.location.reload(false);
+      window.location.reload(false);
       //       const role = response.data.user.name
       //  console.log(role,'role');
 
@@ -67,6 +68,10 @@ const Login = () => {
   // const onLoginFailure = (errorInfo) => {
   //   console.log('Failed:', errorInfo);
   // };
+  // const emailllll = (e) => {
+  //   console.log(e, "kjfdg")
+  // }
+
   return (
     <Form style={{
       justifyContent: "center", display: "grid", margin: "100px",
@@ -99,6 +104,10 @@ const Login = () => {
         <Input onChange={(e) => {
           setEmail(e.target.value);
         }} />
+        {/* <Input onChange={emailllll(e)} /> */}
+        {/* <Input onChange={(e) => {
+          setEmail(e.target.value);
+        }} /> */}
       </Form.Item>
 
       <Form.Item
@@ -116,6 +125,7 @@ const Login = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+
         />
       </Form.Item>
 
@@ -130,6 +140,20 @@ const Login = () => {
       >
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
+
+
+      {/* <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+
+      ><Button type="primary" htmlType="submit" onClick={GoogleLogin} >
+          Loginn
+        </Button>                
+        </Form.Item> */}
+
+
 
       <Form.Item
         wrapperCol={{

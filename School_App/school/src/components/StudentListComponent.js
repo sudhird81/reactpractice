@@ -1,10 +1,10 @@
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Button, Modal, Input } from "antd";
+import { Table, Button, Modal, Input, Select } from "antd";
 import { Form } from 'antd';
 // import { useParams } from "react-router-dom";
-// const { Option } = Select;
+const { Option } = Select;
 // import ShowProfile from "./ShowProfile";
 // require('dotenv').config()
 // const Dotenv = require('dotenv-webpack');
@@ -44,57 +44,24 @@ function StudentListComponent() {
   };
 
 
-  // function handleSelectChange(e) {
-  //   console.log("I am get hit" + e.target?.value)
-  //   setSection({ value: e.target?.value });
-  // }
-
-
-
-
-
-
 
   const saveProfile = (user_id) => {
-    // const payload = { "id": 94 }
-
     console.log(user_id, className, section, "Here")
-    // user_id.preventDefault();
-    // const payload = {
-    //   "class_name": className,
-    //   "section": section
-    // }
-
-    // const myJson = JSON.stringify(payload)
-    // console.log(myJson)
     console.log(className)
     console.log(typeof (className))
     // console.log(payload)
     axios.post(`${process.env.REACT_APP_URL}/profile/${user_id}`, {
-      // params: payload,
-      // "class_name": "11th",
-      // "section": "A"
+
       "class_name": className,
       "section": section
     }
     ).then((res) => {
       // console.log(res.config?.params, "API")
       console.log(res, "response")
-
-
     })
     setSaveData(false);
+    user_id.preventDefault();
   }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,6 +136,18 @@ function StudentListComponent() {
       }
     }
   ];
+
+
+  const Class = (value) => {
+    setClass_name(value);
+    console.log(value)
+
+  }
+  const Section = (value) => {
+    setSection(value);
+    console.log(value)
+
+  }
   //Delete Student
   const onDeleteStudent = (record) => {
     Modal.confirm({
@@ -283,6 +262,7 @@ function StudentListComponent() {
         }}
         // onOk={() => { setSaveData(false) }}
         onOk={() => { saveProfile(updateStudent.id) }}
+
         // onOk={saveProfile(96)}
         // onOk={() => {
         //   (resetEditing1) => {
@@ -297,108 +277,42 @@ function StudentListComponent() {
           initialValues={{
             remember: true,
           }}
+          style={{ margin: 20 }}
           autoComplete="off" >
-          <Form.Item name="class Name" label="Class Name" rules={[{
-            required: true,
-            message: "Please enter your class name"
-          },
-          { whitespace: true },
-            // { min: 3 },
-          ]} hasFeedback>
 
-            <Input placeholder="Type your Class Name" onChange={(e) => {
-              setClass_name(e.target.value);
-              console.log(e.target.value, "jhdgfrehgui")
-            }} />
-          </Form.Item>
-          {/* <Form.Item
-            label="Class"
-            name="class" >
-            <Select placeholder="Select a class" onChange={(e) => {
-              setClass_name({ value: e.target?.value });
-            }}>
-              <Option value="class I">Class I</Option>
-              <Option value="class II">Class II</Option>
-              <Option value="class III">Class III</Option>
-              <Option value="class IV">Class IV</Option>
-              <Option value="class V">Class V</Option>
-              <Option value="class VI">Class VI</Option>
-              <Option value="class VII">Class VII</Option>
-              <Option value="class VIII">Class VIII</Option>
-              <Option value="class IX">Class IX</Option>
-              <Option value="class X">Class X</Option>
-
-            </Select>
-          </Form.Item> */}
-          <Form.Item name="section" label="Section" rules={[{
-            required: true,
-            message: "Please enter your section"
-          },
-          { whitespace: true },
-            // { min: 3 },
-          ]} hasFeedback>
-
-            <Input placeholder="Type your section" onChange={(e) => {
-              setSection(e.target.value);
-              console.log(e.target.value, "jhdgfrehgui")
-            }} />
-          </Form.Item>
-
-          {/* <Form.Item name="gender" label="Gender" requiredMark="optional">
-            <Select placeholder="Select your gender"  >
-              <Select.Option value="male" onChange={(e) => {
-                setSection({ value: e.target.value });
-                console.log(e.target.value, "jhdgfrehgui")
-              }}>Male</Select.Option>
-              <Select.Option value="female" onChange={(e) => {
-                setSection({ value: e.target.value });
-                console.log(e.target.value, "jhdgfrehgui")
-              }}>Female</Select.Option>
-            </Select>
-          </Form.Item> */}
-
-          {/* <Form.Item
-            label="Section"
-            name="section">
-
-            <Select value={section} onChange=
-              {(e) => {
-                console.log("I am get hit" + e.target?.value)
-                setSection({ value: e.target?.value });
+          <Form.Item label="Class">
+            <Select
+              // labelInValue
+              defaultValue={{
+                value: 'Select Class Name',
+                // label: 'Select Class Name',
               }}
-            >
-              <Option value="section a">Section A</Option>
-              <Option value="section b">Section B</Option>
-              <Option value="section c">Section C </Option>
-            </Select> */}
-          {/* <Select >
-              <Select.Option value="section a" onChange={(e) => {
-                console.log(e.target.value + "ghkjuuygk")
-                setSection({ value: e.target.value });
-              }}>Section A</Select.Option>
-
-
-              <Select.Option value="section b" onChange={(e) => {
-                setSection({ value: e.target.value });
-              }}>Section B</Select.Option>
-
-              <Select.Option value="section c" onChange={(e) => {
-                setSection({ value: e.target.value });
-              }}>Section C</Select.Option>
-
-            </Select> */}
-
-          {/* </Form.Item> */}
-          {/* 
-          <Form.Item
-            label="Teacher"
-            name="teacher">
-            <Select placeholder="Select a teacher" onChange={(e) => {
-              setAddData({ value: e.target.value });
-            }}>
-              <Option value="section a">Teacher A</Option>
+              style={{ width: 180, }}
+              onChange={Class}>
+              <Option value='Class I'>class I</Option>
+              <Option value='Class II'>class II</Option>
+              <Option value='Class III'>class III</Option>
+              <Option value='Class IV'>class IV</Option>
+              <Option value='Class v'>class V</Option>
             </Select>
-          </Form.Item> */}
+          </Form.Item>
+          <Form.Item label="Section">
+            <Select
+              // labelInValue
+              defaultValue={{
+                value: 'Select Section',
+                // label: 'Select Class Name',
+              }}
+              style={{ width: 180, }}
+              onChange={Section}>
+              <Option value='Section A'>section A</Option>
+              <Option value='Section B'>section B</Option>
+              <Option value='Section C'>section C</Option>
+            </Select>
+          </Form.Item>
+
+
+
         </Form>
       </Modal>
 

@@ -1,8 +1,9 @@
 import "antd/dist/antd.css";
 import './App.css';
+// import Droping from "./components/Droping";
 import MainLayout from "./components/MainLayout";
 // require('dotenv').config();
-// import Droping from "./components/Droping";
+
 
 function App() {
 
