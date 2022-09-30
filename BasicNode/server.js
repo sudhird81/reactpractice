@@ -7,6 +7,9 @@ const cors = require('cors');
 const app = express();
 const userRouter = require('./controllers/userController');
 const roleRouter = require('./controllers/rolesController');
+// const swaggerJSDoc = require('swagger-jsdoc')
+// const swaggerUi = require('swagger-ui-express');
+
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -24,19 +27,6 @@ app.use("/", roleRouter);
 
 app.listen(process.env.PORT, () => console.log('Server is running on port 3001'));
 
-
-
-/**
- * @swagger
- * /:
- *  get:
- *    summary: This api is used to check if get method is working or not
- *    description: This api is used to check if get method is working or not
- *    responses:
- *    200:
- *      description: To test get method
- * 
- */
 app.get("/", (req, res) => {
 
   res.json({ message: "Welcome to nodejs expressjs integration ." });
@@ -44,63 +34,30 @@ app.get("/", (req, res) => {
 
 // const swaggerOptions = {
 //   swaggerDefinition: {
-//       openapi: '3.0.1',
-//       info: {
-//           version:'1.0.0',
-//           title: "SCHOOL APP API",
-//           description: "Professional Finder API Documentation",
-//           contact: {
-//               name: "EBS Developers",
-//           },
-//           servers: ["http://localhost:3001"],
-//       },
-//       basePath: '/',
-//       components: {
-//         securitySchemes: {
-//           Authorization: {
-//               type: 'apiKey',
-//               in: 'header',
-//               name: 'Authorization'
-//           }
-//         }
-//       },
-//       security: [{
-//           Authorization: []
-//       }]
+//     openapi: '3.0.0',
+//     info: {
+//       title: "School Api",
+//       version: '1.0.0',
+//       description: 'A Simple School Api'
+//     },
+//     servers: [
+//       {
+//         url: "http://localhost:3001",
+//       }
+//     ]
 //   },
-//   host: "localhost:3001",
-//   apis: ['server.js'],
+//   apis: ['.controllers/userController.js'],
 // };
 
-// const swaggerDocs = swaggerJsDoc(swaggerOptions);
-// console.log(swaggerDocs);
-// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+// const swaggerDocs = swaggerJSDoc(swaggerOptions);
+// app.use('/api-docs', swaggerUi.serve);
+// app.get('/api-docs', swaggerUi.setup(swaggerDocs));
 
-/**
- * @swagger
- * /school:
- *  get:
- *    description: Get all school
- *    responses:
- *    200:
- *      description: success
- *
- */
-// app.get('/school',(req,res) =>{
-//   res.send([
-//     {
-//       id:1,
-//       title:"School App",
-//     }
-//   ])
-// });
-
-
-// app.use(express.static(__dirname + ''));
-// // For all GET requests, send back index.html (PathLocationStrategy) (Refresh Error)
-// app.get('*', (req,res) => {
-//   res.sendFile(path.join(__dirname, '/public/docs/index.html'));
-// });
+app.use(express.static(__dirname + ''));
+// For all GET requests, send back index.html (PathLocationStrategy) (Refresh Error)
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname, '/public/docs/index.html'));
+});
 
 
 // simple route

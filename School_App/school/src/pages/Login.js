@@ -12,9 +12,9 @@ const Login = () => {
   // const navigate = useNavigate();
 
   const Login = () => {
-    // console.log(process.env.REACT_APP_NAME)
+    console.log(process.env.REACT_APP_NAME)
     // const payload = { role: 2 }
-    axios.post(`http://localhost:3001/login`, {
+    axios.post(`${process.env.REACT_APP_URL}/login`, {
 
       // console.log(process.env.REACT_APP_NAME)
 

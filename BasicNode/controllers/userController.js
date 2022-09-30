@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
-// const swaggerJsDoc = require('swagger-jsdoc');
-// const swaggerUI = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -21,9 +21,36 @@ const { title } = require('process');
 // const {signupValidation} = require('./../validation');
 const { body, validationResult } = require('express-validator');
 
+// const router = express();
 
-// /api/users / get
-router.get("/userslist", (req, res) => {
+const swaggerOptions ={
+  swaggerDefinition: {
+    // openapi: '3.0.0',
+    info:{
+      title: "School Api",
+      version:'1.0.0'
+    }
+  },
+  apis: ['./controllers/userController.js'],
+  };
+
+  const swaggerDocs = swaggerJSDoc(swaggerOptions);
+  router.use('/api-docs', swaggerUi.serve);
+  router.get('/api-docs', swaggerUi.setup(swaggerDocs));
+  console.log(swaggerDocs);
+
+
+/**
+ * @swagger
+ * /userslist:
+ *  get:
+ *    description: Get all list
+ *    responses:
+ *        200:
+ *          description: Success
+ * 
+ */
+router.get('/userslist', (req, res) => {
   db.query(
     `SELECT * FROM  users;`,
     // "SELECT users.*, roles.* FROM users LEFT JOIN roles ON users.role_id=roles.id",
@@ -34,7 +61,16 @@ router.get("/userslist", (req, res) => {
   )
 });
 
-
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *    description: Get all list
+ *    responses:
+ *        200:
+ *          description: Success
+ * 
+ */
 router.get("/users", (req, res) => {
   console.log(req.query.role, "mydata")
   db.query(
@@ -46,7 +82,9 @@ router.get("/users", (req, res) => {
     }
   )
 });
-
+/**
+ * 
+ */
 router.get("/users/student", (req, res) => {
   db.query(
     `SELECT * FROM  users where role_id=2;`,
@@ -67,20 +105,33 @@ router.get("/users/staff", (req, res) => {
   )
 });
 
-// router.get("/users/teacher", (req, res) => {
-//   db.query(
-//     `SELECT * FROM  users where role_id=1;`,
-//     (err, result) => {
-//       // console.log(result);
-//       return res.json(result);
-//     }
-//   )
-// });
-
-// /api/user/add
+router.get("/users/teacher", (req, res) => {
+  db.query(
+    `SELECT * FROM  users where role_id=1;`,
+    (err, result) => {
+      // console.log(result);
+      return res.json(result);
+    }
+  )
+});
 
 
 
+/**
+ * @swagger
+ * /user:
+ *  post:
+ *    description: Post all user
+ *    parameters:
+ *    name:name
+ *    email:email
+ *    password:password
+ *    role_id:role_id
+ *    responses:
+ *        200:
+ *          description: Success
+ * 
+ */
 router.post('/user', [
   body('email', 'Enter a valid Email').isEmail(),
 ], (req, res) => {
@@ -168,10 +219,20 @@ router.post('/user', [
     });
 });
 
-// /api/user/update 
+/**
+ * @swagger
+ * /user/:id:
+ *  put:
+ *    description: Update Data Here
+ *    responses:
+ *        200:
+ *          description: Success
+ * 
+ */
 router.put('/user/:id', (req, res) => {
   const data = [req.body.name,
-  req.body.email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/),
+  req.body.email,
+  // .match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/),
   // req.body.email,
   // req.body.password,
   req.params.id];
@@ -373,7 +434,6 @@ router.post('/profile/:user_id', (req, res) => {
     }
   });
 });
-
 
 //Student Profile Get
 router.get('/student/profile/', (req, res) => {
