@@ -34,7 +34,7 @@ const Login = () => {
       console.log(response.data)
       localStorage.setItem('access_token1', JSON.stringify(response.data.token))
       // console.log(response.data.token)
-      // window.location.reload(false);
+      window.location.reload(false);
       //       const role = response.data.user.name
       //  console.log(role,'role');
 
@@ -107,7 +107,10 @@ const Login = () => {
         <Input onChange={(e) => {
           setEmail(e.target.value);
         }} />
-       
+        {/* <Input onChange={emailllll(e)} /> */}
+        {/* <Input onChange={(e) => {
+          setEmail(e.target.value);
+        }} /> */}
       </Form.Item>
 
       <Form.Item
