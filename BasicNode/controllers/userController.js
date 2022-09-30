@@ -23,21 +23,21 @@ const { body, validationResult } = require('express-validator');
 
 // const router = express();
 
-const swaggerOptions ={
+const swaggerOptions = {
   swaggerDefinition: {
     // openapi: '3.0.0',
-    info:{
+    info: {
       title: "School Api",
-      version:'1.0.0'
+      version: '1.0.0'
     }
   },
   apis: ['./controllers/userController.js'],
-  };
+};
 
-  const swaggerDocs = swaggerJSDoc(swaggerOptions);
-  router.use('/api-docs', swaggerUi.serve);
-  router.get('/api-docs', swaggerUi.setup(swaggerDocs));
-  console.log(swaggerDocs);
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocs));
+console.log(swaggerDocs);
 
 
 /**

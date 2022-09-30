@@ -44,7 +44,7 @@
 import React from "react";
 import Layout from "antd/lib/layout";
 import { Menu } from 'antd';
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import { HomeFilled, UnorderedListOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -99,7 +99,7 @@ const MainSider = () => {
 
         </Menu>
       </Sider>
-      <Outlet />
+      {/* <Outlet /> */}
     </>
   );
 };

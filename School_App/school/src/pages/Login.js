@@ -7,12 +7,29 @@ import { useState } from 'react';
 import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
+  // const [correctEmail, setCorrectEmail] = useState([""])
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   // const navigate = useNavigate();
+  const handleOnChange = (e) => {
+    setEmail(e.target.value)
+  }
 
-  const Login = () => {
+  const login = (e) => {
+    // e.preventDefault();
+    console.log(email, "email")
+    console.log(password, "password")
     console.log(process.env.REACT_APP_NAME)
+    // console.log(correctEmail, "gh")
+    // if (email === "prince@gmail.com") {
+    //   setCorrectEmail(email)
+    //   console.log("Correct one")
+    //   console.log(setCorrectEmail, "setCorrectEmail")
+    //   console.log(correctEmail, "CorrectEmail")
+    // }
+    // else {
+
+    // }
     // const payload = { role: 2 }
     axios.post(`${process.env.REACT_APP_URL}/login`, {
 
@@ -101,9 +118,21 @@ const Login = () => {
           { type: "email", message: "Please enter a valid email" },
         ]}
       >
-        <Input onChange={(e) => {
+        <Input onChange={handleOnChange} />
+        {/* <Input onChange={(e) => {
           setEmail(e.target.value);
-        }} />
+          console.log(e.target.value, "Email")
+        }} /> */}
+        {/* <Input onChange={(e) => {
+          setEmail(e.target.value);
+          if (e.target.value === /[a-zA-Z0-9_\-.]+[@][a-z]+[\.][a-z]{2,3}/) {
+            setCorrectEmail(setEmail)
+            console.log(e, "Correct Email")
+          }
+          else { console.log(setEmail, "Wrong Email") }
+          // setEmail(e.target.value);
+
+        }} /> */}
         {/* <Input onChange={emailllll(e)} /> */}
         {/* <Input onChange={(e) => {
           setEmail(e.target.value);
@@ -124,7 +153,10 @@ const Login = () => {
           placeholder="Type your password"
           onChange={(e) => {
             setPassword(e.target.value);
-          }}
+            console.log(e.target.value, "password")
+
+          }
+          }
 
         />
       </Form.Item>
@@ -162,7 +194,7 @@ const Login = () => {
         }}
 
       >
-        <Button type="primary" htmlType="submit" onClick={Login} >
+        <Button type="primary" htmlType="submit" onClick={login} >
           Login
         </Button>
         <Row>
